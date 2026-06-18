@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Support LELI — Fund a Fellow | Lived Experience Leadership Institute</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,800;0,9..144,900;1,9..144,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ink:       #0d0f14;
+      --paper:     #f9f8ff;
+      --signal:    #e84b2f;
+      --signal-lt: #fef0ed;
+      --sage:      #3a5c4e;
+      --sage-lt:   #eaf1ee;
+      --gold:      #c9952a;
+      --gold-lt:   #fdf4e3;
+      --mist:      #e8e5de;
+      --white:     #ffffff;
+      --font-display: 'Fraunces', Georgia, serif;
+      --font-body:    'Inter', sans-serif;
+      --r-sm: 6px; --r-md: 14px; --r-lg: 28px; --r-pill: 999px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; overflow-x: hidden; max-width: 100%; }
+    body {
+      font-family: var(--font-body); background: var(--paper); color: var(--ink);
+      font-size: 16px; line-height: 1.6; overflow-x: hidden; width: 100%; max-width: 100vw;
+    }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 5vw;
+      background: rgba(249,248,255,0.92);
+      backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--mist); transition: box-shadow .3s;
+    }
+    nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,.08); }
+    .nav-logo {
+      font-family: var(--font-display); font-weight: 800; font-size: 1.1rem;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .nav-logo-dot {
+      width: 9px; height: 9px; background: var(--signal); border-radius: 50%;
+      animation: pulse-dot 2.4s ease-in-out infinite;
+    }
+    @keyframes pulse-dot {
+      0%,100% { opacity: 1; transform: scale(1); }
+      50%      { opacity: .5; transform: scale(.7); }
+    }
+    .nav-links { display: flex; gap: 2rem; align-items: center; }
+    .nav-links a { font-size: .875rem; font-weight: 500; color: #555; transition: color .2s; }
+    .nav-links a:hover { color: var(--ink); }
+    .nav-links a.active { color: var(--ink); font-weight: 600; }
+    .nav-cta {
+      background: var(--ink); color: var(--white) !important;
+      padding: 9px 20px; border-radius: var(--r-pill);
+      font-size: .875rem; font-weight: 600; transition: background .2s, transform .15s;
+    }
+    .nav-cta:hover { background: var(--signal); transform: translateY(-1px); }
+    .nav-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+    .nav-hamburger span { display: block; width: 24px; height: 2px; background: var(--ink); border-radius: 2px; }
+
+    /* ── UTILS ── */
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-size: .75rem; font-weight: 700; letter-spacing: .14em;
+      text-transform: uppercase; margin-bottom: 16px;
+    }
+    .eyebrow::before { content: ''; width: 28px; height: 2px; }
+    .eyebrow-red   { color: #c73010; }  .eyebrow-red::before   { background: #c73010; }
+    .eyebrow-sage  { color: var(--sage); } .eyebrow-sage::before  { background: var(--sage); }
+    .eyebrow-gold  { color: #a07018; }  .eyebrow-gold::before  { background: var(--gold); }
+    .eyebrow-white { color: rgba(255,255,255,.8); } .eyebrow-white::before { background: rgba(255,255,255,.4); }
+
+    .section-title {
+      font-family: var(--font-display); font-weight: 800;
+      font-size: clamp(1.5rem, 4vw, 3rem);
+      line-height: 1.1; letter-spacing: -.025em; margin-bottom: 20px;
+    }
+    .section-body { font-size: 1.05rem; color: #4a4a4a; line-height: 1.7; max-width: 640px; }
+
+    .fade-up {
+      opacity: 0; transform: translateY(24px);
+      transition: opacity .55s ease, transform .55s ease;
+    }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+    .divider { height: 1px; background: var(--mist); }
+
+    /* ── PAGE HERO ── */
+    .page-hero {
+      padding: 150px 5vw 80px;
+      background: var(--ink);
+      color: var(--white);
+      position: relative; overflow: hidden;
+    }
+    .page-hero::before {
+      content: 'GIVE';
+      position: absolute; right: -1vw; bottom: -0.15em;
+      font-family: var(--font-display); font-weight: 800;
+      font-size: clamp(8rem, 22vw, 18rem);
+      color: rgba(255,255,255,.04); line-height: 1;
+      pointer-events: none; white-space: nowrap;
+    }
+    .page-hero-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 80px; align-items: center; position: relative; z-index: 1;
+    }
+    .page-hero h1 {
+      font-family: var(--font-display); font-weight: 800;
+      font-size: clamp(2.2rem, 5vw, 4rem);
+      line-height: 1.06; letter-spacing: -.03em; margin-bottom: 20px;
+      color: var(--white);
+    }
+    .page-hero h1 em { font-style: italic; color: var(--gold); }
+    .page-hero-lead { font-size: 1.05rem; color: rgba(255,255,255,.75); line-height: 1.75; margin-bottom: 32px; }
+
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 14px; }
+    .btn-primary {
+      background: var(--signal); color: var(--white);
+      padding: 14px 30px; border-radius: var(--r-pill);
+      font-size: .95rem; font-weight: 600;
+      box-shadow: 0 4px 20px rgba(232,75,47,.3);
+      transition: transform .15s, box-shadow .15s;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(232,75,47,.4); }
+    .btn-outline-white {
+      border: 2px solid rgba(255,255,255,.35); color: rgba(255,255,255,.85);
+      padding: 12px 28px; border-radius: var(--r-pill);
+      font-size: .95rem; font-weight: 600;
+      transition: border-color .2s, color .2s;
+    }
+    .btn-outline-white:hover { border-color: var(--white); color: var(--white); }
+
+    /* Hero right — impact card */
+    .impact-card {
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: var(--r-lg); padding: 40px 36px;
+    }
+    .impact-card-title {
+      font-size: .72rem; font-weight: 700; letter-spacing: .14em;
+      text-transform: uppercase; color: rgba(255,255,255,.5); margin-bottom: 24px;
+    }
+    .impact-row {
+      display: flex; justify-content: space-between; align-items: baseline;
+      padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,.08); gap: 16px;
+    }
+    .impact-row:last-child { border-bottom: none; padding-bottom: 0; }
+    .impact-label { font-size: .875rem; color: rgba(255,255,255,.6); }
+    .impact-value { font-family: var(--font-display); font-size: 1rem; font-weight: 700; color: var(--white); text-align: right; }
+    .impact-value.gold   { color: var(--gold); }
+    .impact-value.signal { color: #ff8066; }
+    .impact-value.sage   { color: #6da38e; }
+
+    /* ── WHY IT MATTERS ── */
+    .why-section { padding: 100px 5vw; background: var(--white); }
+    .why-inner { max-width: 1100px; margin: 0 auto; }
+    .why-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 64px; align-items: start; margin-top: 56px;
+    }
+    .why-body p {
+      font-size: 1.05rem; color: #3a3a3a; line-height: 1.8; margin-bottom: 20px;
+    }
+    .why-body p:last-child { margin-bottom: 0; }
+    .why-body strong { color: var(--ink); }
+
+    /* Pull quote */
+    .pull-quote-block {
+      background: var(--ink); border-radius: var(--r-lg);
+      padding: 44px 40px; position: sticky; top: 100px;
+    }
+    .pull-quote-bar { width: 40px; height: 3px; background: var(--gold); margin-bottom: 24px; }
+    .pull-quote-text {
+      font-family: var(--font-display); font-size: clamp(1.2rem, 2vw, 1.5rem);
+      font-weight: 700; font-style: italic; color: var(--white);
+      line-height: 1.4; margin-bottom: 24px;
+    }
+    .pull-quote-text em { color: var(--gold); font-style: normal; }
+    .pull-quote-credit { font-size: .8rem; color: rgba(255,255,255,.45); letter-spacing: .05em; }
+
+    /* ── WAYS TO GIVE ── */
+    .give-section { padding: 100px 5vw; background: var(--paper); }
+    .give-inner { max-width: 1100px; margin: 0 auto; }
+
+    .give-cards {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 24px; margin-top: 56px;
+    }
+    .give-card {
+      background: var(--white); border-radius: var(--r-md);
+      border: 1.5px solid var(--mist); overflow: hidden;
+      transition: border-color .2s, box-shadow .2s, transform .2s;
+    }
+    .give-card:hover {
+      border-color: var(--sage);
+      box-shadow: 0 12px 40px rgba(58,92,78,.1);
+      transform: translateY(-3px);
+    }
+    .give-card-top { height: 5px; }
+    .give-card-top.signal { background: linear-gradient(90deg, #c73010, var(--signal)); }
+    .give-card-top.sage   { background: linear-gradient(90deg, var(--sage), #6da38e); }
+    .give-card-top.gold   { background: linear-gradient(90deg, #a07018, var(--gold)); }
+    .give-card-body { padding: 36px 32px 40px; }
+    .give-card-num {
+      font-family: var(--font-display); font-size: 3rem; font-weight: 800;
+      color: rgba(13,15,20,.07); line-height: 1; margin-bottom: 16px;
+    }
+    .give-card h3 {
+      font-family: var(--font-display); font-size: 1.25rem; font-weight: 800;
+      margin-bottom: 16px; color: var(--ink);
+    }
+    .give-card p { font-size: .925rem; color: #4a4a4a; line-height: 1.7; margin-bottom: 12px; }
+    .give-card p:last-child { margin-bottom: 0; }
+
+    .give-card-link {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: .9rem; font-weight: 700; color: var(--signal);
+      margin-top: 20px; transition: gap .15s;
+    }
+    .give-card-link:hover { gap: 10px; }
+
+    .mono-block {
+      background: var(--paper); border-radius: var(--r-sm);
+      border: 1px solid var(--mist);
+      padding: 16px 18px; margin-top: 16px;
+      font-family: 'Courier New', monospace;
+      font-size: .82rem; color: var(--ink); line-height: 1.8;
+    }
+
+    /* ── NOTIFY BANNER ── */
+    .notify-banner {
+      background: var(--sage-lt);
+      border: 1.5px solid var(--sage);
+      border-radius: var(--r-md);
+      padding: 28px 32px;
+      margin-top: 48px;
+      display: flex; gap: 20px; align-items: flex-start;
+    }
+    .notify-icon {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: var(--sage); flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .notify-icon svg { width: 18px; height: 18px; color: var(--white); }
+    .notify-body h4 {
+      font-family: var(--font-display); font-size: 1rem; font-weight: 800;
+      color: var(--sage); margin-bottom: 6px;
+    }
+    .notify-body p { font-size: .9rem; color: #2a4a3e; line-height: 1.7; }
+    .notify-body a { color: var(--sage); font-weight: 600; text-decoration: underline; text-underline-offset: 2px; }
+
+    /* ── FISCAL SPONSOR ── */
+    .sponsor-section { padding: 100px 5vw; background: var(--white); }
+    .sponsor-inner { max-width: 1100px; margin: 0 auto; }
+    .sponsor-grid {
+      display: grid; grid-template-columns: 1fr 380px;
+      gap: 64px; align-items: start; margin-top: 56px;
+    }
+    .sponsor-body p {
+      font-size: 1rem; color: #4a4a4a; line-height: 1.8; margin-bottom: 20px;
+    }
+    .sponsor-body p:last-child { margin-bottom: 0; }
+    .sponsor-card {
+      background: var(--gold-lt); border-radius: var(--r-md);
+      border: 1.5px solid rgba(201,149,42,.25);
+      padding: 36px 32px; position: sticky; top: 100px;
+    }
+    .sponsor-card-label {
+      font-size: .72rem; font-weight: 700; letter-spacing: .14em;
+      text-transform: uppercase; color: #a07018; margin-bottom: 16px;
+    }
+    .sponsor-card h4 {
+      font-family: var(--font-display); font-size: 1.2rem; font-weight: 800;
+      color: var(--ink); margin-bottom: 12px;
+    }
+    .sponsor-card p { font-size: .9rem; color: #4a3a10; line-height: 1.7; margin-bottom: 16px; }
+    .sponsor-card a {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: .875rem; font-weight: 700; color: #a07018;
+      text-decoration: underline; text-underline-offset: 2px;
+    }
+    .fineprint {
+      margin-top: 20px; font-size: .8rem; color: #6b6b6b;
+      line-height: 1.6; border-top: 1px solid var(--mist); padding-top: 16px;
+    }
+
+    /* ── CTA BAND ── */
+    .cta-band {
+      background: linear-gradient(135deg, #c03220 0%, #8f1f0f 100%);
+      color: var(--white); border-radius: var(--r-lg);
+      margin: 0 3vw 80px; padding: 72px 8vw;
+      display: grid; grid-template-columns: 1fr auto;
+      gap: 40px; align-items: center;
+    }
+    .cta-band h2 {
+      font-family: var(--font-display); font-weight: 800;
+      font-size: clamp(1.4rem, 3.5vw, 2.6rem); line-height: 1.1; letter-spacing: -.025em;
+    }
+    .cta-band p { font-size: 1rem; color: rgba(255,255,255,1); margin-top: 12px; max-width: 500px; }
+    .cta-band-actions { display: flex; flex-direction: column; gap: 12px; flex-shrink: 0; }
+    .btn-white {
+      background: var(--white); color: #a82800;
+      padding: 15px 28px; border-radius: var(--r-pill);
+      font-size: .95rem; font-weight: 700; text-align: center;
+      transition: transform .15s, box-shadow .15s; white-space: nowrap;
+    }
+    .btn-white:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(0,0,0,.15); }
+    .btn-ghost-white {
+      border: 2px solid rgba(255,255,255,.5); color: var(--white);
+      padding: 13px 28px; border-radius: var(--r-pill);
+      font-size: .95rem; font-weight: 600; text-align: center;
+      transition: border-color .15s, background .15s;
+    }
+    .btn-ghost-white:hover { border-color: var(--white); background: rgba(255,255,255,.12); }
+
+    /* ── FOOTER ── */
+    footer { background: var(--ink); color: rgba(255,255,255,.5); padding: 60px 5vw 40px; }
+    .footer-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px;
+    }
+    .footer-brand h3 { font-family: var(--font-display); font-size: 1.1rem; font-weight: 800; color: var(--white); margin-bottom: 12px; }
+    .footer-brand p  { font-size: .875rem; line-height: 1.65; max-width: 300px; }
+    .footer-col h4   { font-size: .75rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--white); margin-bottom: 16px; }
+    .footer-col ul   { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col a    { font-size: .875rem; transition: color .2s; }
+    .footer-col a:hover { color: var(--white); }
+    .footer-bottom {
+      max-width: 1100px; margin: 40px auto 0; padding-top: 24px;
+      border-top: 1px solid rgba(255,255,255,.08);
+      display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; font-size: .8rem;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 960px) {
+      .page-hero-inner { grid-template-columns: 1fr; gap: 40px; }
+      .why-grid { grid-template-columns: 1fr; gap: 48px; }
+      .pull-quote-block { position: static; }
+      .give-cards { grid-template-columns: 1fr 1fr; }
+      .sponsor-grid { grid-template-columns: 1fr; }
+      .sponsor-card { position: static; }
+      .cta-band { grid-template-columns: 1fr; }
+      .footer-inner { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 640px) {
+      nav { padding: 14px 5vw; }
+      .nav-links { display: none; }
+      .nav-hamburger { display: flex; }
+      .give-cards { grid-template-columns: 1fr; }
+      .notify-banner { flex-direction: column; gap: 16px; }
+      .cta-band { margin: 0 0 48px; border-radius: 0; padding: 52px 6vw; }
+      .footer-inner { grid-template-columns: 1fr; }
+      .page-hero::before { display: none; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .fade-up { transition: none; }
+      .nav-logo-dot { animation: none; }
+    }
+
+    /* ── MOBILE NAV DRAWER ── */
+    .nav-drawer {
+      display: none;
+      position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      z-index: 99;
+    }
+    .nav-drawer.open { display: block; }
+    .nav-drawer-overlay {
+      position: absolute; inset: 0;
+      background: rgba(13,15,20,0.55);
+      backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
+    }
+    .nav-drawer-panel {
+      position: absolute; top: 0; right: 0; bottom: 0;
+      width: min(320px, 85vw);
+      background: var(--ink);
+      padding: 24px 0 40px;
+      display: flex; flex-direction: column;
+      overflow-y: auto;
+      box-shadow: -8px 0 40px rgba(0,0,0,.3);
+      transform: translateX(100%);
+      transition: transform .3s cubic-bezier(.4,0,.2,1);
+    }
+    .nav-drawer.open .nav-drawer-panel { transform: translateX(0); }
+    .nav-drawer-close {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 24px 24px;
+      border-bottom: 1px solid rgba(255,255,255,.1);
+      margin-bottom: 8px;
+    }
+    .nav-drawer-logo {
+      font-family: var(--font-display); font-weight: 800; font-size: 1.1rem;
+      color: var(--white); display: flex; align-items: center; gap: 10px;
+    }
+    .nav-drawer-logo-dot { width: 8px; height: 8px; background: var(--signal); border-radius: 50%; }
+    .nav-drawer-x {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: rgba(255,255,255,.08); border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: center; transition: background .2s;
+    }
+    .nav-drawer-x:hover { background: rgba(255,255,255,.16); }
+    .nav-drawer-x svg { width: 16px; height: 16px; color: var(--white); }
+    .nav-drawer-links { display: flex; flex-direction: column; padding: 8px 0; flex: 1; }
+    .nav-drawer-links a {
+      padding: 14px 24px;
+      font-size: 1rem; font-weight: 600; color: rgba(255,255,255,.75);
+      border-left: 3px solid transparent;
+      transition: color .2s, border-color .2s, background .2s;
+    }
+    .nav-drawer-links a:hover { color: var(--white); background: rgba(255,255,255,.05); border-left-color: rgba(255,255,255,.2); }
+    .nav-drawer-links a.active { color: var(--white); border-left-color: var(--signal); background: rgba(232,75,47,.1); }
+    .nav-drawer-cta { margin: 16px 24px 0; }
+    .nav-drawer-cta a {
+      display: block; background: var(--signal); color: var(--white) !important;
+      padding: 14px 24px; border-radius: var(--r-pill);
+      font-size: .95rem; font-weight: 700; text-align: center;
+      transition: background .2s; border-left: none !important;
+    }
+    .nav-drawer-cta a:hover { background: #c73010; }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="main-nav">
+  <a href="index.html" class="nav-logo">
+    <span class="nav-logo-dot"></span>
+    LELI
+  </a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="leli-about.html">About</a>
+    <a href="leli-fellowship.html">Fellowship</a>
+    <a href="leli-communities.html">Communities</a>
+    <a href="leli-csn.html">Civic Signals</a>
+    <a href="leli-donate.html" class="active">Donate</a>
+    <a href="leli-apply.html" class="nav-cta">Apply Now</a>
+  </div>
+  <div class="nav-hamburger" role="button" aria-label="Open menu" tabindex="0">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- MOBILE NAV DRAWER -->
+<div class="nav-drawer" id="nav-drawer">
+  <div class="nav-drawer-overlay" id="nav-overlay"></div>
+  <div class="nav-drawer-panel">
+    <div class="nav-drawer-close">
+      <div class="nav-drawer-logo">
+        <span class="nav-drawer-logo-dot"></span>
+        LELI
+      </div>
+      <button class="nav-drawer-x" id="nav-close" aria-label="Close menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="nav-drawer-links">
+      <a href="index.html">Home</a>
+      <a href="leli-about.html">About</a>
+      <a href="leli-fellowship.html">Fellowship</a>
+      <a href="leli-communities.html">Communities</a>
+      <a href="leli-csn.html">Civic Signals</a>
+      <a href="leli-donate.html" class="active">Donate</a>
+    </div>
+    <div class="nav-drawer-cta">
+      <a href="leli-apply.html">Apply Now</a>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <div class="fade-up">
+      <div class="eyebrow eyebrow-gold">Support LELI</div>
+      <h1>Fund a Fellow.<br />Fund <em>better policy.</em></h1>
+      <p class="page-hero-lead">
+        Every donation funds the time of a Fellow — and the time of a Fellow is what funds the policy change. LELI is fiscally sponsored by Realize Impact, a 501(c)(3) public charity. Your gift is tax-deductible.
+      </p>
+      <div class="hero-actions">
+        <a href="#donate-online" class="btn-primary">Donate Online →</a>
+        <a href="#ways-to-give" class="btn-outline-white">See all ways to give</a>
+      </div>
+    </div>
+
+    <div class="impact-card fade-up">
+      <div class="impact-card-title">Your Gift at Work</div>
+      <div class="impact-row">
+        <span class="impact-label">Fiscal sponsor</span>
+        <span class="impact-value sage">Realize Impact 501(c)(3)</span>
+      </div>
+      <div class="impact-row">
+        <span class="impact-label">Tax-deductible</span>
+        <span class="impact-value gold">Yes</span>
+      </div>
+      <div class="impact-row">
+        <span class="impact-label">Fellows funded per cohort</span>
+        <span class="impact-value">10</span>
+      </div>
+      <div class="impact-row">
+        <span class="impact-label">Fellowship duration</span>
+        <span class="impact-value">12 months</span>
+      </div>
+      <div class="impact-row">
+        <span class="impact-label">Communities served</span>
+        <span class="impact-value signal">5</span>
+      </div>
+      <div class="impact-row">
+        <span class="impact-label">Gift goes to</span>
+        <span class="impact-value">Stipends &amp; training</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- WHY IT MATTERS -->
+<section class="why-section">
+  <div class="why-inner">
+    <div class="eyebrow eyebrow-sage">Why It Matters</div>
+    <h2 class="section-title">Better policy comes from better policy design.</h2>
+
+    <div class="why-grid">
+      <div class="why-body fade-up">
+        <p>Most policy is designed without the people closest to the problem in the room. The result is investment that doesn't reach who it's meant to — programs that miss, services that strain, dollars that get spent without the outcomes anyone hoped for.</p>
+        <p>LELI changes the design table. We prepare community members with lived experience to co-author the work — analyzing public input, surfacing structural barriers, translating community knowledge into the language of decision-making, and bringing it directly into the rooms where policy gets shaped.</p>
+        <p><strong>When people with lived experience help design the policy, the policy levels up. The dollars do more. The systems do better.</strong></p>
+        <p>LELI is fiscally sponsored by Realize Impact, a 501(c)(3) public charity. Your gift goes directly to Fellow stipends, training, and the design work that turns lived experience into living expertise.</p>
+      </div>
+
+      <div class="pull-quote-block fade-up">
+        <div class="pull-quote-bar"></div>
+        <p class="pull-quote-text">
+          "Lived experience can tell you what's wrong.<br />
+          <em>Living expertise</em> can help you build it right."
+        </p>
+        <p class="pull-quote-credit">— The LELI Framework</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- THREE WAYS TO GIVE -->
+<section class="give-section" id="ways-to-give">
+  <div class="give-inner">
+    <div class="eyebrow eyebrow-red">Three Ways to Give</div>
+    <h2 class="section-title">Choose how you want to support.</h2>
+    <p class="section-body">All donations go directly to LELI through our fiscal sponsor, Realize Impact. However you give, your contribution is fully tax-deductible.</p>
+
+    <!-- Notify banner -->
+    <div class="notify-banner fade-up" style="margin-bottom: 48px;">
+      <div class="notify-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8a19.79 19.79 0 01-3.07-8.68A2 2 0 012 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+      </div>
+      <div class="notify-body">
+        <h4>Important — please notify us after giving</h4>
+        <p>However you choose to give, please email <a href="mailto:judi@civicmakers.com?subject=LELI%20Donation%20Notification">judi@civicmakers.com</a> to let us know you've donated. This ensures Realize Impact can direct your gift to LELI's account and that we can properly acknowledge your support.</p>
+      </div>
+    </div>
+
+    <div class="give-cards">
+
+      <!-- Online -->
+      <div class="give-card fade-up" id="donate-online">
+        <div class="give-card-top signal"></div>
+        <div class="give-card-body">
+          <div class="give-card-num">01</div>
+          <h3>Donate online</h3>
+          <p>Give securely through Realize Impact's donation platform. The fastest way to get your gift to Fellows.</p>
+          <a href="https://www.zeffy.com/donation-form/donate-to-realize-impact" target="_blank" rel="noopener" class="give-card-link">
+            Donate now
+            <svg width="14" height="14" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9h12M9 3l6 6-6 6"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Check -->
+      <div class="give-card fade-up">
+        <div class="give-card-top sage"></div>
+        <div class="give-card-body">
+          <div class="give-card-num">02</div>
+          <h3>Mail a check</h3>
+          <p>Make checks payable to <strong>Realize Impact</strong> and include a note that your gift is for LELI. Mail to:</p>
+          <div class="mono-block">
+            Realize Impact<br>
+            271 Winslow Way E. #10234<br>
+            Bainbridge Island, WA 98110
+          </div>
+        </div>
+      </div>
+
+      <!-- Wire -->
+      <div class="give-card fade-up">
+        <div class="give-card-top gold"></div>
+        <div class="give-card-body">
+          <div class="give-card-num">03</div>
+          <h3>ACH or wire transfer</h3>
+          <p>Send directly to Realize Impact's account at Columbia Bank:</p>
+          <div class="mono-block">
+            Columbia Bank<br>
+            249 Winslow Way E, Suite 200<br>
+            Bainbridge Island, WA 98110<br><br>
+            Routing #: 125108272<br>
+            Account #: 7001202668<br>
+            Name: Realize Impact
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- FISCAL SPONSOR -->
+<section class="sponsor-section">
+  <div class="sponsor-inner">
+    <div class="eyebrow eyebrow-gold">Fiscal Sponsorship</div>
+    <h2 class="section-title">About Realize Impact.</h2>
+    <p class="section-body">LELI operates under the charitable umbrella of Realize Impact — a registered 501(c)(3) that makes your gift fully tax-deductible.</p>
+
+    <div class="sponsor-grid">
+      <div class="sponsor-body fade-up">
+        <p>LELI is fiscally sponsored by Realize Impact, a 501(c)(3) public charity specializing in fiscal sponsorship of mission-driven projects. Realize Impact provides the charitable umbrella, financial oversight, grants administration, and compliance infrastructure that lets LELI focus entirely on Fellows and communities.</p>
+        <p>Fiscal sponsorship means your gift is made to Realize Impact on behalf of LELI. It is fully tax-deductible, subject to all 501(c)(3) rules, and directed entirely to LELI's programming — Fellow stipends, training, and the development of the Civic Signals Network.</p>
+        <p>All donations, whether made online, by check, or by wire transfer, are processed through Realize Impact. When you give, please notify us at <a href="mailto:judi@civicmakers.com" style="color: var(--sage); font-weight: 600; text-decoration: underline; text-underline-offset: 2px;">judi@civicmakers.com</a> so we can ensure your gift is properly allocated.</p>
+        <div class="fineprint">
+          LELI is a project of Realize Impact, a 501(c)(3) public charity (EIN available upon request). All donations are tax-deductible to the extent permitted by law. No goods or services were provided in exchange for your contribution.
+        </div>
+      </div>
+
+      <div class="sponsor-card fade-up">
+        <div class="sponsor-card-label">Our Fiscal Sponsor</div>
+        <h4>Realize Impact</h4>
+        <p>A registered 501(c)(3) public charity providing fiscal sponsorship, financial oversight, and compliance infrastructure to mission-driven projects like LELI.</p>
+        <a href="https://realizeimpact.org/fiscal-sponsorship/faq/" target="_blank" rel="noopener">
+          Learn about fiscal sponsorship →
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BAND -->
+<div style="padding-top: 80px;">
+  <div class="cta-band fade-up">
+    <div>
+      <h2>Ready to fund the work?</h2>
+      <p>Every dollar goes directly to Fellow stipends and training. Donate online now through Realize Impact's secure giving platform.</p>
+    </div>
+    <div class="cta-band-actions">
+      <a href="https://www.zeffy.com/donation-form/donate-to-realize-impact" target="_blank" rel="noopener" class="btn-white">Donate Now →</a>
+      <a href="leli-about.html" class="btn-ghost-white">Learn about LELI</a>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <h3>LELI</h3>
+      <p>The Lived Experience Leadership Institute prepares community members to co-design programs and policy at the speed and scale of policymaking spaces.</p>
+      <p style="margin-top: 16px; font-size: .8rem;">A flagship program of Ridiculously Hopeful Futures in California.<br />Fiscally sponsored by Realize Impact, a 501(c)(3) public charity.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Program</h4>
+      <ul>
+        <li><a href="leli-about.html">About LELI</a></li>
+        <li><a href="leli-fellowship.html">The Fellowship</a></li>
+        <li><a href="leli-csn.html">Civic Signals Network</a></li>
+        <li><a href="leli-apply.html">Apply</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Communities</h4>
+      <ul>
+        <li><a href="#">Rodeo</a></li>
+        <li><a href="#">Crockett</a></li>
+        <li><a href="#">Pacheco</a></li>
+        <li><a href="#">Vine Hill</a></li>
+        <li><a href="#">Clyde</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Connect</h4>
+      <ul>
+        <li><a href="leli-donate.html">Donate</a></li>
+        <li><a href="mailto:loren@dalbert.design">Contact</a></li>
+        <li><a href="leli-donate.html">Donate</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Ridiculously Hopeful Futures in California · Dalbert Design × CivicMakers</span>
+    <span>Rodeo · Crockett · Pacheco · Vine Hill · Clyde</span>
+  </div>
+</footer>
+
+<script>
+  /* Nav scroll */
+  const nav = document.getElementById('main-nav');
+  window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 40));
+
+  /* Fade-up observer */
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const siblings = [...e.target.parentElement.querySelectorAll('.fade-up')];
+        setTimeout(() => e.target.classList.add('visible'), siblings.indexOf(e.target) * 100);
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  /* Mobile nav drawer */
+  (function() {
+    const hamburger = document.querySelector('.nav-hamburger');
+    const drawer    = document.getElementById('nav-drawer');
+    const overlay   = document.getElementById('nav-overlay');
+    const closeBtn  = document.getElementById('nav-close');
+    if (!hamburger || !drawer) return;
+
+    function openDrawer() {
+      drawer.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      closeBtn.focus();
+    }
+    function closeDrawer() {
+      drawer.classList.remove('open');
+      document.body.style.overflow = '';
+      hamburger.focus();
+    }
+
+    hamburger.addEventListener('click', openDrawer);
+    hamburger.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openDrawer(); } });
+    overlay.addEventListener('click', closeDrawer);
+    closeBtn.addEventListener('click', closeDrawer);
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer(); });
+    drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', closeDrawer));
+  })();
+</script>
+</body>
+</html>
