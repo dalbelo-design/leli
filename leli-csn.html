@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Civic Signals Network — LELI | Lived Experience Leadership Institute</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,800;0,9..144,900;1,9..144,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ink:       #0d0f14;
+      --paper:     #f9f8ff;
+      --signal:    #e84b2f;
+      --signal-lt: #fef0ed;
+      --sage:      #3a5c4e;
+      --sage-lt:   #eaf1ee;
+      --gold:      #c9952a;
+      --gold-lt:   #fdf4e3;
+      --mist:      #e8e5de;
+      --white:     #ffffff;
+      --font-display: 'Fraunces', Georgia, serif;
+      --font-body:    'Inter', sans-serif;
+      --r-sm: 6px; --r-md: 14px; --r-lg: 28px; --r-pill: 999px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; overflow-x: hidden; max-width: 100%; }
+    body {
+      font-family: var(--font-body); background: var(--paper); color: var(--ink);
+      font-size: 16px; line-height: 1.6; overflow-x: hidden; width: 100%; max-width: 100vw;
+    }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 5vw;
+      background: rgba(13,15,20,0.92);
+      backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(255,255,255,.08); transition: box-shadow .3s;
+    }
+    nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,.3); }
+    .nav-logo {
+      font-family: var(--font-display); font-weight: 800; font-size: 1.1rem;
+      display: flex; align-items: center; gap: 10px; color: var(--white);
+    }
+    .nav-logo-dot {
+      width: 9px; height: 9px; background: var(--signal); border-radius: 50%;
+      animation: pulse-dot 2.4s ease-in-out infinite;
+    }
+    @keyframes pulse-dot {
+      0%,100% { opacity: 1; transform: scale(1); }
+      50%      { opacity: .5; transform: scale(.7); }
+    }
+    .nav-links { display: flex; gap: 2rem; align-items: center; }
+    .nav-links a { font-size: .875rem; font-weight: 500; color: rgba(255,255,255,.6); transition: color .2s; }
+    .nav-links a:hover { color: var(--white); }
+    .nav-links a.active { color: var(--white); font-weight: 600; }
+    .nav-cta {
+      background: var(--signal); color: var(--white) !important;
+      padding: 9px 20px; border-radius: var(--r-pill);
+      font-size: .875rem; font-weight: 600; transition: background .2s, transform .15s;
+    }
+    .nav-cta:hover { background: #c73010; transform: translateY(-1px); }
+    .nav-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+    .nav-hamburger span { display: block; width: 24px; height: 2px; background: var(--white); border-radius: 2px; }
+
+    /* ── UTILS ── */
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-size: .75rem; font-weight: 700; letter-spacing: .14em;
+      text-transform: uppercase; margin-bottom: 16px;
+    }
+    .eyebrow::before { content: ''; width: 28px; height: 2px; }
+    .eyebrow-sage  { color: var(--sage); }  .eyebrow-sage::before  { background: var(--sage); }
+    .eyebrow-red   { color: #c73010; }      .eyebrow-red::before   { background: #c73010; }
+    .eyebrow-gold  { color: #a07018; }      .eyebrow-gold::before  { background: var(--gold); }
+    .eyebrow-white { color: rgba(255,255,255,.75); } .eyebrow-white::before { background: rgba(255,255,255,.4); }
+    .eyebrow-signal { color: #ff8066; }     .eyebrow-signal::before { background: var(--signal); }
+
+    .section-title {
+      font-family: var(--font-display); font-weight: 800;
+      font-size: clamp(1.5rem, 4vw, 3rem);
+      line-height: 1.1; letter-spacing: -.025em; margin-bottom: 20px;
+    }
+    .section-body { font-size: 1.05rem; color: #4a4a4a; line-height: 1.7; max-width: 640px; }
+
+    .fade-up {
+      opacity: 0; transform: translateY(24px);
+      transition: opacity .55s ease, transform .55s ease;
+    }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+    .divider { height: 1px; background: var(--mist); }
+
+    /* ── HERO — full dark ── */
+    .page-hero {
+      min-height: 100svh;
+      background: var(--ink);
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 140px 5vw 80px;
+      position: relative; overflow: hidden;
+    }
+    /* Animated grid lines */
+    .hero-grid {
+      position: absolute; inset: 0; pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      animation: grid-drift 20s linear infinite;
+    }
+    @keyframes grid-drift {
+      from { background-position: 0 0; }
+      to   { background-position: 60px 60px; }
+    }
+    /* Radial glow */
+    .hero-glow {
+      position: absolute; inset: 0; pointer-events: none;
+      background: radial-gradient(ellipse 80% 60% at 50% 60%, rgba(58,92,78,.25) 0%, transparent 70%);
+    }
+
+    .page-hero-inner {
+      max-width: 1100px; margin: 0 auto; position: relative; z-index: 1;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+    }
+    .page-hero h1 {
+      font-family: var(--font-display); font-weight: 800;
+      font-size: clamp(2.2rem, 5.5vw, 4.2rem);
+      line-height: 1.06; letter-spacing: -.03em; color: var(--white); margin-bottom: 24px;
+    }
+    .page-hero h1 em { font-style: italic; color: #6da38e; }
+    .page-hero-lead { font-size: 1.05rem; color: rgba(255,255,255,.72); line-height: 1.75; margin-bottom: 32px; }
+    .hero-tag-row { display: flex; flex-wrap: wrap; gap: 10px; }
+    .hero-tag {
+      padding: 6px 16px; border-radius: var(--r-pill);
+      font-size: .78rem; font-weight: 600;
+      background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.12);
+      color: rgba(255,255,255,.8);
+    }
+
+    /* Hero right — animated signal visualization */
+    .signal-viz {
+      aspect-ratio: 1;
+      max-width: 420px;
+      position: relative;
+    }
+    .signal-viz-canvas {
+      width: 100%; height: 100%; border-radius: var(--r-lg);
+      border: 1px solid rgba(255,255,255,.08);
+    }
+
+    /* ── THE PROBLEM ── */
+    .problem-section { padding: 100px 5vw; background: var(--white); }
+    .problem-inner { max-width: 1100px; margin: 0 auto; }
+    .problem-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
+      align-items: start; margin-top: 56px;
+    }
+    .problem-text p { font-size: 1.05rem; color: #3a3a3a; line-height: 1.8; margin-bottom: 20px; }
+    .problem-text p:last-child { margin-bottom: 0; }
+
+    .silo-visual {
+      display: flex; flex-direction: column; gap: 12px;
+    }
+    .silo-item {
+      background: var(--paper); border-radius: var(--r-md);
+      padding: 18px 20px; border: 1.5px solid var(--mist);
+      display: flex; align-items: center; gap: 16px;
+      transition: border-color .2s;
+    }
+    .silo-item:hover { border-color: var(--mist); }
+    .silo-dot {
+      width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0;
+    }
+    .silo-item p { font-size: .88rem; color: #4a4a4a; line-height: 1.5; }
+    .silo-item strong { color: var(--ink); }
+    .silo-arrow {
+      display: flex; align-items: center; justify-content: center;
+      color: #ccc; font-size: 1.2rem; padding: 4px 0;
+    }
+    .silo-break {
+      background: var(--sage); border-radius: var(--r-md);
+      padding: 20px 24px; border: none;
+      display: flex; align-items: center; gap: 16px;
+    }
+    .silo-break p { font-size: .92rem; font-weight: 600; color: var(--white); line-height: 1.45; }
+    .silo-break .silo-dot { background: var(--gold); }
+
+    /* ── HOW IT WORKS ── */
+    .how-section { padding: 100px 5vw; background: var(--sage); }
+    .how-inner { max-width: 1100px; margin: 0 auto; }
+    .how-inner .section-title { color: var(--white); }
+    .how-inner .section-title em { font-style: italic; color: var(--gold); }
+    .how-inner .section-body { color: rgba(255,255,255,.75); }
+
+    .flow-steps {
+      margin-top: 64px;
+      display: flex; flex-direction: column; gap: 0;
+      position: relative;
+    }
+    .flow-steps::before {
+      content: '';
+      position: absolute; left: 31px; top: 32px; bottom: 32px;
+      width: 2px; background: rgba(255,255,255,.15);
+    }
+    .flow-step {
+      display: grid; grid-template-columns: 64px 1fr;
+      gap: 32px; align-items: start; padding: 32px 0;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .flow-step:last-child { border-bottom: none; }
+    .flow-step-num {
+      width: 64px; height: 64px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-display); font-weight: 800; font-size: 1.1rem;
+      flex-shrink: 0; position: relative; z-index: 1;
+    }
+    .flow-step-num.red  { background: rgba(199,48,16,.25); border: 2px solid rgba(199,48,16,.5); color: #ff8066; }
+    .flow-step-num.sage { background: rgba(109,163,142,.2); border: 2px solid rgba(109,163,142,.4); color: #a8d5c4; }
+    .flow-step-num.gold { background: rgba(201,149,42,.2); border: 2px solid rgba(201,149,42,.4); color: var(--gold); }
+    .flow-step-num.white{ background: rgba(255,255,255,.1); border: 2px solid rgba(255,255,255,.2); color: var(--white); }
+
+    .flow-step-content h3 {
+      font-family: var(--font-display); font-size: 1.3rem; font-weight: 800;
+      color: var(--white); margin-bottom: 8px; margin-top: 14px;
+    }
+    .flow-step-content p { font-size: .95rem; color: rgba(255,255,255,.7); line-height: 1.7; }
+    .flow-step-content .step-detail {
+      margin-top: 16px; background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.1); border-radius: var(--r-md);
+      padding: 16px 20px; font-size: .85rem; color: rgba(255,255,255,.65); line-height: 1.6;
+    }
+    .flow-step-content .step-detail strong { color: rgba(255,255,255,.9); }
+
+    /* ── THE DISTINCTION: AI vs FELLOWS ── */
+    .distinction-section { padding: 100px 5vw; background: var(--ink); }
+    .distinction-inner { max-width: 1100px; margin: 0 auto; }
+    .distinction-inner .section-title { color: var(--white); max-width: 700px; }
+
+    .distinction-split {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 2px; margin-top: 56px;
+      border-radius: var(--r-lg); overflow: hidden;
+      border: 1px solid rgba(255,255,255,.08);
+    }
+    .distinction-half { padding: 56px 44px; }
+    .distinction-half.ai   { background: rgba(255,255,255,.04); }
+    .distinction-half.fellows { background: rgba(58,92,78,.2); }
+
+    .distinction-label {
+      font-size: .7rem; font-weight: 700; letter-spacing: .14em;
+      text-transform: uppercase; margin-bottom: 16px;
+    }
+    .label-muted  { color: rgba(255,255,255,.4); }
+    .label-sage   { color: #6da38e; }
+
+    .distinction-half h3 {
+      font-family: var(--font-display); font-size: 1.5rem; font-weight: 800;
+      line-height: 1.2; margin-bottom: 20px;
+    }
+    .distinction-half.ai h3      { color: rgba(255,255,255,.6); }
+    .distinction-half.fellows h3  { color: var(--white); }
+
+    .distinction-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .distinction-list li {
+      display: flex; gap: 12px; align-items: flex-start;
+      font-size: .9rem; line-height: 1.55;
+    }
+    .distinction-half.ai .distinction-list li { color: rgba(255,255,255,.55); }
+    .distinction-half.fellows .distinction-list li { color: rgba(255,255,255,.85); }
+    .d-bullet {
+      width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-top: 7px;
+    }
+    .d-bullet.muted  { background: rgba(255,255,255,.25); }
+    .d-bullet.green  { background: #6da38e; }
+
+    .distinction-quote {
+      margin-top: 56px; text-align: center;
+      padding: 48px; background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.08); border-radius: var(--r-lg);
+    }
+    .distinction-quote p {
+      font-family: var(--font-display); font-size: clamp(1.3rem, 2.5vw, 1.9rem);
+      font-weight: 700; color: var(--white); line-height: 1.35;
+    }
+    .distinction-quote em { font-style: italic; color: #6da38e; }
+
+    /* ── DESIGN PRINCIPLES ── */
+    .principles-section { padding: 100px 5vw; background: var(--paper); }
+    .principles-inner { max-width: 1100px; margin: 0 auto; }
+    .principles-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 24px; margin-top: 56px;
+    }
+    .principle-card {
+      background: var(--white); border-radius: var(--r-md);
+      padding: 36px 28px; border: 1.5px solid var(--mist);
+      transition: border-color .2s, transform .2s, box-shadow .2s;
+    }
+    .principle-card:hover {
+      border-color: var(--sage); transform: translateY(-3px);
+      box-shadow: 0 10px 32px rgba(58,92,78,.1);
+    }
+    .principle-num {
+      font-family: var(--font-display); font-size: 2.5rem; font-weight: 800;
+      color: rgba(13,15,20,.08); line-height: 1; margin-bottom: 16px;
+    }
+    .principle-icon {
+      width: 44px; height: 44px; border-radius: var(--r-sm);
+      display: flex; align-items: center; justify-content: center; margin-bottom: 16px;
+    }
+    .principle-card h3 {
+      font-family: var(--font-display); font-size: 1.1rem; font-weight: 800; margin-bottom: 10px;
+    }
+    .principle-card p { font-size: .9rem; color: #4a4a4a; line-height: 1.65; }
+
+    /* ── WHAT IT PRODUCES ── */
+    .outputs-section { padding: 100px 5vw; background: var(--white); }
+    .outputs-inner { max-width: 1100px; margin: 0 auto; }
+    .outputs-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 24px; margin-top: 56px;
+    }
+    .output-card {
+      border-radius: var(--r-md); padding: 40px 32px;
+      border: 2px solid var(--mist); transition: border-color .2s;
+      display: flex; flex-direction: column; gap: 14px;
+    }
+    .output-card:hover { border-color: var(--signal); }
+    .output-icon {
+      width: 44px; height: 44px; border-radius: var(--r-sm);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .output-card h3 {
+      font-family: var(--font-display); font-size: 1.1rem; font-weight: 800;
+    }
+    .output-card p { font-size: .9rem; color: #4a4a4a; line-height: 1.65; }
+
+    /* ── CTA BAND ── */
+    .cta-band {
+      background: linear-gradient(135deg, var(--sage) 0%, #1e3529 100%);
+      color: var(--white); border-radius: var(--r-lg);
+      margin: 0 3vw 80px; padding: 72px 8vw;
+      display: grid; grid-template-columns: 1fr auto;
+      gap: 40px; align-items: center;
+    }
+    .cta-band h2 {
+      font-family: var(--font-display); font-weight: 800;
+      font-size: clamp(1.4rem, 3.5vw, 2.6rem); line-height: 1.1; letter-spacing: -.025em;
+    }
+    .cta-band p { font-size: 1rem; color: rgba(255,255,255,1); margin-top: 12px; max-width: 500px; }
+    .cta-band-actions { display: flex; flex-direction: column; gap: 12px; flex-shrink: 0; }
+    .btn-white {
+      background: var(--white); color: var(--sage);
+      padding: 15px 28px; border-radius: var(--r-pill);
+      font-size: .95rem; font-weight: 700; text-align: center;
+      transition: transform .15s, box-shadow .15s; white-space: nowrap;
+    }
+    .btn-white:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(0,0,0,.15); }
+    .btn-ghost-white {
+      border: 2px solid rgba(255,255,255,.5); color: var(--white);
+      padding: 13px 28px; border-radius: var(--r-pill);
+      font-size: .95rem; font-weight: 600; text-align: center;
+      transition: border-color .15s, background .15s;
+    }
+    .btn-ghost-white:hover { border-color: var(--white); background: rgba(255,255,255,.12); }
+
+    /* ── FOOTER ── */
+    footer { background: var(--ink); color: rgba(255,255,255,.5); padding: 60px 5vw 40px; }
+    .footer-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px;
+    }
+    .footer-brand h3 { font-family: var(--font-display); font-size: 1.1rem; font-weight: 800; color: var(--white); margin-bottom: 12px; }
+    .footer-brand p  { font-size: .875rem; line-height: 1.65; max-width: 300px; }
+    .footer-col h4   { font-size: .75rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--white); margin-bottom: 16px; }
+    .footer-col ul   { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col a    { font-size: .875rem; transition: color .2s; }
+    .footer-col a:hover { color: var(--white); }
+    .footer-bottom {
+      max-width: 1100px; margin: 40px auto 0; padding-top: 24px;
+      border-top: 1px solid rgba(255,255,255,.08);
+      display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; font-size: .8rem;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .page-hero-inner { grid-template-columns: 1fr; gap: 48px; }
+      .signal-viz { max-width: 300px; }
+      .problem-grid { grid-template-columns: 1fr; gap: 48px; }
+      .distinction-split { grid-template-columns: 1fr; }
+      .principles-grid { grid-template-columns: 1fr 1fr; }
+      .outputs-grid { grid-template-columns: 1fr; }
+      .cta-band { grid-template-columns: 1fr; }
+      .footer-inner { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 640px) {
+      nav { padding: 14px 5vw; }
+      .nav-links { display: none; }
+      .nav-hamburger { display: flex; }
+      .flow-steps::before { display: none; }
+      .flow-step { grid-template-columns: 1fr; gap: 16px; }
+      .flow-step-num { width: 44px; height: 44px; font-size: .9rem; }
+      .principles-grid { grid-template-columns: 1fr; }
+      .distinction-half { padding: 36px 24px; }
+      .cta-band { margin: 0 0 48px; border-radius: 0; padding: 52px 6vw; }
+      .footer-inner { grid-template-columns: 1fr; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .fade-up { transition: none; }
+      .nav-logo-dot { animation: none; }
+      .hero-grid { animation: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="main-nav">
+  <a href="index.html" class="nav-logo">
+    <span class="nav-logo-dot"></span>
+    LELI
+  </a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="leli-about.html">About</a>
+    <a href="leli-fellowship.html">Fellowship</a>
+    <a href="leli-csn.html" class="active">Civic Signals</a>
+    <a href="#">Communities</a>
+    <a href="leli-apply.html" class="nav-cta">Apply Now</a>
+  </div>
+  <div class="nav-hamburger" role="button" aria-label="Open menu" tabindex="0">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="hero-grid" aria-hidden="true"></div>
+  <div class="hero-glow" aria-hidden="true"></div>
+  <div class="page-hero-inner">
+    <div class="fade-up">
+      <div class="eyebrow eyebrow-signal">Community Infrastructure</div>
+      <h1>The Civic<br />Signals<br /><em>Network.</em></h1>
+      <p class="page-hero-lead">
+        A community-owned research platform that connects previously siloed neighborhood voices — so that what one community knows, all five communities can act on. AI handles the scale. Fellows handle the truth.
+      </p>
+      <div class="hero-tag-row">
+        <span class="hero-tag">Community-owned</span>
+        <span class="hero-tag">Fellow-directed</span>
+        <span class="hero-tag">AI-assisted</span>
+        <span class="hero-tag">Multi-lingual</span>
+        <span class="hero-tag">Policy-ready</span>
+      </div>
+    </div>
+
+    <!-- Signal visualization canvas -->
+    <div class="signal-viz fade-up" aria-hidden="true">
+      <canvas class="signal-viz-canvas" id="csn-canvas"></canvas>
+    </div>
+  </div>
+</div>
+
+<!-- THE PROBLEM -->
+<section class="problem-section">
+  <div class="problem-inner">
+    <div class="eyebrow eyebrow-red">The Problem We Solve</div>
+    <h2 class="section-title">Community input has always lived in silos.</h2>
+
+    <div class="problem-grid">
+      <div class="problem-text fade-up">
+        <p>
+          A comment at a Rodeo town hall. A concern raised at a Crockett planning meeting. Testimony delivered in Pacheco. For decades, these signals have existed in isolation — each one heard, briefly, in its own room, by its own set of decision-makers, on its own timeline.
+        </p>
+        <p>
+          Even when Rodeo, Crockett, Pacheco, Vine Hill, and Clyde were describing the same underlying problem — the same housing pressure, the same transportation gap, the same environmental concern — there was no infrastructure to connect those signals. No way to show a County supervisor that what felt like a local complaint was actually a regional pattern.
+        </p>
+        <p>
+          The Civic Signals Network is the infrastructure that changes that. It doesn't replace community voice — it amplifies it. It doesn't summarize what people said — it equips Fellows to show what it means.
+        </p>
+      </div>
+
+      <div class="silo-visual fade-up">
+        <div class="silo-item">
+          <div class="silo-dot" style="background:#e84b2f;"></div>
+          <p><strong>Rodeo town hall</strong> — residents raise concerns about refinery air quality and health impacts on children.</p>
+        </div>
+        <div class="silo-arrow">↓</div>
+        <div class="silo-item">
+          <div class="silo-dot" style="background:#c9952a;"></div>
+          <p><strong>Crockett planning meeting</strong> — residents describe the same health concerns, different street, same zip code of symptoms.</p>
+        </div>
+        <div class="silo-arrow">↓</div>
+        <div class="silo-item">
+          <div class="silo-dot" style="background:#3a5c4e;"></div>
+          <p><strong>Pacheco public comment</strong> — transportation issues raised that connect directly to why residents can't attend health appointments.</p>
+        </div>
+        <div class="silo-arrow">↓</div>
+        <div class="silo-item" style="border-color:#aaa;">
+          <div class="silo-dot" style="background:#aaa;"></div>
+          <p style="color:#888;"><em>These signals are never connected. Each is treated as a local complaint. None become a regional pattern.</em></p>
+        </div>
+        <div class="silo-arrow">↓</div>
+        <div class="silo-break">
+          <div class="silo-dot"></div>
+          <p>The Civic Signals Network connects them — surfacing the pattern, documenting the reasoning, and delivering it to decision-makers who have the authority to act.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how-section" id="how">
+  <div class="how-inner">
+    <div class="eyebrow eyebrow-white">How It Works</div>
+    <h2 class="section-title">Four steps from community input<br />to <em>policy action.</em></h2>
+    <p class="section-body" style="color:rgba(255,255,255,.72);">The Civic Signals Network is not an AI tool that replaces community judgment. It is a research workspace that Fellows direct — giving them the analytical reach to read thousands of voices without losing sight of any single one.</p>
+
+    <div class="flow-steps">
+
+      <div class="flow-step fade-up">
+        <div class="flow-step-num red">01</div>
+        <div class="flow-step-content">
+          <h3>Community Input Is Gathered</h3>
+          <p>Public comments, town hall testimony, survey responses, planning meeting records, and direct community feedback are collected across all five neighborhoods. Input arrives in multiple formats and multiple languages.</p>
+          <div class="step-detail">
+            <strong>Sources include:</strong> county public comment systems, city council records, community organization input, direct feedback sessions led by Fellows, and multilingual surveys designed for each neighborhood.
+          </div>
+        </div>
+      </div>
+
+      <div class="flow-step fade-up">
+        <div class="flow-step-num sage">02</div>
+        <div class="flow-step-content">
+          <h3>AI Processes the Scale</h3>
+          <p>AI handles what no person could: reading thousands of comments at once, translating across languages, clustering similar concerns, and flagging patterns that appear across multiple neighborhoods simultaneously.</p>
+          <div class="step-detail">
+            <strong>What AI does:</strong> translation, clustering, pattern flagging, volume summarization, cross-neighborhood comparison.<br /><br />
+            <strong>What AI does not do:</strong> interpret meaning, determine significance, make conclusions, or decide what to bring to policymakers. That stays with Fellows.
+          </div>
+        </div>
+      </div>
+
+      <div class="flow-step fade-up">
+        <div class="flow-step-num gold">03</div>
+        <div class="flow-step-content">
+          <h3>Fellows Analyze and Interpret</h3>
+          <p>Fellows review what the AI surfaced. They verify patterns against their own community knowledge, decide which signals are most significant, document their reasoning, and determine what the findings actually mean for the communities they represent.</p>
+          <div class="step-detail">
+            <strong>Why this matters:</strong> an AI can flag that 47 comments mention "the intersection at San Pablo." Only a Fellow who grew up in that neighborhood knows that the reason people keep mentioning it is because a child was hit by a car there two years ago and nothing was done. That context is the difference between data and insight.
+          </div>
+        </div>
+      </div>
+
+      <div class="flow-step fade-up">
+        <div class="flow-step-num white">04</div>
+        <div class="flow-step-content">
+          <h3>Findings Reach Decision-Makers</h3>
+          <p>Fellow-produced findings are submitted to active policy processes — City Councils, County hearings, State legislative visits — on timelines that match when decisions are actually being made. Findings are attributed to Fellows and delivered as documented community research, not anecdote.</p>
+          <div class="step-detail">
+            <strong>Formats include:</strong> written policy submissions, public testimony with supporting research, cross-neighborhood findings reports shared with residents, and plain-language community briefs in multiple languages.
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- THE DISTINCTION -->
+<section class="distinction-section">
+  <div class="distinction-inner">
+    <div class="eyebrow eyebrow-white">The Core Design Principle</div>
+    <h2 class="section-title">AI handles scale.<br />Fellows handle truth.</h2>
+
+    <div class="distinction-split">
+      <div class="distinction-half ai fade-up">
+        <div class="distinction-label label-muted">What AI Does</div>
+        <h3>The machine handles volume.</h3>
+        <ul class="distinction-list">
+          <li><span class="d-bullet muted"></span>Translates input across languages in real time</li>
+          <li><span class="d-bullet muted"></span>Reads thousands of public comments simultaneously</li>
+          <li><span class="d-bullet muted"></span>Clusters similar concerns across neighborhoods</li>
+          <li><span class="d-bullet muted"></span>Flags patterns that span multiple communities</li>
+          <li><span class="d-bullet muted"></span>Surfaces what might otherwise be missed by volume alone</li>
+          <li><span class="d-bullet muted"></span>Summarizes for Fellows to verify — never for publication</li>
+        </ul>
+      </div>
+      <div class="distinction-half fellows fade-up">
+        <div class="distinction-label label-sage">What Fellows Do</div>
+        <h3>The community handles truth.</h3>
+        <ul class="distinction-list">
+          <li><span class="d-bullet green"></span>Verify AI-surfaced patterns against lived community knowledge</li>
+          <li><span class="d-bullet green"></span>Determine which signals are most significant — and why</li>
+          <li><span class="d-bullet green"></span>Provide the context that turns data into insight</li>
+          <li><span class="d-bullet green"></span>Document reasoning so findings carry weight, not just numbers</li>
+          <li><span class="d-bullet green"></span>Decide what to bring forward to policymakers</li>
+          <li><span class="d-bullet green"></span>Present and defend findings in civic processes</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="distinction-quote fade-up">
+      <p>
+        "Most 'AI-enabled' community engagement quietly replaces community voice with algorithmic summary. The Civic Signals Network is designed to make that failure mode <em>impossible.</em>"
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- DESIGN PRINCIPLES -->
+<section class="principles-section">
+  <div class="principles-inner">
+    <div class="eyebrow eyebrow-sage">Design Principles</div>
+    <h2 class="section-title">Built around three non-negotiables.</h2>
+    <p class="section-body">The Civic Signals Network was designed by the Civic UX Research Lead with these principles as hard constraints — not aspirations.</p>
+
+    <div class="principles-grid">
+      <div class="principle-card fade-up">
+        <div class="principle-num">01</div>
+        <div class="principle-icon" style="background: var(--signal-lt);">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c73010" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+        </div>
+        <h3>Transparent reasoning</h3>
+        <p>Every finding produced through the Network is documented with the reasoning behind it — who said what, how it was interpreted, and why it was prioritized. Findings carry weight because the community can see how they were made.</p>
+      </div>
+      <div class="principle-card fade-up">
+        <div class="principle-icon" style="background: var(--sage-lt);">
+          <div class="principle-num" style="margin-bottom:0;">02</div>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3a5c4e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+        </div>
+        <h3>Fellow-centered by design</h3>
+        <p>The research workspace is built around Fellow judgment, not algorithmic efficiency. Usability testing with Fellows — conducted by the Civic UX Research Lead — ensures the platform multiplies what Fellows can attend to without obscuring their view of the community.</p>
+      </div>
+      <div class="principle-card fade-up">
+        <div class="principle-num">03</div>
+        <div class="principle-icon" style="background: var(--gold-lt);">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#a07018" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/></svg>
+        </div>
+        <h3>Inclusive by default</h3>
+        <p>AI translation ensures that community input in every language spoken across the five neighborhoods is included in Fellow analysis — not filtered out before it reaches a policymaker. Multi-lingual output means findings can be shared back with the communities that generated them.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT IT PRODUCES -->
+<section class="outputs-section">
+  <div class="outputs-inner">
+    <div class="eyebrow eyebrow-red">What the Network Produces</div>
+    <h2 class="section-title">Findings that carry weight.</h2>
+    <p class="section-body">The Civic Signals Network doesn't produce algorithmic summaries. It produces community-validated research findings — documented, attributed, and ready for the rooms where decisions are made.</p>
+
+    <div class="outputs-grid">
+      <div class="output-card fade-up">
+        <div class="output-icon" style="background: var(--signal-lt);">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c73010" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        </div>
+        <h3>Cross-neighborhood findings reports</h3>
+        <p>Published at the close of each research sprint, these reports surface concerns that span multiple communities — showing County and City decision-makers the full geographic scope of an issue for the first time.</p>
+      </div>
+      <div class="output-card fade-up">
+        <div class="output-icon" style="background: var(--sage-lt);">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3a5c4e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </div>
+        <h3>Policy submissions</h3>
+        <p>Formal written submissions to City Councils, County hearings, and State legislative processes — delivered on the timelines those processes require, not after decisions are already made.</p>
+      </div>
+      <div class="output-card fade-up">
+        <div class="output-icon" style="background: var(--gold-lt);">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#a07018" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+        </div>
+        <h3>Plain-language community briefs</h3>
+        <p>Findings translated into plain language and multiple languages for sharing back with residents, mutual aid networks, faith communities, and local organizations — so the community sees what Fellows found, not just policymakers.</p>
+      </div>
+      <div class="output-card fade-up">
+        <div class="output-icon" style="background: #eef2ff;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4a5de4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <h3>A durable shared-intelligence asset</h3>
+        <p>The Network and its findings don't disappear when the cohort ends. They become a community asset — a growing body of civic research that future Fellows, residents, and organizations can build on.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BAND -->
+<div style="padding-top: 80px;">
+  <div class="cta-band fade-up">
+    <div>
+      <h2>Want to learn more about the Network?</h2>
+      <p>The Civic Signals Network is at the heart of everything LELI does. If you're a researcher, a county partner, or a community organization, we'd love to talk.</p>
+    </div>
+    <div class="cta-band-actions">
+      <a href="#" class="btn-white">Contact the team</a>
+      <a href="leli-fellowship.html" class="btn-ghost-white">See the Fellowship</a>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <h3>LELI</h3>
+      <p>The Lived Experience Leadership Institute prepares community members to co-design programs and policy at the speed and scale of policymaking spaces.</p>
+      <p style="margin-top: 16px; font-size: .8rem;">A flagship program of Ridiculously Hopeful Futures in California.<br />Fiscally sponsored by Realize Impact, a 501(c)(3) public charity.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Program</h4>
+      <ul>
+        <li><a href="leli-about.html">About LELI</a></li>
+        <li><a href="leli-fellowship.html">The Fellowship</a></li>
+        <li><a href="leli-csn.html">Civic Signals Network</a></li>
+        <li><a href="leli-apply.html">Apply</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Communities</h4>
+      <ul>
+        <li><a href="#">Rodeo</a></li>
+        <li><a href="#">Crockett</a></li>
+        <li><a href="#">Pacheco</a></li>
+        <li><a href="#">Vine Hill</a></li>
+        <li><a href="#">Clyde</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Connect</h4>
+      <ul>
+        <li><a href="#">Partners</a></li>
+        <li><a href="#">Contact</a></li>
+        <li><a href="#">Press</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Ridiculously Hopeful Futures in California · Dalbert Design × CivicMakers</span>
+    <span>Rodeo · Crockett · Pacheco · Vine Hill · Clyde</span>
+  </div>
+</footer>
+
+<script>
+  /* Nav */
+  const nav = document.getElementById('main-nav');
+  window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 40));
+
+  /* Fade-up */
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const siblings = [...e.target.parentElement.querySelectorAll('.fade-up')];
+        setTimeout(() => e.target.classList.add('visible'), siblings.indexOf(e.target) * 100);
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  /* ── CSN Canvas Visualization ──
+     Shows five neighborhood nodes connected by signal lines,
+     with pulses traveling between them.                         */
+  (function() {
+    const canvas = document.getElementById('csn-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    let W, H, raf;
+    let time = 0;
+
+    function resize() {
+      const rect = canvas.parentElement.getBoundingClientRect();
+      W = canvas.width  = rect.width  || 420;
+      H = canvas.height = rect.height || 420;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    const SAGE   = '#3a5c4e';
+    const GOLD   = '#c9952a';
+    const SIGNAL = '#e84b2f';
+    const WHITE  = 'rgba(255,255,255,';
+
+    const neighborhoods = ['Rodeo','Crockett','Pacheco','Vine Hill','Clyde'];
+    const colors = [SIGNAL, GOLD, '#6da38e', '#8fa8ff', GOLD];
+
+    function getNodes() {
+      const cx = W / 2, cy = H / 2;
+      const r  = Math.min(W, H) * 0.33;
+      return neighborhoods.map((name, i) => {
+        const angle = (i / neighborhoods.length) * Math.PI * 2 - Math.PI / 2;
+        return { name, x: cx + Math.cos(angle) * r, y: cy + Math.sin(angle) * r, color: colors[i] };
+      });
+    }
+
+    // Pulses: { from, to, progress, speed }
+    const pulses = [
+      { from: 0, to: 1, progress: 0,    speed: 0.006 },
+      { from: 1, to: 2, progress: 0.33, speed: 0.005 },
+      { from: 2, to: 3, progress: 0.66, speed: 0.007 },
+      { from: 3, to: 4, progress: 0.1,  speed: 0.005 },
+      { from: 4, to: 0, progress: 0.5,  speed: 0.006 },
+      { from: 0, to: 3, progress: 0.2,  speed: 0.004 },
+      { from: 1, to: 4, progress: 0.7,  speed: 0.005 },
+    ];
+
+    function draw() {
+      ctx.clearRect(0, 0, W, H);
+      time += 0.016;
+      const nodes = getNodes();
+      const cx = W / 2, cy = H / 2;
+
+      // Background circle (faint)
+      ctx.beginPath();
+      ctx.arc(cx, cy, Math.min(W, H) * 0.38, 0, Math.PI * 2);
+      ctx.strokeStyle = WHITE + '0.06)';
+      ctx.lineWidth = 1;
+      ctx.stroke();
+
+      // Draw connection lines
+      pulses.forEach(p => {
+        const a = nodes[p.from], b = nodes[p.to];
+        const g = ctx.createLinearGradient(a.x, a.y, b.x, b.y);
+        g.addColorStop(0, WHITE + '0.04)');
+        g.addColorStop(1, WHITE + '0.04)');
+        ctx.beginPath();
+        ctx.moveTo(a.x, a.y);
+        ctx.lineTo(b.x, b.y);
+        ctx.strokeStyle = g;
+        ctx.lineWidth = 1;
+        ctx.stroke();
+      });
+
+      // Center node — "CSN"
+      const pulse = 0.85 + Math.sin(time * 1.5) * 0.08;
+      ctx.beginPath();
+      ctx.arc(cx, cy, 22 * pulse, 0, Math.PI * 2);
+      ctx.fillStyle = SAGE + '33';
+      ctx.fill();
+      ctx.beginPath();
+      ctx.arc(cx, cy, 14, 0, Math.PI * 2);
+      ctx.fillStyle = '#3a5c4e';
+      ctx.fill();
+      ctx.font = `700 9px Inter, sans-serif`;
+      ctx.fillStyle = 'rgba(255,255,255,.9)';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText('CSN', cx, cy);
+
+      // Draw pulses traveling along lines
+      pulses.forEach(p => {
+        p.progress += p.speed;
+        if (p.progress > 1) p.progress = 0;
+        const a = nodes[p.from], b = nodes[p.to];
+        const px = a.x + (b.x - a.x) * p.progress;
+        const py = a.y + (b.y - a.y) * p.progress;
+
+        // Glow
+        const grd = ctx.createRadialGradient(px, py, 0, px, py, 10);
+        grd.addColorStop(0, WHITE + '0.5)');
+        grd.addColorStop(1, WHITE + '0)');
+        ctx.beginPath();
+        ctx.arc(px, py, 10, 0, Math.PI * 2);
+        ctx.fillStyle = grd;
+        ctx.fill();
+
+        // Dot
+        ctx.beginPath();
+        ctx.arc(px, py, 3, 0, Math.PI * 2);
+        ctx.fillStyle = WHITE + '0.9)';
+        ctx.fill();
+      });
+
+      // Draw neighborhood nodes
+      nodes.forEach((node, i) => {
+        const nodePulse = 0.9 + Math.sin(time * 1.2 + i * 1.1) * 0.08;
+
+        // Outer glow
+        ctx.beginPath();
+        ctx.arc(node.x, node.y, 18 * nodePulse, 0, Math.PI * 2);
+        ctx.fillStyle = node.color + '22';
+        ctx.fill();
+
+        // Node circle
+        ctx.beginPath();
+        ctx.arc(node.x, node.y, 10, 0, Math.PI * 2);
+        ctx.fillStyle = node.color;
+        ctx.fill();
+
+        // Border
+        ctx.beginPath();
+        ctx.arc(node.x, node.y, 10, 0, Math.PI * 2);
+        ctx.strokeStyle = WHITE + '0.3)';
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
+
+        // Label
+        const labelY = node.y + (node.y < cy ? -24 : 24);
+        const labelX = node.x + (Math.abs(node.x - cx) < 20 ? 0 : (node.x < cx ? -4 : 4));
+        ctx.font = '500 10px Inter, sans-serif';
+        ctx.fillStyle = WHITE + '0.75)';
+        ctx.textAlign = Math.abs(node.x - cx) < 20 ? 'center' : (node.x < cx ? 'right' : 'left');
+        ctx.textBaseline = 'middle';
+        ctx.fillText(node.name, labelX, labelY);
+      });
+
+      raf = requestAnimationFrame(draw);
+    }
+    raf = requestAnimationFrame(draw);
+
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) cancelAnimationFrame(raf);
+      else raf = requestAnimationFrame(draw);
+    });
+  })();
+</script>
+</body>
+</html>
