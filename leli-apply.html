@@ -1054,9 +1054,6 @@
       consent:         'Yes'
     };
 
-    // Debug: log the data object before sending
-    console.log('Submitting data:', JSON.stringify(data, null, 2));
-
     // Show loading state on button
     const submitBtn = document.querySelector('.btn-submit');
     const originalText = submitBtn.textContent;
@@ -1065,7 +1062,7 @@
 
     try {
       // ↓ Paste your Google Apps Script deployment URL here
-      const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxvWe07rW-0Niv9P_7DAKBql_5KIc73E4_iODmbZlj-3QPisoFRfQsAfx0Z3eaAmsHP/exec';
+      const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwbG7eIUGQC-IF9pHGxSYNjmD2DDjuw9C9W4j2_FXz-qJzUHbDcKdnjdZMDPG8rZXGm/exec';
 
       await fetch(SCRIPT_URL, {
         method: 'POST',
