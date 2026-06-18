@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Fellowship — LELI | Lived Experience Leadership Institute</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,800;0,9..144,900;1,9..144,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ink:       #0d0f14;
+      --paper:     #f9f8ff;
+      --signal:    #e84b2f;
+      --signal-lt: #fef0ed;
+      --sage:      #3a5c4e;
+      --sage-lt:   #eaf1ee;
+      --gold:      #c9952a;
+      --gold-lt:   #fdf4e3;
+      --mist:      #e8e5de;
+      --white:     #ffffff;
+      --font-display: 'Fraunces', Georgia, serif;
+      --font-body:    'Inter', sans-serif;
+      --r-sm: 6px; --r-md: 14px; --r-lg: 28px; --r-pill: 999px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; overflow-x: hidden; max-width: 100%; }
+    body {
+      font-family: var(--font-body);
+      background: var(--paper); color: var(--ink);
+      font-size: 16px; line-height: 1.6;
+      overflow-x: hidden; width: 100%; max-width: 100vw;
+    }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 5vw;
+      background: rgba(249,248,255,0.92);
+      backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--mist);
+      transition: box-shadow .3s;
+    }
+    nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,.08); }
+    .nav-logo {
+      font-family: var(--font-display); font-weight: 800; font-size: 1.1rem;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .nav-logo-dot {
+      width: 9px; height: 9px; background: var(--signal); border-radius: 50%;
+      animation: pulse-dot 2.4s ease-in-out infinite;
+    }
+    @keyframes pulse-dot {
+      0%,100% { opacity: 1; transform: scale(1); }
+      50%      { opacity: .5; transform: scale(.7); }
+    }
+    .nav-links { display: flex; gap: 2rem; align-items: center; }
+    .nav-links a { font-size: .875rem; font-weight: 500; color: #555; transition: color .2s; }
+    .nav-links a:hover { color: var(--ink); }
+    .nav-links a.active { color: var(--ink); font-weight: 600; }
+    .nav-cta {
+      background: var(--ink); color: var(--white) !important;
+      padding: 9px 20px; border-radius: var(--r-pill);
+      font-size: .875rem; font-weight: 600;
+      transition: background .2s, transform .15s;
+    }
+    .nav-cta:hover { background: var(--signal); transform: translateY(-1px); }
+    .nav-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+    .nav-hamburger span { display: block; width: 24px; height: 2px; background: var(--ink); border-radius: 2px; }
+
+    /* ── SHARED UTILS ── */
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-size: .75rem; font-weight: 700; letter-spacing: .14em;
+      text-transform: uppercase; margin-bottom: 16px;
+    }
+    .eyebrow::before { content: ''; width: 28px; height: 2px; }
+    .eyebrow-sage { color: var(--sage); }
+    .eyebrow-sage::before { background: var(--sage); }
+    .eyebrow-red { color: #c73010; }
+    .eyebrow-red::before { background: #c73010; }
+    .eyebrow-gold { color: #a07018; }
+    .eyebrow-gold::before { background: var(--gold); }
+    .eyebrow-white { color: rgba(255,255,255,.8); }
+    .eyebrow-white::before { background: rgba(255,255,255,.4); }
+
+    .section-title {
+      font-family: var(--font-display); font-weight: 800;
+      font-size: clamp(1.5rem, 4vw, 3rem);
+      line-height: 1.1; letter-spacing: -.025em; margin-bottom: 20px;
+    }
+    .section-body { font-size: 1.05rem; color: #4a4a4a; line-height: 1.7; max-width: 640px; }
+
+    .fade-up {
+      opacity: 0; transform: translateY(24px);
+      transition: opacity .55s ease, transform .55s ease;
+    }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+    .tag {
+      display: inline-block;
+      padding: 5px 14px; border-radius: var(--r-pill);
+      font-size: .75rem; font-weight: 600;
+      background: var(--white); border: 1px solid var(--mist); color: #4a4a4a;
+    }
+
+    .divider { height: 1px; background: var(--mist); }
+
+    /* ── PAGE HERO ── */
+    .page-hero {
+      padding: 150px 5vw 72px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px; align-items: end;
+      max-width: 1200px; margin: 0 auto;
+    }
+    .page-hero h1 {
+      font-family: var(--font-display); font-weight: 800;
+      font-size: clamp(2.2rem, 5.5vw, 4.2rem);
+      line-height: 1.06; letter-spacing: -.03em; margin-bottom: 24px;
+    }
+    .page-hero h1 em { font-style: italic; color: var(--signal); }
+    .page-hero-lead {
+      font-size: clamp(1rem, 1.8vw, 1.15rem);
+      color: #4a4a4a; line-height: 1.75; margin-bottom: 32px;
+    }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
+    .btn-primary {
+      background: var(--signal); color: var(--white);
+      padding: 14px 30px; border-radius: var(--r-pill);
+      font-size: .95rem; font-weight: 600;
+      box-shadow: 0 4px 20px rgba(232,75,47,.25);
+      transition: transform .15s, box-shadow .15s;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(232,75,47,.35); }
+    .btn-outline {
+      border: 2px solid var(--mist); color: var(--ink);
+      padding: 12px 28px; border-radius: var(--r-pill);
+      font-size: .95rem; font-weight: 600;
+      transition: border-color .2s;
+    }
+    .btn-outline:hover { border-color: var(--ink); }
+
+    /* Hero right — at-a-glance card */
+    .hero-card {
+      background: var(--ink); border-radius: var(--r-lg);
+      padding: 44px 40px; color: var(--white);
+    }
+    .hero-card-title {
+      font-family: var(--font-display); font-size: .72rem; font-weight: 700;
+      letter-spacing: .14em; text-transform: uppercase;
+      color: rgba(255,255,255,.5); margin-bottom: 28px;
+    }
+    .hero-card-rows { display: flex; flex-direction: column; gap: 0; }
+    .hero-card-row {
+      display: flex; justify-content: space-between; align-items: baseline;
+      padding: 16px 0; border-bottom: 1px solid rgba(255,255,255,.08);
+      gap: 16px;
+    }
+    .hero-card-row:last-child { border-bottom: none; }
+    .hero-card-label { font-size: .85rem; color: rgba(255,255,255,.6); font-weight: 500; }
+    .hero-card-value {
+      font-family: var(--font-display); font-size: 1.1rem; font-weight: 700;
+      color: var(--white); text-align: right;
+    }
+    .hero-card-value.signal { color: var(--signal); }
+    .hero-card-value.gold   { color: var(--gold); }
+    .hero-card-value.sage   { color: #6da38e; }
+
+    /* ── TIMELINE / PHASES ── */
+    .phases-section {
+      padding: 100px 5vw;
+      background: var(--white);
+    }
+    .phases-inner { max-width: 1100px; margin: 0 auto; }
+
+    .timeline {
+      margin-top: 64px;
+      position: relative;
+    }
+    /* Vertical line */
+    .timeline::before {
+      content: '';
+      position: absolute; left: 28px; top: 0; bottom: 0;
+      width: 2px; background: var(--mist);
+    }
+
+    .timeline-phase { margin-bottom: 64px; padding-left: 76px; position: relative; }
+    .timeline-phase:last-child { margin-bottom: 0; }
+
+    .timeline-dot {
+      position: absolute; left: 0; top: 4px;
+      width: 56px; height: 56px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-display); font-weight: 800; font-size: 1rem;
+      border: 2px solid var(--mist); background: var(--white);
+      z-index: 1;
+    }
+    .timeline-dot.phase-1 { background: var(--signal-lt); border-color: #c73010; color: #c73010; }
+    .timeline-dot.phase-2 { background: var(--sage-lt);   border-color: var(--sage); color: var(--sage); }
+
+    .timeline-phase-label {
+      font-size: .72rem; font-weight: 700; letter-spacing: .14em;
+      text-transform: uppercase; margin-bottom: 6px;
+    }
+    .label-red  { color: #c73010; }
+    .label-sage { color: var(--sage); }
+
+    .timeline-phase-title {
+      font-family: var(--font-display); font-weight: 800;
+      font-size: clamp(1.3rem, 2.5vw, 2rem);
+      letter-spacing: -.02em; line-height: 1.15; margin-bottom: 6px;
+    }
+    .timeline-months {
+      font-size: .85rem; color: #6b6b6b; font-weight: 500; margin-bottom: 20px;
+    }
+    .timeline-desc {
+      font-size: 1rem; color: #4a4a4a; line-height: 1.75; max-width: 640px; margin-bottom: 24px;
+    }
+
+    .timeline-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px;
+      max-width: 680px;
+    }
+    .timeline-item {
+      background: var(--paper); border-radius: var(--r-md);
+      padding: 20px 20px 18px;
+      border-left: 3px solid var(--mist);
+      transition: border-color .2s;
+    }
+    .timeline-item:hover { border-left-color: var(--sage); }
+    .timeline-item h4 {
+      font-size: .9rem; font-weight: 700; margin-bottom: 6px; color: var(--ink);
+    }
+    .timeline-item p { font-size: .82rem; color: #5f5f5f; line-height: 1.55; }
+
+    .timeline-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+
+    /* ── WHAT FELLOWS GAIN ── */
+    .gains-section {
+      padding: 100px 5vw;
+      background: var(--paper);
+    }
+    .gains-inner { max-width: 1100px; margin: 0 auto; }
+
+    .gains-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 24px; margin-top: 56px;
+    }
+    .gain-card {
+      background: var(--white); border-radius: var(--r-md);
+      padding: 36px 28px;
+      border: 1.5px solid var(--mist);
+      transition: border-color .2s, transform .2s, box-shadow .2s;
+    }
+    .gain-card:hover {
+      border-color: var(--sage);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 32px rgba(58,92,78,.1);
+    }
+    .gain-card-icon {
+      width: 48px; height: 48px; border-radius: var(--r-sm);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 20px;
+    }
+    .gain-card h3 {
+      font-family: var(--font-display); font-size: 1.1rem; font-weight: 800;
+      margin-bottom: 10px;
+    }
+    .gain-card p { font-size: .9rem; color: #4a4a4a; line-height: 1.65; }
+
+    /* ── CAREER PATHWAYS — dark band ── */
+    .careers {
+      background: var(--ink); padding: 100px 5vw;
+    }
+    .careers-inner { max-width: 1100px; margin: 0 auto; }
+    .careers-inner .section-title { color: var(--white); }
+    .careers-inner .section-title em { font-style: italic; color: var(--gold); }
+    .careers-inner .section-body { color: rgba(255,255,255,.7); max-width: 560px; }
+
+    .careers-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 16px; margin-top: 56px;
+    }
+    .career-card {
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: var(--r-md); padding: 28px 24px;
+      transition: background .2s;
+    }
+    .career-card:hover { background: rgba(255,255,255,.1); }
+    .career-icon {
+      font-size: 1.6rem; margin-bottom: 14px; display: block;
+    }
+    .career-card h4 {
+      font-family: var(--font-display); font-size: 1rem; font-weight: 700;
+      color: var(--white); margin-bottom: 8px;
+    }
+    .career-card p { font-size: .82rem; color: rgba(255,255,255,.6); line-height: 1.55; }
+
+    /* ── ELIGIBILITY ── */
+    .eligibility { padding: 100px 5vw; background: var(--white); }
+    .eligibility-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start;
+    }
+    .elig-list { list-style: none; margin-top: 32px; display: flex; flex-direction: column; gap: 16px; }
+    .elig-item {
+      display: flex; gap: 16px; align-items: flex-start;
+      padding: 20px 24px; background: var(--paper); border-radius: var(--r-md);
+      border: 1.5px solid var(--mist);
+    }
+    .elig-check {
+      width: 24px; height: 24px; border-radius: 50%; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--sage-lt); margin-top: 1px;
+    }
+    .elig-check svg { width: 13px; height: 13px; color: var(--sage); }
+    .elig-item p { font-size: .92rem; color: #3a3a3a; line-height: 1.6; }
+    .elig-item strong { color: var(--ink); }
+
+    /* Commitment card */
+    .commitment-card {
+      background: var(--sage); border-radius: var(--r-lg);
+      padding: 48px 40px; color: var(--white);
+      position: sticky; top: 120px;
+    }
+    .commitment-card h3 {
+      font-family: var(--font-display); font-size: 1.5rem; font-weight: 800;
+      line-height: 1.2; margin-bottom: 20px; color: var(--white);
+    }
+    .commitment-card p { font-size: .95rem; color: rgba(255,255,255,.8); line-height: 1.7; margin-bottom: 16px; }
+    .commitment-card p:last-of-type { margin-bottom: 28px; }
+    .commitment-items { display: flex; flex-direction: column; gap: 14px; margin-bottom: 32px; }
+    .commitment-item {
+      display: flex; gap: 12px; align-items: flex-start;
+    }
+    .commitment-bullet {
+      width: 6px; height: 6px; border-radius: 50%; background: var(--gold);
+      flex-shrink: 0; margin-top: 7px;
+    }
+    .commitment-item p { font-size: .88rem; color: rgba(255,255,255,.8); line-height: 1.55; }
+    .btn-commitment {
+      display: block; background: var(--white); color: var(--sage);
+      padding: 14px 28px; border-radius: var(--r-pill);
+      font-size: .95rem; font-weight: 700; text-align: center;
+      transition: transform .15s, box-shadow .15s;
+    }
+    .btn-commitment:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,.15); }
+
+    /* ── COMMUNITY IMPACT ── */
+    .community-impact {
+      background: var(--paper); padding: 100px 5vw;
+    }
+    .community-impact-inner { max-width: 1100px; margin: 0 auto; }
+    .impact-two-col {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-top: 56px;
+    }
+    .impact-big-card {
+      border-radius: var(--r-md); padding: 44px 36px;
+      display: flex; flex-direction: column; gap: 16px;
+    }
+    .impact-big-card.card-red  { background: var(--signal-lt); border: 2px solid rgba(199,48,16,.15); }
+    .impact-big-card.card-sage { background: var(--sage-lt);   border: 2px solid rgba(58,92,78,.15); }
+    .impact-big-card.card-gold { background: var(--gold-lt);   border: 2px solid rgba(192,144,42,.15); }
+    .impact-big-card.card-ink  { background: var(--ink); }
+    .impact-card-num {
+      font-family: var(--font-display); font-size: 3.2rem;
+      font-weight: 800; line-height: 1;
+    }
+    .num-red  { color: #c73010; }
+    .num-sage { color: var(--sage); }
+    .num-gold { color: #a07018; }
+    .num-white { color: var(--white); }
+    .impact-big-card h4 {
+      font-family: var(--font-display); font-size: 1.1rem; font-weight: 700;
+    }
+    .impact-big-card p { font-size: .9rem; line-height: 1.65; }
+    .card-red  h4, .card-red  p  { color: #4a1a0a; }
+    .card-sage h4, .card-sage p  { color: #1e3529; }
+    .card-gold h4, .card-gold p  { color: #3a2a08; }
+    .card-ink  h4 { color: var(--white); }
+    .card-ink  p  { color: rgba(255,255,255,.72); }
+
+    /* ── CTA BAND ── */
+    .cta-band {
+      background: linear-gradient(135deg, #c03220 0%, #8f1f0f 100%);
+      color: var(--white); border-radius: var(--r-lg);
+      margin: 0 3vw 80px; padding: 72px 8vw;
+      display: grid; grid-template-columns: 1fr auto;
+      gap: 40px; align-items: center;
+    }
+    .cta-band h2 {
+      font-family: var(--font-display); font-weight: 800;
+      font-size: clamp(1.4rem, 3.5vw, 2.8rem);
+      line-height: 1.1; letter-spacing: -.025em;
+    }
+    .cta-band p { font-size: 1rem; color: rgba(255,255,255,1); margin-top: 12px; max-width: 500px; }
+    .cta-band-actions { display: flex; flex-direction: column; gap: 12px; flex-shrink: 0; }
+    .btn-white {
+      background: var(--white); color: #a82800;
+      padding: 15px 28px; border-radius: var(--r-pill);
+      font-size: .95rem; font-weight: 700; text-align: center;
+      transition: transform .15s, box-shadow .15s; white-space: nowrap;
+    }
+    .btn-white:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(0,0,0,.15); }
+    .btn-ghost-white {
+      border: 2px solid rgba(255,255,255,.5); color: var(--white);
+      padding: 13px 28px; border-radius: var(--r-pill);
+      font-size: .95rem; font-weight: 600; text-align: center;
+      transition: border-color .15s, background .15s;
+    }
+    .btn-ghost-white:hover { border-color: var(--white); background: rgba(255,255,255,.12); }
+
+    /* ── FOOTER ── */
+    footer { background: var(--ink); color: rgba(255,255,255,.5); padding: 60px 5vw 40px; }
+    .footer-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px;
+    }
+    .footer-brand h3 { font-family: var(--font-display); font-size: 1.1rem; font-weight: 800; color: var(--white); margin-bottom: 12px; }
+    .footer-brand p  { font-size: .875rem; line-height: 1.65; max-width: 300px; }
+    .footer-col h4   { font-size: .75rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--white); margin-bottom: 16px; }
+    .footer-col ul   { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col a    { font-size: .875rem; transition: color .2s; }
+    .footer-col a:hover { color: var(--white); }
+    .footer-bottom {
+      max-width: 1100px; margin: 40px auto 0;
+      padding-top: 24px; border-top: 1px solid rgba(255,255,255,.08);
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 12px; font-size: .8rem;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1000px) {
+      .careers-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 900px) {
+      .page-hero { grid-template-columns: 1fr; gap: 40px; padding-top: 130px; }
+      .eligibility-inner { grid-template-columns: 1fr; gap: 48px; }
+      .commitment-card { position: static; }
+      .impact-two-col { grid-template-columns: 1fr; }
+      .gains-grid { grid-template-columns: 1fr 1fr; }
+      .timeline-grid { grid-template-columns: 1fr; }
+      .cta-band { grid-template-columns: 1fr; }
+      .footer-inner { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 640px) {
+      nav { padding: 14px 5vw; }
+      .nav-links { display: none; }
+      .nav-hamburger { display: flex; }
+      .gains-grid { grid-template-columns: 1fr; }
+      .careers-grid { grid-template-columns: 1fr 1fr; }
+      .cta-band { margin: 0 0 48px; border-radius: 0; padding: 52px 6vw; }
+      .footer-inner { grid-template-columns: 1fr; }
+      .timeline::before { left: 22px; }
+      .timeline-phase { padding-left: 62px; }
+      .timeline-dot { width: 44px; height: 44px; font-size: .85rem; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .fade-up { transition: none; }
+      .nav-logo-dot { animation: none; }
+    }
+
+    /* ── MOBILE NAV DRAWER ── */
+    .nav-drawer {
+      display: none;
+      position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      z-index: 99;
+    }
+    .nav-drawer.open { display: block; }
+    .nav-drawer-overlay {
+      position: absolute; inset: 0;
+      background: rgba(13,15,20,0.55);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+    }
+    .nav-drawer-panel {
+      position: absolute; top: 0; right: 0; bottom: 0;
+      width: min(320px, 85vw);
+      background: var(--ink);
+      padding: 24px 0 40px;
+      display: flex; flex-direction: column;
+      overflow-y: auto;
+      box-shadow: -8px 0 40px rgba(0,0,0,.3);
+      transform: translateX(100%);
+      transition: transform .3s cubic-bezier(.4,0,.2,1);
+    }
+    .nav-drawer.open .nav-drawer-panel {
+      transform: translateX(0);
+    }
+    .nav-drawer-close {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 24px 24px;
+      border-bottom: 1px solid rgba(255,255,255,.1);
+      margin-bottom: 8px;
+    }
+    .nav-drawer-logo {
+      font-family: var(--font-display); font-weight: 800; font-size: 1.1rem;
+      color: var(--white); display: flex; align-items: center; gap: 10px;
+    }
+    .nav-drawer-logo-dot {
+      width: 8px; height: 8px; background: var(--signal); border-radius: 50%;
+    }
+    .nav-drawer-x {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: rgba(255,255,255,.08); border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background .2s;
+    }
+    .nav-drawer-x:hover { background: rgba(255,255,255,.16); }
+    .nav-drawer-x svg { width: 16px; height: 16px; color: var(--white); }
+    .nav-drawer-links {
+      display: flex; flex-direction: column; padding: 8px 0;
+      flex: 1;
+    }
+    .nav-drawer-links a {
+      padding: 14px 24px;
+      font-size: 1rem; font-weight: 600; color: rgba(255,255,255,.75);
+      border-left: 3px solid transparent;
+      transition: color .2s, border-color .2s, background .2s;
+    }
+    .nav-drawer-links a:hover {
+      color: var(--white); background: rgba(255,255,255,.05);
+      border-left-color: rgba(255,255,255,.2);
+    }
+    .nav-drawer-links a.active {
+      color: var(--white); border-left-color: var(--signal);
+      background: rgba(232,75,47,.1);
+    }
+    .nav-drawer-cta {
+      margin: 16px 24px 0;
+    }
+    .nav-drawer-cta a {
+      display: block; background: var(--signal); color: var(--white) !important;
+      padding: 14px 24px; border-radius: var(--r-pill);
+      font-size: .95rem; font-weight: 700; text-align: center;
+      transition: background .2s; border-left: none !important;
+    }
+    .nav-drawer-cta a:hover { background: #c73010; }
+
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="main-nav">
+  <a href="index.html" class="nav-logo">
+    <span class="nav-logo-dot"></span>
+    LELI
+  </a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="leli-about.html">About</a>
+    <a href="leli-fellowship.html" class="active">Fellowship</a>
+    <a href="leli-csn.html">Civic Signals</a>
+    <a href="leli-communities.html">Communities</a>
+    <a href="#apply" class="nav-cta">Apply Now</a>
+  </div>
+  <div class="nav-hamburger" role="button" aria-label="Open menu" tabindex="0">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- PAGE HERO -->
+<div style="background: var(--white); padding-bottom: 0;">
+  <div class="page-hero">
+    <div class="fade-up">
+      <div class="eyebrow eyebrow-red">The Fellowship</div>
+      <h1>12 months.<br />Real work.<br /><em>Yours to keep.</em></h1>
+      <p class="page-hero-lead">
+        The LELI Fellowship is a paid, 12-month program that prepares young adults from five unincorporated Contra Costa communities to transform lived experience into applied policy expertise — and to carry that expertise into the civic spaces where decisions are actually made.
+      </p>
+      <div class="hero-actions">
+        <a href="#apply" class="btn-primary">Apply Now</a>
+        <a href="#phases" class="btn-outline">See the program →</a>
+      </div>
+    </div>
+
+    <!-- At-a-glance card -->
+    <div class="hero-card fade-up">
+      <div class="hero-card-title">Fellowship at a Glance</div>
+      <div class="hero-card-rows">
+        <div class="hero-card-row">
+          <span class="hero-card-label">Duration</span>
+          <span class="hero-card-value">12 months</span>
+        </div>
+        <div class="hero-card-row">
+          <span class="hero-card-label">Cohort dates</span>
+          <span class="hero-card-value">Aug 2026 – Jul 2027</span>
+        </div>
+        <div class="hero-card-row">
+          <span class="hero-card-label">Fellows per cohort</span>
+          <span class="hero-card-value signal">10</span>
+        </div>
+        <div class="hero-card-row">
+          <span class="hero-card-label">Compensation</span>
+          <span class="hero-card-value gold">Paid</span>
+        </div>
+        <div class="hero-card-row">
+          <span class="hero-card-label">Eligibility</span>
+          <span class="hero-card-value">Ages 18–26</span>
+        </div>
+        <div class="hero-card-row">
+          <span class="hero-card-label">Location</span>
+          <span class="hero-card-value sage">Rodeo · Crockett · Pacheco<br />Vine Hill · Clyde</span>
+        </div>
+        <div class="hero-card-row">
+          <span class="hero-card-label">Civic processes</span>
+          <span class="hero-card-value">3+ per Fellow</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- PHASES TIMELINE -->
+<section class="phases-section" id="phases">
+  <div class="phases-inner">
+    <div class="eyebrow eyebrow-sage">Program Structure</div>
+    <h2 class="section-title">Two phases. One arc.</h2>
+    <p class="section-body">The fellowship builds from the inside out — first equipping Fellows with the skills and tools they need, then unleashing those skills on real equity issues in real policy time.</p>
+
+    <div class="timeline">
+
+      <!-- PHASE 1 -->
+      <div class="timeline-phase fade-up" id="phase1">
+        <div class="timeline-dot phase-1">01</div>
+        <div class="timeline-phase-label label-red">Phase One</div>
+        <h3 class="timeline-phase-title">Training &amp; Foundation</h3>
+        <div class="timeline-months">Months 1–4 · August – November 2026</div>
+        <p class="timeline-desc">
+          Fellows begin by building the three core capacities that anchor everything that follows: a strong leadership identity rooted in self-validation; civic intelligence research skills for translating lived experience into system-level insight; and the ability to direct AI as a research tool — so that technology amplifies what Fellows can attend to, rather than replacing their judgment.
+        </p>
+        <p class="timeline-desc">
+          This phase also includes structured engagement with local government partners, so Fellows begin building relationships with the decision-makers their research will eventually reach.
+        </p>
+        <div class="timeline-grid">
+          <div class="timeline-item">
+            <h4>Leadership Identity</h4>
+            <p>Self-validation, confidence in civic spaces, and understanding the value of lived expertise in policy rooms.</p>
+          </div>
+          <div class="timeline-item">
+            <h4>Civic Intelligence Research</h4>
+            <p>How to read public comments, surface patterns across neighborhoods, and translate community voice into system-level insight.</p>
+          </div>
+          <div class="timeline-item">
+            <h4>Directing AI as a Tool</h4>
+            <p>Fellows learn to direct AI to process volume and translate languages — keeping interpretation and meaning-making in their own hands.</p>
+          </div>
+          <div class="timeline-item">
+            <h4>Government Partner Introductions</h4>
+            <p>Warm introductions to City, County, and State contacts whose processes Fellows will engage in Phase Two.</p>
+          </div>
+        </div>
+        <div class="timeline-tags">
+          <span class="tag">LELI Method</span>
+          <span class="tag">Civic Research Training</span>
+          <span class="tag">AI Direction</span>
+          <span class="tag">Facilitated Curriculum</span>
+          <span class="tag">Government Relationships</span>
+        </div>
+      </div>
+
+      <!-- PHASE 2 -->
+      <div class="timeline-phase fade-up" id="phase2">
+        <div class="timeline-dot phase-2">02</div>
+        <div class="timeline-phase-label label-sage">Phase Two</div>
+        <h3 class="timeline-phase-title">Research Sprints &amp; Policy Engagement</h3>
+        <div class="timeline-months">Months 4–12 · November 2026 – July 2027</div>
+        <p class="timeline-desc">
+          Fellows shift from training into action. Working through the Civic Signals Network, cohorts lead research sprints addressing urgent equity issues identified by and for their communities — housing, transportation, public health, environmental safety, and more. Findings are delivered on timelines aligned with active policy conversations, not after the fact.
+        </p>
+        <p class="timeline-desc">
+          Each Fellow engages in a minimum of three real civic processes: City Council meetings, County hearings, State legislative visits. Their research goes with them — submitted as formal findings to the decision-makers with authority to act on it.
+        </p>
+        <div class="timeline-grid">
+          <div class="timeline-item">
+            <h4>Cohort Research Sprints</h4>
+            <p>Time-bounded research projects on equity issues the community identifies as urgent, produced in policy-ready form.</p>
+          </div>
+          <div class="timeline-item">
+            <h4>Civic Signals Network Analysis</h4>
+            <p>Fellows use the community-owned research platform to read across volume and surface cross-neighborhood patterns.</p>
+          </div>
+          <div class="timeline-item">
+            <h4>Policy &amp; Civic Engagement</h4>
+            <p>City Councils, County meetings, State hearings, and legislative visits — Fellows show up with documented research, not just testimony.</p>
+          </div>
+          <div class="timeline-item">
+            <h4>Community Feedback Sessions</h4>
+            <p>Five neighborhood convenings where Fellows share findings back with residents and refine their analysis based on community input.</p>
+          </div>
+        </div>
+        <div class="timeline-tags">
+          <span class="tag">Research Sprints</span>
+          <span class="tag">Civic Signals Network</span>
+          <span class="tag">Policy Submissions</span>
+          <span class="tag">County Hearings</span>
+          <span class="tag">Community Feedback</span>
+          <span class="tag">Cross-Neighborhood Analysis</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- WHAT FELLOWS GAIN -->
+<section class="gains-section" id="gains">
+  <div class="gains-inner">
+    <div class="eyebrow eyebrow-sage">What You Gain</div>
+    <h2 class="section-title">Skills, access, and a track record.</h2>
+    <p class="section-body">Fellows leave the program with more than a certificate. They leave with real applied research experience, a professional network rooted in civic infrastructure, and a documented body of policy work they can point to.</p>
+
+    <div class="gains-grid">
+      <div class="gain-card fade-up">
+        <div class="gain-card-icon" style="background: var(--signal-lt);">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#c73010" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+        </div>
+        <h3>Paid Fellowship</h3>
+        <p>Fellows are compensated at rates that recognize the value of their expertise — not as a stipend, but as pay for real work. Lived experience is treated as the professional asset it is.</p>
+      </div>
+
+      <div class="gain-card fade-up">
+        <div class="gain-card-icon" style="background: var(--sage-lt);">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3a5c4e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <h3>Applied Research Skills</h3>
+        <p>Civic intelligence research methods, public comment analysis, cross-neighborhood pattern identification, and research documentation — skills that translate directly into careers in civic tech, policy research, and data analysis.</p>
+      </div>
+
+      <div class="gain-card fade-up">
+        <div class="gain-card-icon" style="background: var(--gold-lt);">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#a07018" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        </div>
+        <h3>AI Direction Proficiency</h3>
+        <p>Fellows learn to use AI as a research tool — directing it to handle scale, language translation, and volume — while keeping analysis and meaning-making in their own hands. A skill set with growing demand across sectors.</p>
+      </div>
+
+      <div class="gain-card fade-up">
+        <div class="gain-card-icon" style="background: #eef2ff;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4a5de4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+        </div>
+        <h3>Civic Network &amp; Access</h3>
+        <p>Fellows build working relationships with City, County, and State decision-makers — contacts and credibility that persist long after the fellowship ends and position Fellows for sustained civic impact.</p>
+      </div>
+
+      <div class="gain-card fade-up">
+        <div class="gain-card-icon" style="background: var(--signal-lt);">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#c73010" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        </div>
+        <h3>A Policy Portfolio</h3>
+        <p>Fellows produce real findings submitted to real decision-making processes. That work is documented, attributed, and portable — a body of evidence that demonstrates civic research capability to future employers and partners.</p>
+      </div>
+
+      <div class="gain-card fade-up">
+        <div class="gain-card-icon" style="background: var(--sage-lt);">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3a5c4e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </div>
+        <h3>Alumni Network &amp; Community</h3>
+        <p>Fellows join a cohort of peers and a growing alumni network rooted in the same five communities — a source of ongoing collaboration, mutual support, and collective advocacy beyond the fellowship year.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CAREER PATHWAYS -->
+<section class="careers" id="careers">
+  <div class="careers-inner">
+    <div class="eyebrow eyebrow-gold">Career Pathways</div>
+    <h2 class="section-title">Where Fellows go <em>from here.</em></h2>
+    <p class="section-body">The skills Fellows build — civic research, AI direction, policy engagement, community facilitation — are in growing demand across sectors. LELI is designed as a career launchpad, not a one-time program.</p>
+
+    <div class="careers-grid">
+      <div class="career-card fade-up">
+        <span class="career-icon">🏛️</span>
+        <h4>Civic Technology</h4>
+        <p>Government innovation offices, civic tech startups, and public-sector design teams are actively seeking people who understand both community experience and data-driven research.</p>
+      </div>
+      <div class="career-card fade-up">
+        <span class="career-icon">📋</span>
+        <h4>Policy Research</h4>
+        <p>Think tanks, advocacy organizations, and legislative offices need analysts who can connect quantitative data to the lived realities behind the numbers.</p>
+      </div>
+      <div class="career-card fade-up">
+        <span class="career-icon">🤝</span>
+        <h4>Community Organizing</h4>
+        <p>Fellows are equipped to lead — not just participate in — community organizing efforts, with research skills that give their advocacy institutional credibility.</p>
+      </div>
+      <div class="career-card fade-up">
+        <span class="career-icon">📊</span>
+        <h4>Data Analysis</h4>
+        <p>Experience directing AI tools and synthesizing large volumes of public input is directly applicable to data analyst and research coordinator roles across industries.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMMUNITY IMPACT -->
+<section class="community-impact">
+  <div class="community-impact-inner">
+    <div class="eyebrow eyebrow-sage">Community Impact</div>
+    <h2 class="section-title">The fellowship benefits extend far beyond the Fellows.</h2>
+    <p class="section-body">When Fellows produce and publish findings, the entire community benefits — with better information, better advocacy, and better infrastructure for the long term.</p>
+
+    <div class="impact-two-col">
+      <div class="impact-big-card card-red fade-up">
+        <div class="impact-card-num num-red">5+</div>
+        <h4>Community listening sessions across all five neighborhoods</h4>
+        <p>Findings shared back with residents, faith communities, mutual aid networks, and local organizations — so the community sees what Fellows found, not just policymakers.</p>
+      </div>
+      <div class="impact-big-card card-sage fade-up">
+        <div class="impact-card-num num-sage">3+</div>
+        <h4>Policy or civic processes receive Fellow-produced research</h4>
+        <p>Findings delivered at City Councils, County hearings, and State legislative visits on timelines relevant to active decisions — not archived after the fact.</p>
+      </div>
+      <div class="impact-big-card card-gold fade-up">
+        <div class="impact-card-num num-gold">1st</div>
+        <h4>Cross-neighborhood visibility these communities have ever had</h4>
+        <p>For the first time, housing pressures in Rodeo can be understood alongside Crockett's. Transportation gaps in Clyde alongside those in Vine Hill and Pacheco. Connected concerns enable coordinated advocacy.</p>
+      </div>
+      <div class="impact-big-card card-ink fade-up">
+        <div class="impact-card-num num-white">∞</div>
+        <h4 style="color:white;">Durable civic infrastructure that outlasts any single cohort</h4>
+        <p>The Civic Signals Network, the cohort alumni network, and the replicable LELI model belong to these communities — persisting beyond any funding cycle.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ELIGIBILITY -->
+<section class="eligibility" id="apply">
+  <div class="eligibility-inner">
+    <div class="fade-up">
+      <div class="eyebrow eyebrow-red">Eligibility &amp; Application</div>
+      <h2 class="section-title">Is this fellowship for you?</h2>
+      <p class="section-body" style="margin-bottom: 8px;">
+        LELI is designed for young adults from the five target communities who have navigated the systems their research will help reshape. No prior policy or research experience is required — that's what the fellowship builds.
+      </p>
+
+      <ul class="elig-list">
+        <li class="elig-item">
+          <div class="elig-check">
+            <svg viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 7 5 10 11 3"/></svg>
+          </div>
+          <p><strong>Ages 18–26</strong> at the start of the fellowship in August 2026.</p>
+        </li>
+        <li class="elig-item">
+          <div class="elig-check">
+            <svg viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 7 5 10 11 3"/></svg>
+          </div>
+          <p><strong>Living in or deeply connected to</strong> Rodeo, Crockett, Pacheco, Vine Hill, or Clyde.</p>
+        </li>
+        <li class="elig-item">
+          <div class="elig-check">
+            <svg viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 7 5 10 11 3"/></svg>
+          </div>
+          <p><strong>Committed to the full 12 months</strong> — August 2026 through July 2027.</p>
+        </li>
+        <li class="elig-item">
+          <div class="elig-check">
+            <svg viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 7 5 10 11 3"/></svg>
+          </div>
+          <p><strong>No prior policy experience required.</strong> Lived experience of navigating economic instability, housing insecurity, or structural barriers is the foundation we build from.</p>
+        </li>
+        <li class="elig-item">
+          <div class="elig-check">
+            <svg viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 7 5 10 11 3"/></svg>
+          </div>
+          <p><strong>Multilingual applicants encouraged.</strong> The Civic Signals Network is designed to include voices in every language spoken across these communities.</p>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Commitment card -->
+    <div class="commitment-card fade-up">
+      <h3>What LELI commits to Fellows.</h3>
+      <p>This isn't a volunteer opportunity. LELI makes concrete commitments to every Fellow who joins the cohort.</p>
+      <div class="commitment-items">
+        <div class="commitment-item">
+          <div class="commitment-bullet"></div>
+          <p><strong style="color:white;">Paid compensation</strong> at rates reflecting the professional value of lived expertise and civic research work.</p>
+        </div>
+        <div class="commitment-item">
+          <div class="commitment-bullet"></div>
+          <p><strong style="color:white;">Wraparound support</strong> to address barriers — transportation, scheduling, and other needs that can prevent participation.</p>
+        </div>
+        <div class="commitment-item">
+          <div class="commitment-bullet"></div>
+          <p><strong style="color:white;">Real access</strong> to City, County, and State decision-making processes — not observer seats, but participant roles with documented findings.</p>
+        </div>
+        <div class="commitment-item">
+          <div class="commitment-bullet"></div>
+          <p><strong style="color:white;">A research platform</strong> — the Civic Signals Network — designed around Fellow judgment, not around algorithmic efficiency.</p>
+        </div>
+        <div class="commitment-item">
+          <div class="commitment-bullet"></div>
+          <p><strong style="color:white;">Recognition</strong> — Fellow-produced findings are attributed to Fellows, not to the organizations that support them.</p>
+        </div>
+      </div>
+      <a href="leli-apply.html" class="btn-commitment">Apply to the Fellowship</a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BAND -->
+<div>
+  <div class="cta-band fade-up">
+    <div>
+      <h2>Questions about the fellowship?</h2>
+      <p>Reach out to the LELI team directly. We're happy to answer questions about eligibility, the application process, or what to expect as a Fellow.</p>
+    </div>
+    <div class="cta-band-actions">
+      <a href="mailto:loren@dalbert.design" class="btn-white">Contact LELI</a>
+      <a href="leli-about.html" class="btn-ghost-white">Meet the team</a>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <h3>LELI</h3>
+      <p>The Lived Experience Leadership Institute prepares community members to co-design programs and policy at the speed and scale of policymaking spaces.</p>
+      <p style="margin-top: 16px; font-size: .8rem;">A flagship program of Ridiculously Hopeful Futures in California.<br />Fiscally sponsored by Realize Impact, a 501(c)(3) public charity.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Program</h4>
+      <ul>
+        <li><a href="leli-about.html">About LELI</a></li>
+        <li><a href="leli-fellowship.html">The Fellowship</a></li>
+        <li><a href="leli-csn.html">Civic Signals Network</a></li>
+        <li><a href="leli-apply.html">Apply</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Communities</h4>
+      <ul>
+        <li><a href="#">Rodeo</a></li>
+        <li><a href="#">Crockett</a></li>
+        <li><a href="#">Pacheco</a></li>
+        <li><a href="#">Vine Hill</a></li>
+        <li><a href="#">Clyde</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Connect</h4>
+      <ul>
+        <li><a href="mailto:loren@dalbert.design">Partners</a></li>
+        <li><a href="mailto:loren@dalbert.design">Contact</a></li>
+        <li><a href="#">Press</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Ridiculously Hopeful Futures in California · Dalbert Design × CivicMakers</span>
+    <span>Rodeo · Crockett · Pacheco · Vine Hill · Clyde</span>
+  </div>
+</footer>
+
+<script>
+  const nav = document.getElementById('main-nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (e.isIntersecting) {
+        const siblings = [...e.target.parentElement.querySelectorAll('.fade-up')];
+        const idx = siblings.indexOf(e.target);
+        setTimeout(() => { e.target.classList.add('visible'); }, idx * 100);
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  /* ── Mobile nav drawer ── */
+  (function() {
+    const hamburger = document.querySelector('.nav-hamburger');
+    const drawer    = document.getElementById('nav-drawer');
+    const overlay   = document.getElementById('nav-overlay');
+    const closeBtn  = document.getElementById('nav-close');
+    if (!hamburger || !drawer) return;
+
+    function openDrawer() {
+      drawer.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      closeBtn.focus();
+    }
+    function closeDrawer() {
+      drawer.classList.remove('open');
+      document.body.style.overflow = '';
+      hamburger.focus();
+    }
+
+    hamburger.addEventListener('click', openDrawer);
+    hamburger.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openDrawer(); } });
+    overlay.addEventListener('click', closeDrawer);
+    closeBtn.addEventListener('click', closeDrawer);
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer(); });
+
+    // Close drawer when a link is clicked
+    drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', closeDrawer));
+  })();
+
+</script>
+</body>
+</html>
