@@ -1054,6 +1054,9 @@
       consent:         'Yes'
     };
 
+    // Debug: log the data object before sending
+    console.log('Submitting data:', JSON.stringify(data, null, 2));
+
     // Show loading state on button
     const submitBtn = document.querySelector('.btn-submit');
     const originalText = submitBtn.textContent;
