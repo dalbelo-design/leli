@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About — LELI | Lived Experience Leadership Institute</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,800;0,9..144,900;1,9..144,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    /* ── TOKENS ── */
+    :root {
+      --ink:       #0d0f14;
+      --paper:     #f9f8ff;
+      --signal:    #e84b2f;
+      --signal-lt: #fef0ed;
+      --sage:      #3a5c4e;
+      --sage-lt:   #eaf1ee;
+      --gold:      #c9952a;
+      --gold-lt:   #fdf4e3;
+      --mist:      #e8e5de;
+      --white:     #ffffff;
+
+      --font-display: 'Fraunces', Georgia, serif;
+      --font-body:    'Inter', sans-serif;
+
+      --r-sm: 6px;
+      --r-md: 14px;
+      --r-lg: 28px;
+      --r-pill: 999px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; overflow-x: hidden; max-width: 100%; }
+    body {
+      font-family: var(--font-body);
+      background: var(--paper);
+      color: var(--ink);
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+      width: 100%;
+      max-width: 100vw;
+    }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 5vw;
+      background: rgba(249,248,255,0.9);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--mist);
+      transition: box-shadow .3s;
+    }
+    nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,.08); }
+
+    .nav-logo {
+      font-family: var(--font-display);
+      font-weight: 800; font-size: 1.1rem;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .nav-logo-dot {
+      width: 9px; height: 9px;
+      background: var(--signal); border-radius: 50%;
+      animation: pulse-dot 2.4s ease-in-out infinite;
+    }
+    @keyframes pulse-dot {
+      0%,100% { opacity: 1; transform: scale(1); }
+      50%      { opacity: .5; transform: scale(.7); }
+    }
+    .nav-links { display: flex; gap: 2rem; align-items: center; }
+    .nav-links a { font-size: .875rem; font-weight: 500; color: #555; transition: color .2s; }
+    .nav-links a:hover { color: var(--ink); }
+    .nav-links a.active { color: var(--ink); font-weight: 600; }
+    .nav-cta {
+      background: var(--ink); color: var(--white) !important;
+      padding: 9px 20px; border-radius: var(--r-pill);
+      font-size: .875rem; font-weight: 600;
+      transition: background .2s, transform .15s;
+    }
+    .nav-cta:hover { background: var(--signal); transform: translateY(-1px); }
+    .nav-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+    .nav-hamburger span { display: block; width: 24px; height: 2px; background: var(--ink); border-radius: 2px; }
+
+    /* ── SHARED ── */
+    .section-eyebrow {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-size: .75rem; font-weight: 700; letter-spacing: .14em;
+      text-transform: uppercase; color: var(--sage); margin-bottom: 16px;
+    }
+    .section-eyebrow::before { content: ''; width: 28px; height: 2px; background: var(--sage); }
+    .section-title {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: clamp(1.5rem, 4vw, 3rem);
+      line-height: 1.1; letter-spacing: -.025em;
+      margin-bottom: 20px;
+    }
+    .section-body {
+      font-size: 1.05rem; color: #4a4a4a;
+      line-height: 1.7; max-width: 640px;
+    }
+    .fade-up {
+      opacity: 0; transform: translateY(28px);
+      transition: opacity .6s ease, transform .6s ease;
+    }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── PAGE HERO ── */
+    .page-hero {
+      padding: 160px 5vw 80px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .page-hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-size: .75rem; font-weight: 700; letter-spacing: .14em;
+      text-transform: uppercase; color: #c73010; margin-bottom: 24px;
+    }
+    .page-hero-eyebrow::before { content: ''; width: 28px; height: 2px; background: #c73010; }
+    .page-hero h1 {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: clamp(2rem, 6vw, 4.5rem);
+      line-height: 1.06; letter-spacing: -.03em;
+      max-width: 820px;
+      margin-bottom: 28px;
+    }
+    .page-hero h1 em {
+      font-style: italic;
+      color: var(--sage);
+    }
+    .page-hero-lead {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      color: #4a4a4a; line-height: 1.7;
+      max-width: 640px;
+    }
+
+    /* ── DIVIDER ── */
+    .divider {
+      height: 1px; background: var(--mist);
+      max-width: 1100px; margin: 0 auto;
+    }
+
+    /* ── ORIGIN STORY ── */
+    .origin {
+      padding: 80px 5vw;
+      max-width: 1100px; margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px; align-items: start;
+    }
+    .origin-text p {
+      font-size: 1.05rem; color: #3a3a3a;
+      line-height: 1.8; margin-bottom: 20px;
+    }
+    .origin-text p:last-child { margin-bottom: 0; }
+    .origin-pull {
+      position: sticky; top: 120px;
+    }
+    .pull-quote {
+      font-family: var(--font-display);
+      font-size: clamp(1.4rem, 2.5vw, 2rem);
+      font-weight: 700; line-height: 1.3;
+      color: var(--ink); margin-bottom: 24px;
+    }
+    .pull-quote em { font-style: italic; color: var(--sage); }
+    .pull-divider { width: 40px; height: 3px; background: var(--signal); margin-bottom: 20px; }
+    .pull-credit { font-size: .85rem; color: #6b6b6b; }
+
+    /* ── DARK BAND — The Distinction ── */
+    .distinction {
+      background: var(--ink);
+      padding: 80px 5vw;
+    }
+    .distinction-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 64px; align-items: center;
+    }
+    .distinction h2 {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: clamp(1.5rem, 3.5vw, 2.6rem);
+      line-height: 1.15; letter-spacing: -.025em;
+      color: var(--white); margin-bottom: 20px;
+    }
+    .distinction h2 em { font-style: italic; color: var(--gold); }
+    .distinction p { font-size: 1rem; color: rgba(255,255,255,.72); line-height: 1.75; }
+    .distinction-cards { display: flex; flex-direction: column; gap: 16px; }
+    .distinction-card {
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: var(--r-md);
+      padding: 28px 28px 24px;
+    }
+    .distinction-card-label {
+      font-size: .7rem; font-weight: 700; letter-spacing: .14em;
+      text-transform: uppercase; margin-bottom: 10px;
+    }
+    .distinction-card-label.red  { color: var(--signal); }
+    .distinction-card-label.gold { color: var(--gold); }
+    .distinction-card h4 {
+      font-family: var(--font-display);
+      font-size: 1.15rem; font-weight: 700;
+      color: var(--white); margin-bottom: 8px;
+    }
+    .distinction-card p { font-size: .9rem; color: rgba(255,255,255,.65); line-height: 1.6; }
+
+    /* ── TEAM ── */
+    .team {
+      padding: 100px 5vw;
+      max-width: 1100px; margin: 0 auto;
+    }
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px; margin-top: 56px;
+    }
+    .team-card {
+      background: var(--white);
+      border-radius: var(--r-md);
+      overflow: hidden;
+      border: 1.5px solid var(--mist);
+      transition: border-color .25s, box-shadow .25s, transform .2s;
+    }
+    .team-card:hover {
+      border-color: var(--sage);
+      box-shadow: 0 12px 40px rgba(58,92,78,.1);
+      transform: translateY(-3px);
+    }
+    .team-card-top {
+      height: 8px;
+    }
+    .team-card-top.signal { background: linear-gradient(90deg, #c73010, var(--signal)); }
+    .team-card-top.sage   { background: linear-gradient(90deg, var(--sage), #6da38e); }
+    .team-card-top.gold   { background: linear-gradient(90deg, #a07018, var(--gold)); }
+
+    .team-card-body { padding: 32px 28px 36px; }
+    .team-card-role {
+      font-size: .7rem; font-weight: 700; letter-spacing: .14em;
+      text-transform: uppercase; color: var(--sage); margin-bottom: 10px;
+    }
+    .team-card-name {
+      font-family: var(--font-display);
+      font-size: 1.35rem; font-weight: 800;
+      line-height: 1.15; margin-bottom: 4px;
+    }
+    .team-card-org {
+      font-size: .8rem; color: #6b6b6b; margin-bottom: 20px; font-weight: 500;
+    }
+    .team-card-bio {
+      font-size: .9rem; color: #4a4a4a; line-height: 1.7;
+    }
+    .team-card-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+    .team-tag {
+      padding: 4px 12px; border-radius: var(--r-pill);
+      font-size: .72rem; font-weight: 600;
+      background: var(--paper); border: 1px solid var(--mist);
+      color: #4a4a4a;
+    }
+
+    /* ── ORGANIZATIONS ── */
+    .orgs {
+      background: var(--sage-lt);
+      padding: 100px 5vw;
+    }
+    .orgs-inner { max-width: 1100px; margin: 0 auto; }
+    .orgs-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px; margin-top: 56px;
+    }
+    .org-card {
+      background: var(--white);
+      border-radius: var(--r-md);
+      padding: 40px 32px;
+      border: 1.5px solid rgba(58,92,78,.15);
+      transition: border-color .2s, box-shadow .2s;
+    }
+    .org-card:hover {
+      border-color: var(--sage);
+      box-shadow: 0 8px 32px rgba(58,92,78,.1);
+    }
+    .org-card-icon {
+      width: 48px; height: 48px;
+      border-radius: var(--r-sm);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 20px;
+    }
+    .org-card h3 {
+      font-family: var(--font-display);
+      font-size: 1.15rem; font-weight: 800;
+      margin-bottom: 6px;
+    }
+    .org-card-type {
+      font-size: .72rem; font-weight: 700; letter-spacing: .1em;
+      text-transform: uppercase; color: #6b6b6b; margin-bottom: 16px;
+    }
+    .org-card p { font-size: .9rem; color: #4a4a4a; line-height: 1.65; }
+
+    /* ── EQUITY ── */
+    .equity {
+      padding: 100px 5vw;
+      max-width: 1100px; margin: 0 auto;
+    }
+    .equity-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px; margin-top: 56px;
+    }
+    .equity-card {
+      border-radius: var(--r-md);
+      padding: 40px 36px;
+      border: 2px solid var(--mist);
+      transition: border-color .2s;
+    }
+    .equity-card:hover { border-color: var(--signal); }
+    .equity-num {
+      font-family: var(--font-display);
+      font-size: 2.8rem; font-weight: 800;
+      line-height: 1; margin-bottom: 10px;
+      color: var(--signal);
+    }
+    .equity-card h4 {
+      font-family: var(--font-display);
+      font-size: 1.05rem; font-weight: 700; margin-bottom: 10px;
+    }
+    .equity-card p { font-size: .9rem; color: #4a4a4a; line-height: 1.65; }
+
+    /* ── FUNDER RECOGNITION ── */
+    .funders {
+      background: var(--white);
+      padding: 60px 5vw;
+      border-top: 1px solid var(--mist);
+    }
+    .funders-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: flex; align-items: center; gap: 40px; flex-wrap: wrap;
+    }
+    .funders-label {
+      font-size: .72rem; font-weight: 700; letter-spacing: .12em;
+      text-transform: uppercase; color: #5f5f5f; flex-shrink: 0;
+    }
+    .funders-badges { display: flex; flex-wrap: wrap; gap: 12px; }
+    .funder-badge {
+      background: var(--paper);
+      border: 1.5px solid var(--mist);
+      border-radius: var(--r-pill);
+      padding: 10px 22px;
+      font-size: .875rem; font-weight: 600; color: var(--ink);
+    }
+
+    /* ── CTA BAND ── */
+    .cta-band {
+      background: linear-gradient(135deg, #c03220 0%, #8f1f0f 100%);
+      color: var(--white);
+      border-radius: var(--r-lg);
+      margin: 0 3vw 80px;
+      padding: 72px 8vw;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 40px; align-items: center;
+    }
+    .cta-band h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.4rem, 3.5vw, 2.8rem);
+      font-weight: 800; line-height: 1.1; letter-spacing: -.025em;
+    }
+    .cta-band p { font-size: 1rem; color: rgba(255,255,255,1); margin-top: 12px; max-width: 500px; }
+    .cta-band-actions { display: flex; flex-direction: column; gap: 12px; flex-shrink: 0; }
+    .btn-white {
+      background: var(--white); color: #a82800;
+      padding: 15px 28px; border-radius: var(--r-pill);
+      font-size: .95rem; font-weight: 700; text-align: center;
+      transition: transform .15s, box-shadow .15s; white-space: nowrap;
+    }
+    .btn-white:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(0,0,0,.15); }
+    .btn-ghost-white {
+      border: 2px solid rgba(255,255,255,.5); color: var(--white);
+      padding: 13px 28px; border-radius: var(--r-pill);
+      font-size: .95rem; font-weight: 600; text-align: center;
+      transition: border-color .15s, background .15s;
+    }
+    .btn-ghost-white:hover { border-color: var(--white); background: rgba(255,255,255,.12); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--ink); color: rgba(255,255,255,.5);
+      padding: 60px 5vw 40px;
+    }
+    .footer-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px;
+    }
+    .footer-brand h3 { font-family: var(--font-display); font-size: 1.1rem; font-weight: 800; color: var(--white); margin-bottom: 12px; }
+    .footer-brand p { font-size: .875rem; line-height: 1.65; max-width: 300px; }
+    .footer-col h4 { font-size: .75rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--white); margin-bottom: 16px; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col a { font-size: .875rem; transition: color .2s; }
+    .footer-col a:hover { color: var(--white); }
+    .footer-bottom {
+      max-width: 1100px; margin: 40px auto 0;
+      padding-top: 24px; border-top: 1px solid rgba(255,255,255,.08);
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
+      font-size: .8rem;
+    }
+    .footer-bottom a:hover { color: var(--white); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .origin { grid-template-columns: 1fr; gap: 48px; }
+      .origin-pull { position: static; }
+      .distinction-inner { grid-template-columns: 1fr; gap: 48px; }
+      .team-grid { grid-template-columns: 1fr 1fr; }
+      .orgs-grid { grid-template-columns: 1fr 1fr; }
+      .equity-grid { grid-template-columns: 1fr 1fr; }
+      .cta-band { grid-template-columns: 1fr; }
+      .footer-inner { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 640px) {
+      nav { padding: 14px 5vw; }
+      .nav-links { display: none; }
+      .nav-hamburger { display: flex; }
+      .page-hero { padding: 130px 5vw 60px; }
+      .team-grid { grid-template-columns: 1fr; }
+      .orgs-grid { grid-template-columns: 1fr; }
+      .equity-grid { grid-template-columns: 1fr; }
+      .cta-band { margin: 0 0 48px; border-radius: 0; padding: 52px 6vw; }
+      .footer-inner { grid-template-columns: 1fr; }
+      .funders-inner { flex-direction: column; align-items: flex-start; gap: 20px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .fade-up { transition: none; }
+      .nav-logo-dot { animation: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="main-nav">
+  <a href="index.html" class="nav-logo">
+    <span class="nav-logo-dot"></span>
+    LELI
+  </a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="leli-about.html" class="active">About</a>
+    <a href="leli-fellowship.html">Fellowship</a>
+    <a href="leli-csn.html">Civic Signals</a>
+    <a href="leli-communities.html">Communities</a>
+    <a href="leli-apply.html" class="nav-cta">Apply Now</a>
+  </div>
+  <div class="nav-hamburger" role="button" aria-label="Open menu" tabindex="0">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- PAGE HERO -->
+<div class="page-hero fade-up">
+  <div class="page-hero-eyebrow">About LELI</div>
+  <h1>Built by community.<br />Designed for <em>real change.</em></h1>
+  <p class="page-hero-lead">
+    The Lived Experience Leadership Institute was founded on a simple conviction: the people closest to a problem hold the deepest expertise for solving it. LELI exists to make that expertise count — in the rooms, at the tables, and in the policy conversations where decisions are actually made.
+  </p>
+</div>
+
+<div class="divider"></div>
+
+<!-- ORIGIN STORY -->
+<div class="origin">
+  <div class="origin-text fade-up">
+    <div class="section-eyebrow">Our Story</div>
+    <h2 class="section-title">Where LELI comes from.</h2>
+    <p>
+      LELI grew out of the East Contra Costa Mobility LABs initiative, where community-designed work revealed a persistent gap: residents of unincorporated communities like Rodeo, Crockett, Pacheco, Vine Hill, and Clyde had deep knowledge of what wasn't working — but no structured pathway to carry that knowledge into the policy spaces where it could actually change things.
+    </p>
+    <p>
+      That work catalyzed $4.25 million in Contra Costa County funding for guaranteed income pilots, and demonstrated that when community members are trained and supported to translate lived experience into policy language, the results are both more equitable and more durable than top-down design alone.
+    </p>
+    <p>
+      LELI is the infrastructure that institutionalizes that lesson. It is a 12-month fellowship that does not extract community voice — it builds community capacity. Fellows don't just provide input. They become the researchers, the analysts, and the advocates.
+    </p>
+    <p>
+      The Civic Signals Network — the community-owned research platform at the heart of the fellowship — ensures that the findings Fellows produce carry the weight of rigorous, documented community reasoning, not just algorithmic summary. AI handles the scale. Fellows handle the truth.
+    </p>
+  </div>
+
+  <div class="origin-pull fade-up">
+    <div class="pull-divider"></div>
+    <p class="pull-quote">
+      "Lived experience can tell you what's wrong. <em>Living expertise</em> can help you build it right."
+    </p>
+    <p class="pull-credit">— The LELI Framework</p>
+
+    <div style="margin-top: 48px; background: var(--gold-lt); border-radius: var(--r-md); padding: 32px 28px; border-left: 4px solid var(--gold);">
+      <div style="font-family: var(--font-display); font-size: .7rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: #a07018; margin-bottom: 12px;">The Distinction</div>
+      <p style="font-size: .95rem; color: #4a4a4a; line-height: 1.7;">
+        <strong>Lived experience</strong> is what you know from being there.<br /><br />
+        <strong>Living expertise</strong> is what you can do with it — when you have the research skills, the analytical tools, and the civic access to make it count.
+      </p>
+    </div>
+  </div>
+</div>
+
+<div class="divider" style="max-width: 100%;"></div>
+
+<!-- THE DISTINCTION — dark band -->
+<div class="distinction">
+  <div class="distinction-inner">
+    <div class="fade-up">
+      <div style="font-size:.75rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;display:flex;align-items:center;gap:10px;"><span style="display:block;width:28px;height:2px;background:var(--gold);"></span>Three Equity Commitments</div>
+      <h2>Designed to <em>disrupt</em> the usual hierarchy.</h2>
+      <p>Most civic engagement programs extract community voice. LELI builds community capacity. Three design commitments keep that distinction real — not rhetorical.</p>
+    </div>
+    <div class="distinction-cards fade-up">
+      <div class="distinction-card">
+        <div class="distinction-card-label red">Commitment 01</div>
+        <h4>Lived experience is expertise — and it's compensated that way.</h4>
+        <p>Fellows are paid for their work. This disrupts the tradition of asking the most affected communities to donate their knowledge, on top of everything else.</p>
+      </div>
+      <div class="distinction-card">
+        <div class="distinction-card-label gold">Commitment 02</div>
+        <h4>Fellows direct the AI. Not the other way around.</h4>
+        <p>The Civic Signals Network is designed so AI multiplies what Fellows can attend to — it never replaces their judgment. Community voice is never quietly replaced by algorithmic summary.</p>
+      </div>
+      <div class="distinction-card">
+        <div class="distinction-card-label" style="color:#6da38e;">Commitment 03</div>
+        <h4>Recruitment prioritizes those most shut out.</h4>
+        <p>Fellows are recruited from young adults who have navigated economic instability, housing insecurity, or structural barriers to civic participation — the residents whose perspectives are most systematically absent.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TEAM -->
+<section class="team" id="team">
+  <div class="section-eyebrow">The Team</div>
+  <h2 class="section-title">The people behind LELI.</h2>
+  <p class="section-body">LELI is delivered by a team that combines community-rooted leadership, decade-long public-sector design practice, and lived experience of the systems the fellowship seeks to change.</p>
+
+  <div class="team-grid">
+
+    <div class="team-card fade-up">
+      <div class="team-card-top signal"></div>
+      <div class="team-card-body">
+        <div class="team-card-role">Project Director</div>
+        <div class="team-card-name">Loren Dalbert</div>
+        <div class="team-card-org">Dalbert Design</div>
+        <p class="team-card-bio">
+          Community systems designer focused on integrating lived experience into public policy design. Creator of the LELI framework; designer of the CoCo Go BIG guaranteed income pilot; former Program Manager of the East Contra Costa Mobility LABs initiative. Loren's work catalyzed $4.25M in Contra Costa County funding and shaped the civic infrastructure now embedded in this fellowship. A disabled veteran with lived experience of homelessness and poverty, based in Antioch, California.
+        </p>
+        <p class="team-card-bio" style="margin-top:14px;">
+          On this project: day-to-day fellowship operations, partnership coordination, Civic Signals Network development, and co-design of the civic intelligence research curriculum.
+        </p>
+        <div class="team-card-tags">
+          <span class="team-tag">Community Systems Design</span>
+          <span class="team-tag">Policy Research</span>
+          <span class="team-tag">Lived Experience</span>
+          <span class="team-tag">Antioch, CA</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="team-card fade-up">
+      <div class="team-card-top sage"></div>
+      <div class="team-card-body">
+        <div class="team-card-role">Project Co-Director</div>
+        <div class="team-card-name">Judi Brown</div>
+        <div class="team-card-org">CivicMakers</div>
+        <p class="team-card-bio">
+          Creative systems thinker and human-centered design practitioner with over a decade of experience in social innovation and graduate education in public administration and policy. As Co-Founder and Managing Partner of CivicMakers, Judi co-designs immersive, accessible learning experiences — from graduate-level courses to co-design sessions with women business owners in Kenya to virtual HCD trainings with municipal staff at all levels.
+        </p>
+        <p class="team-card-bio" style="margin-top:14px;">
+          On this project: Civic Signals Network analysis support, public comment processing, cross-neighborhood pattern identification, and co-design of the learning evaluation framework and end-of-year impact report.
+        </p>
+        <div class="team-card-tags">
+          <span class="team-tag">Human-Centered Design</span>
+          <span class="team-tag">Facilitation</span>
+          <span class="team-tag">Public Administration</span>
+          <span class="team-tag">Impact Evaluation</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="team-card fade-up">
+      <div class="team-card-top gold"></div>
+      <div class="team-card-body">
+        <div class="team-card-role">Civic UX Research Lead</div>
+        <div class="team-card-name">UX Research Lead</div>
+        <div class="team-card-org">Contractor</div>
+        <p class="team-card-bio">
+          Civic UX researcher and design strategist with 6+ years of professional UX research experience and 13+ years in design, leading end-to-end research initiatives for civic and public services across advocacy organizations, government agencies, and cultural institutions. Advocates for evidence-based participatory research practices that help organizations design services that are transparent, inclusive, and support civic participation.
+        </p>
+        <p class="team-card-bio" style="margin-top:14px;">
+          On this project: designing the Fellow research workspace, conducting usability testing of the Civic Signals Network, supporting Fellow research practice maturity, and co-designing the learning evaluation framework.
+        </p>
+        <div class="team-card-tags">
+          <span class="team-tag">UX Research</span>
+          <span class="team-tag">Participatory Design</span>
+          <span class="team-tag">Usability Testing</span>
+          <span class="team-tag">Civic Tech</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ORGANIZATIONS -->
+<section class="orgs" id="orgs">
+  <div class="orgs-inner">
+    <div class="section-eyebrow">Organizational Partners</div>
+    <h2 class="section-title">Three layers of infrastructure.</h2>
+    <p class="section-body">LELI is delivered through a partnership structure designed to combine community-rooted leadership, proven public-sector delivery capacity, and rigorous charitable compliance.</p>
+
+    <div class="orgs-grid">
+      <div class="org-card fade-up">
+        <div class="org-card-icon" style="background: var(--signal-lt);">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#c73010" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        </div>
+        <h3>Dalbert Design</h3>
+        <div class="org-card-type">Community-Rooted Lead</div>
+        <p>A Lived Experience Led Organization founded by Loren Dalbert. Contributes the LELI framework, community relationships across all five neighborhoods, and the lived-experience leadership that anchors Fellow recruitment, curriculum design, and the Civic Signals Network methodology.</p>
+      </div>
+
+      <div class="org-card fade-up">
+        <div class="org-card-icon" style="background: var(--sage-lt);">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3a5c4e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+        </div>
+        <h3>CivicMakers</h3>
+        <div class="org-card-type">Delivery Partner</div>
+        <p>A strategic consultancy and community of practitioners celebrating 10 years of human-centered design with governments, nonprofits, and mission-driven organizations. Brings institutional capacity across community engagement, facilitation, training design, and operational infrastructure that meets public-funder standards.</p>
+      </div>
+
+      <div class="org-card fade-up">
+        <div class="org-card-icon" style="background: var(--gold-lt);">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#a07018" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/></svg>
+        </div>
+        <h3>Realize Impact</h3>
+        <div class="org-card-type">Fiscal Sponsor · 501(c)(3)</div>
+        <p>A registered 501(c)(3) public charity specializing in fiscal sponsorship of mission-driven projects. Provides the charitable umbrella, financial oversight, grants administration, and reimbursement-grant cash-flow management — removing compliance risk from the County's perspective.</p>
+      </div>
+    </div>
+
+    <div style="margin-top: 40px; background: var(--white); border-radius: var(--r-md); padding: 32px 36px; display: flex; align-items: center; gap: 24px; flex-wrap: wrap;" class="fade-up">
+      <div style="flex: 1; min-width: 240px;">
+        <div style="font-family: var(--font-display); font-size: .72rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--sage); margin-bottom: 8px;">The Partnership</div>
+        <p style="font-size: .95rem; color: #4a4a4a; line-height: 1.7;">Together, Dalbert Design and CivicMakers operate as <strong>Ridiculously Hopeful Futures in California</strong> — a bold initiative building structures where community members and policymakers co-imagine and co-design solutions. LELI is its flagship program.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EQUITY IMPACT -->
+<section class="equity" id="equity">
+  <div class="section-eyebrow">Equity &amp; Inclusion</div>
+  <h2 class="section-title">Who we center — and why it matters.</h2>
+  <p class="section-body">LELI serves communities with significantly lower educational attainment than Contra Costa County as a whole, and substantial foreign-born populations whose voices are often missing from county and state policy conversations.</p>
+
+  <div class="equity-grid">
+    <div class="equity-card fade-up">
+      <div class="equity-num">22–34%</div>
+      <h4>Bachelor's degree attainment in target communities</h4>
+      <p>Compared to 46.2% countywide — a gap that traditional civic systems routinely use, implicitly or explicitly, to exclude residents from decision-making spaces.</p>
+    </div>
+    <div class="equity-card fade-up">
+      <div class="equity-num">Ages 18–26</div>
+      <h4>The Fellows LELI recruits and pays</h4>
+      <p>Young adults from unincorporated Contra Costa communities who are least represented in civic decision-making — and most impacted by the policies those spaces produce.</p>
+    </div>
+    <div class="equity-card fade-up">
+      <div class="equity-num">5</div>
+      <h4>Unincorporated communities connected for the first time</h4>
+      <p>Rodeo, Crockett, Pacheco, Vine Hill, and Clyde have long been treated as separate constituencies. The Civic Signals Network connects their concerns, enabling coordinated advocacy that was previously impossible to organize.</p>
+    </div>
+    <div class="equity-card fade-up">
+      <div class="equity-num">Multi-lingual</div>
+      <h4>Community materials produced in plain language and multiple languages</h4>
+      <p>AI translation capabilities within the Civic Signals Network ensure that foreign-born residents' voices are included in Fellow analysis — not filtered out by language barriers before they reach a policymaker.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FUNDER RECOGNITION -->
+<div class="funders">
+  <div class="funders-inner">
+    <div class="funders-label">Funded by</div>
+    <div class="funders-badges">
+      <div class="funder-badge">Contra Costa County</div>
+      <div class="funder-badge">Phillips 66</div>
+      <div class="funder-badge">Marathon</div>
+    </div>
+    <p style="font-size:.8rem;color:#6b6b6b;margin-left:auto;">Marathon &amp; Phillips 66 Community Benefits Agreement</p>
+  </div>
+</div>
+
+<!-- CTA -->
+<div style="padding-top: 80px;">
+  <div class="cta-band fade-up">
+    <div>
+      <h2>Ready to join the Fellowship?</h2>
+      <p>Applications are open to young adults ages 18–26 living in Rodeo, Crockett, Pacheco, Vine Hill, or Clyde. The 2026–27 cohort begins August 2026.</p>
+    </div>
+    <div class="cta-band-actions">
+      <a href="leli-apply.html" class="btn-white">Apply to the Fellowship</a>
+      <a href="mailto:hello@leli.design" class="btn-ghost-white">Partner with LELI</a>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <h3>LELI</h3>
+      <p>The Lived Experience Leadership Institute prepares community members to co-design programs and policy at the speed and scale of policymaking spaces.</p>
+      <p style="margin-top: 16px; font-size: .8rem;">A flagship program of Ridiculously Hopeful Futures in California.<br />Fiscally sponsored by Realize Impact, a 501(c)(3) public charity.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Program</h4>
+      <ul>
+        <li><a href="leli-about.html">About LELI</a></li>
+        <li><a href="leli-fellowship.html">The Fellowship</a></li>
+        <li><a href="leli-csn.html">Civic Signals Network</a></li>
+        <li><a href="leli-apply.html">Apply</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Communities</h4>
+      <ul>
+        <li><a href="#">Rodeo</a></li>
+        <li><a href="#">Crockett</a></li>
+        <li><a href="#">Pacheco</a></li>
+        <li><a href="#">Vine Hill</a></li>
+        <li><a href="#">Clyde</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Connect</h4>
+      <ul>
+        <li><a href="#">Partners</a></li>
+        <li><a href="#">Contact</a></li>
+        <li><a href="#">Press</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Ridiculously Hopeful Futures in California · Dalbert Design × CivicMakers</span>
+    <span>Rodeo · Crockett · Pacheco · Vine Hill · Clyde</span>
+  </div>
+</footer>
+
+<script>
+  const nav = document.getElementById('main-nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (e.isIntersecting) {
+        const siblings = [...e.target.parentElement.querySelectorAll('.fade-up')];
+        const idx = siblings.indexOf(e.target);
+        setTimeout(() => { e.target.classList.add('visible'); }, idx * 100);
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LELI — Lived Experience Leadership Institute</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,800;0,9..144,900;1,9..144,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    /* ── TOKENS ── */
+    :root {
+      --ink:       #0d0f14;
+      --paper:     #f9f8ff;
+      --signal:    #e84b2f;   /* civic red-orange — the live signal */
+      --signal-lt: #fef0ed;
+      --sage:      #3a5c4e;   /* grounded / community green */
+      --sage-lt:   #eaf1ee;
+      --gold:      #c9952a;
+      --gold-lt:   #fdf4e3;
+      --mist:      #e8e5de;
+      --white:     #ffffff;
+
+      --font-display: 'Fraunces', Georgia, serif;
+      --font-body:    'Inter', sans-serif;
+
+      --r-sm: 6px;
+      --r-md: 14px;
+      --r-lg: 28px;
+      --r-pill: 999px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; overflow-x: hidden; max-width: 100%; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--paper);
+      color: var(--ink);
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+      width: 100%;
+      max-width: 100vw;
+    }
+
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 5vw;
+      background: rgba(247,245,240,0.88);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--mist);
+      transition: box-shadow .3s;
+    }
+    nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,.08); }
+
+    .nav-logo {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1.1rem;
+      letter-spacing: -.01em;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .nav-logo-dot {
+      width: 9px; height: 9px;
+      background: var(--signal);
+      border-radius: 50%;
+      animation: pulse-dot 2.4s ease-in-out infinite;
+    }
+    @keyframes pulse-dot {
+      0%,100% { opacity: 1; transform: scale(1); }
+      50%      { opacity: .5; transform: scale(.7); }
+    }
+
+    .nav-links { display: flex; gap: 2rem; align-items: center; }
+    .nav-links a {
+      font-size: .875rem; font-weight: 500;
+      color: #555; transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--ink); }
+
+    .nav-cta {
+      background: var(--ink); color: var(--white) !important;
+      padding: 9px 20px; border-radius: var(--r-pill);
+      font-size: .875rem; font-weight: 600;
+      transition: background .2s, transform .15s;
+    }
+    .nav-cta:hover { background: var(--signal); transform: translateY(-1px); }
+
+    .nav-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+    .nav-hamburger span { display: block; width: 24px; height: 2px; background: var(--ink); border-radius: 2px; transition: .3s; }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100svh;
+      display: grid;
+      grid-template-rows: 1fr auto;
+      padding: 0 5vw;
+      padding-top: 80px;
+      position: relative;
+      overflow: hidden;
+      background: var(--paper);
+    }
+
+    /* Radar spans full hero but sits behind the radial gradient shield */
+    .hero-canvas {
+      position: absolute; inset: 0;
+      pointer-events: none;
+      width: 100% !important;
+    }
+
+    /* Gradient shield: keeps text readable over the radar */
+    .hero::after {
+      content: '';
+      position: absolute; inset: 0;
+      pointer-events: none;
+      background: radial-gradient(
+        ellipse at center,
+        rgba(249,248,255,0.92) 0%,
+        rgba(249,248,255,0.75) 55%,
+        rgba(249,248,255,0.3) 100%
+      );
+      z-index: 0;
+    }
+
+    /* Content sits above the gradient shield */
+    .hero-content { position: relative; z-index: 2; }
+    .hero-stats    { position: relative; z-index: 2; }
+
+    .hero-content {
+      display: flex; flex-direction: column; justify-content: center; align-items: center;
+      gap: 2rem; max-width: min(860px, 100%); position: relative; z-index: 2;
+      padding: 80px 0 60px;
+      word-break: break-word;
+      text-align: center;
+      margin: 0 auto;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-size: .8rem; font-weight: 600; letter-spacing: .12em;
+      text-transform: uppercase; color: #c73010;
+    }
+    .hero-eyebrow-line { width: 32px; height: 2px; background: #c73010; flex-shrink: 0; }
+
+    .hero-headline {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: clamp(2rem, 7vw, 5.5rem);
+      line-height: 1.04;
+      letter-spacing: -.03em;
+    }
+    .hero-headline em {
+      font-style: normal;
+      background: linear-gradient(135deg, var(--signal) 0%, var(--gold) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-sub {
+      font-size: clamp(0.95rem, 2.2vw, 1.25rem);
+      font-weight: 400;
+      color: #4a4a4a;
+      max-width: 620px;
+      line-height: 1.65;
+    }
+
+    .hero-actions {
+      display: flex; flex-wrap: wrap; gap: 14px; align-items: center;
+    }
+    .btn-primary {
+      background: var(--signal); color: var(--white);
+      padding: 15px 32px; border-radius: var(--r-pill);
+      font-size: 1rem; font-weight: 600;
+      transition: transform .15s, box-shadow .15s;
+      box-shadow: 0 4px 24px rgba(232,75,47,.28);
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(232,75,47,.38); }
+
+    .btn-secondary {
+      display: flex; align-items: center; gap: 8px;
+      font-size: .95rem; font-weight: 500; color: var(--ink);
+      transition: gap .2s;
+    }
+    .btn-secondary:hover { gap: 12px; }
+    .btn-secondary svg { width: 18px; height: 18px; }
+
+    .hero-stats {
+      display: flex; flex-wrap: wrap; gap: 32px;
+      padding: 28px 0 48px;
+      border-top: 1px solid var(--mist);
+      justify-content: center;
+      position: relative; z-index: 2;
+    }
+    .stat { display: flex; flex-direction: column; gap: 4px; }
+    .stat-num {
+      font-family: var(--font-display);
+      font-size: clamp(1.1rem, 2.5vw, 1.6rem);
+      font-weight: 700; line-height: 1;
+      color: var(--ink);
+    }
+    .stat-num span { color: var(--signal); }
+    .stat-label { font-size: .8rem; font-weight: 500; color: #6b6b6b; letter-spacing: .05em; text-transform: uppercase; }
+
+    /* ── SCROLL TICKER ── */
+    .ticker {
+      background: var(--ink); color: var(--white);
+      padding: 14px 0; overflow: hidden;
+      display: flex;
+      width: 100%;
+      max-width: 100vw;
+    }
+    .ticker-track {
+      display: flex; gap: 64px;
+      white-space: nowrap;
+      animation: ticker-scroll 30s linear infinite;
+    }
+    .ticker-item {
+      display: flex; align-items: center; gap: 14px;
+      font-family: var(--font-display);
+      font-size: .85rem; font-weight: 600; letter-spacing: .06em;
+      text-transform: uppercase; flex-shrink: 0;
+    }
+    .ticker-dot { width: 6px; height: 6px; background: var(--signal); border-radius: 50%; flex-shrink: 0; }
+    @keyframes ticker-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    /* ── SECTION BASE ── */
+    section { padding: 100px 5vw; }
+    .section-eyebrow {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-size: .75rem; font-weight: 700; letter-spacing: .14em;
+      text-transform: uppercase; color: var(--sage); margin-bottom: 16px;
+    }
+    .section-eyebrow::before { content: ''; width: 28px; height: 2px; background: var(--sage); }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: clamp(1.5rem, 4vw, 3rem);
+      line-height: 1.1;
+      letter-spacing: -.025em;
+      margin-bottom: 20px;
+    }
+    .section-body {
+      font-size: 1.05rem; color: #4a4a4a; line-height: 1.7;
+      max-width: 640px;
+    }
+
+    /* ── WHAT WE DO ── */
+    .what {
+      background: var(--ink); color: var(--white);
+      border-radius: var(--r-lg);
+      margin: 0 3vw;
+      padding: 80px 6vw;
+      max-width: calc(100% - 6vw);
+    }
+    .what .section-eyebrow { color: var(--gold); }
+    .what .section-eyebrow::before { background: var(--gold); }
+    .what .section-title { color: var(--white); max-width: 700px; }
+    .what .section-body { color: rgba(255,255,255,.7); }
+
+    .what-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
+      gap: 2px; margin-top: 60px;
+      border: 2px solid rgba(255,255,255,.08);
+      border-radius: var(--r-md);
+      overflow: hidden;
+    }
+    .what-card {
+      padding: 40px 36px;
+      border-right: 2px solid rgba(255,255,255,.08);
+      transition: background .25s;
+    }
+    .what-card:last-child { border-right: none; }
+    .what-card:hover { background: rgba(255,255,255,.04); }
+
+    .what-card-num {
+      font-family: var(--font-display);
+      font-size: 3rem; font-weight: 800;
+      color: rgba(255,255,255,0.35);
+      line-height: 1; margin-bottom: 20px;
+    }
+    .what-card-icon {
+      width: 48px; height: 48px; margin-bottom: 20px;
+      border-radius: var(--r-sm);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .what-card-icon svg { width: 24px; height: 24px; }
+    .what-card h3 {
+      font-family: var(--font-display);
+      font-size: 1.2rem; font-weight: 700;
+      margin-bottom: 12px; color: var(--white);
+    }
+    .what-card p { font-size: .9rem; color: rgba(255,255,255,.6); line-height: 1.65; }
+
+    /* ── HOW IT WORKS ── */
+    .how { background: var(--white); }
+    .how-inner { max-width: 1100px; margin: 0 auto; }
+
+    .how-phases {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px; margin-top: 60px;
+    }
+
+    .phase {
+      background: var(--paper);
+      border-radius: var(--r-md);
+      padding: 44px 40px;
+      position: relative; overflow: hidden;
+    }
+    .phase::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 4px;
+    }
+    .phase-a::before { background: linear-gradient(90deg, var(--signal), var(--gold)); }
+    .phase-b::before { background: linear-gradient(90deg, var(--sage), #6da38e); }
+
+    .phase-label {
+      font-size: .72rem; font-weight: 700; letter-spacing: .12em;
+      text-transform: uppercase; color: #767676; margin-bottom: 8px;
+    }
+    .phase-months {
+      font-family: var(--font-display);
+      font-size: 1.4rem; font-weight: 800; margin-bottom: 20px;
+    }
+    .phase-desc { font-size: .92rem; color: #555; line-height: 1.7; }
+
+    .phase-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+    .tag {
+      padding: 5px 14px; border-radius: var(--r-pill);
+      font-size: .75rem; font-weight: 600;
+      background: var(--white); border: 1px solid var(--mist);
+    }
+
+    /* ── CIVIC SIGNALS NETWORK ── */
+    .csn {
+      background: var(--sage);
+      color: var(--white);
+      border-radius: var(--r-lg);
+      margin: 0 3vw;
+      padding: 80px 6vw;
+      overflow: hidden; position: relative;
+    }
+    .csn::before {
+      content: 'CSN';
+      position: absolute; right: 0; top: 50%; transform: translateY(-50%);
+      font-family: var(--font-display); font-weight: 800;
+      font-size: clamp(6rem, 18vw, 14rem);
+      color: rgba(255,255,255,.05); line-height: 1;
+      pointer-events: none; white-space: nowrap;
+      max-width: 100%; overflow: hidden;
+    }
+
+    .csn .section-eyebrow { color: rgba(255,255,255,.7); }
+    .csn .section-eyebrow::before { background: rgba(255,255,255,.4); }
+    .csn .section-title { color: var(--white); max-width: 680px; }
+    .csn-body { font-size: 1.05rem; color: rgba(255,255,255,.75); line-height: 1.7; max-width: 600px; margin-bottom: 48px; }
+
+    .csn-flow {
+      display: flex; flex-wrap: wrap;
+      gap: 12px; align-items: center;
+      position: relative; z-index: 1;
+    }
+    .csn-node {
+      background: rgba(255,255,255,.12);
+      border: 1px solid rgba(255,255,255,.2);
+      border-radius: var(--r-md);
+      padding: 20px 24px;
+      font-size: .9rem; font-weight: 600; color: var(--white);
+      backdrop-filter: blur(6px);
+    }
+    .csn-arrow {
+      font-size: 1.2rem; color: rgba(255,255,255,.4);
+    }
+    .csn-node.highlight {
+      background: rgba(232,75,47,.25);
+      border-color: rgba(232,75,47,.5);
+    }
+
+    /* ── COMMUNITIES ── */
+    .communities { background: var(--paper); }
+    .communities-inner { max-width: 1100px; margin: 0 auto; }
+
+    .neighborhood-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-top: 56px;
+    }
+    .neighborhood {
+      flex: 1 1 calc(20% - 16px);
+      min-width: 140px;
+      background: var(--white);
+      border-radius: var(--r-md);
+      padding: 32px 20px 28px;
+      text-align: center;
+      border: 2px solid transparent;
+      transition: border-color .25s, transform .2s, box-shadow .2s;
+      cursor: default;
+    }
+    @media (max-width: 900px) {
+      .neighborhood { flex: 1 1 calc(33.333% - 16px); max-width: calc(33.333% - 11px); }
+    }
+    @media (max-width: 560px) {
+      .neighborhood { flex: 1 1 calc(50% - 16px); max-width: calc(50% - 8px); }
+    }
+    .neighborhood:hover {
+      border-color: var(--signal);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(232,75,47,.1);
+    }
+    .neighborhood-icon {
+      width: 56px; height: 56px; border-radius: 50%;
+      background: var(--signal-lt);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 16px;
+    }
+    .neighborhood-icon svg { width: 26px; height: 26px; color: var(--signal); }
+    .neighborhood h4 {
+      font-family: var(--font-display);
+      font-size: 1.05rem; font-weight: 700; margin-bottom: 6px;
+    }
+    .neighborhood p { font-size: .78rem; color: #6b6b6b; }
+
+    /* ── IMPACT ── */
+    .impact { background: var(--white); }
+    .impact-inner { max-width: 1100px; margin: 0 auto; }
+
+    .impact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 24px; margin-top: 60px;
+    }
+    .impact-card {
+      padding: 36px 28px;
+      border-radius: var(--r-md);
+      border: 2px solid var(--mist);
+      transition: border-color .2s;
+    }
+    .impact-card:hover { border-color: var(--sage); }
+    .impact-card-icon {
+      width: 40px; height: 40px;
+      border-radius: var(--r-sm);
+      margin-bottom: 20px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .impact-card-icon svg { width: 20px; height: 20px; }
+    .impact-card-num {
+      font-family: var(--font-display);
+      font-size: 2.4rem; font-weight: 800;
+      color: var(--ink); line-height: 1; margin-bottom: 8px;
+    }
+    .impact-card-num em { font-style: normal; color: var(--signal); }
+    .impact-card-desc { font-size: .88rem; color: #666; line-height: 1.55; }
+
+    /* ── PARTNERS ── */
+    .partners { background: var(--paper); padding: 80px 5vw; }
+    .partners-inner { max-width: 1100px; margin: 0 auto; }
+    .partners-label {
+      font-size: .75rem; font-weight: 700; letter-spacing: .12em;
+      text-transform: uppercase; color: #5f5f5f; text-align: center; margin-bottom: 40px;
+    }
+    .partners-grid {
+      display: flex; flex-wrap: wrap;
+      gap: 16px; justify-content: center; align-items: center;
+    }
+    .partner-badge {
+      background: var(--white);
+      border: 1.5px solid var(--mist);
+      border-radius: var(--r-pill);
+      padding: 12px 24px;
+      font-size: .875rem; font-weight: 600; color: #555;
+      transition: border-color .2s, color .2s;
+    }
+    .partner-badge:hover { border-color: var(--sage); color: var(--sage); }
+
+    /* ── CTA BAND ── */
+    .cta-band {
+      background: linear-gradient(135deg, #c03220 0%, #8f1f0f 100%);
+      color: var(--white);
+      border-radius: var(--r-lg);
+      margin: 0 3vw 80px;
+      padding: 72px 8vw;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 40px; align-items: center;
+    }
+    .cta-band h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.4rem, 3.5vw, 2.8rem);
+      font-weight: 800; line-height: 1.1; letter-spacing: -.025em;
+    }
+    .cta-band p { font-size: 1rem; color: rgba(255,255,255,1); margin-top: 12px; max-width: 500px; }
+    .cta-band-actions { display: flex; flex-direction: column; gap: 12px; flex-shrink: 0; }
+
+    .btn-white {
+      background: var(--white); color: #a82800;
+      padding: 15px 28px; border-radius: var(--r-pill);
+      font-size: .95rem; font-weight: 700; text-align: center;
+      transition: transform .15s, box-shadow .15s;
+      white-space: nowrap;
+    }
+    .btn-white:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(0,0,0,.15); }
+
+    .btn-ghost-white {
+      border: 2px solid rgba(255,255,255,.5); color: var(--white);
+      padding: 13px 28px; border-radius: var(--r-pill);
+      font-size: .95rem; font-weight: 600; text-align: center;
+      transition: border-color .15s, background .15s;
+    }
+    .btn-ghost-white:hover { border-color: var(--white); background: rgba(255,255,255,.12); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--ink); color: rgba(255,255,255,.5);
+      padding: 60px 5vw 40px;
+    }
+    .footer-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px;
+    }
+    .footer-brand h3 {
+      font-family: var(--font-display);
+      font-size: 1.1rem; font-weight: 800; color: var(--white); margin-bottom: 12px;
+    }
+    .footer-brand p { font-size: .875rem; line-height: 1.65; max-width: 300px; }
+    .footer-col h4 {
+      font-size: .75rem; font-weight: 700; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--white); margin-bottom: 16px;
+    }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col a { font-size: .875rem; transition: color .2s; }
+    .footer-col a:hover { color: var(--white); }
+
+    .footer-bottom {
+      max-width: 1100px; margin: 40px auto 0;
+      padding-top: 24px; border-top: 1px solid rgba(255,255,255,.08);
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
+      font-size: .8rem;
+    }
+    .footer-bottom a { transition: color .2s; }
+    .footer-bottom a:hover { color: var(--white); }
+
+    /* ── ANIMATIONS ── */
+    .fade-up {
+      opacity: 0; transform: translateY(28px);
+      transition: opacity .6s ease, transform .6s ease;
+    }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .how-phases { grid-template-columns: 1fr; }
+      .cta-band { grid-template-columns: 1fr; }
+      .footer-inner { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 640px) {
+      nav { padding: 14px 5vw; }
+      .nav-links { display: none; }
+      .nav-hamburger { display: flex; }
+      .footer-inner { grid-template-columns: 1fr; }
+      .what { margin: 0; border-radius: 0; padding: 56px 5vw; }
+      .csn  { margin: 0; border-radius: 0; padding: 56px 5vw; }
+      .cta-band { margin: 0 0 48px; border-radius: 0; padding: 52px 6vw; grid-template-columns: 1fr; }
+      .hero-stats { gap: 16px; flex-wrap: wrap; }
+      .what-card { padding: 28px 24px; }
+      .phase { padding: 32px 24px; }
+      section { padding: 72px 5vw; }
+      .csn-flow { flex-direction: column; align-items: flex-start; }
+      .csn-arrow { transform: rotate(90deg); }
+      /* Hide radar on mobile — no room, text must stay clear */
+      .hero-canvas { display: none; }
+      /* On mobile, gradient shield not needed since canvas is hidden */
+      .hero::after { display: none; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .ticker-track { animation: none; }
+      .nav-logo-dot { animation: none; }
+      .fade-up { transition: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="main-nav">
+  <div class="nav-logo">
+    <span class="nav-logo-dot"></span>
+    LELI
+  </div>
+  <div class="nav-links">
+    <a href="leli-about.html">About</a>
+    <a href="leli-fellowship.html">Fellowship</a>
+    <a href="leli-csn.html">Civic Signals</a>
+    <a href="leli-communities.html">Communities</a>
+    <a href="leli-apply.html" class="nav-cta">Apply Now</a>
+  </div>
+  <div class="nav-hamburger" role="button" aria-label="Open menu" tabindex="0">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="about">
+  <!-- SVG Civic Radar — signature element -->
+  <canvas class="hero-canvas" id="radar-canvas" aria-hidden="true"></canvas>
+
+  <div class="hero-content">
+    <div class="hero-eyebrow">
+      <span class="hero-eyebrow-line"></span>
+      Lived Experience Leadership Institute
+    </div>
+
+    <h1 class="hero-headline">
+      Turning lived<br />
+      experience into<br />
+      <em>policy power.</em>
+    </h1>
+
+    <p class="hero-sub">
+      LELI prepares young adults from Rodeo, Crockett, Pacheco, Vine Hill, and Clyde to co-design the programs and policies that shape their communities — at the speed and scale policymaking actually demands.
+    </p>
+
+    <div class="hero-actions">
+      <a href="#apply" class="btn-primary">Apply to the Fellowship</a>
+      <a href="#how" class="btn-secondary">
+        How it works
+        <svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 9h12M9 3l6 6-6 6"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+
+  <div class="hero-stats fade-up">
+    <div class="stat">
+      <span class="stat-num">10 Fellows</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">5 Neighborhoods</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">12 Month Fellowship</span>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track">
+    <span class="ticker-item"><span class="ticker-dot"></span>Civic Intelligence Research</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Community-Owned Infrastructure</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Policy Engagement</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>AI-Powered Analysis</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Living Expertise</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Cross-Neighborhood Solidarity</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Civic Intelligence Research</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Community-Owned Infrastructure</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Policy Engagement</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>AI-Powered Analysis</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Living Expertise</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Cross-Neighborhood Solidarity</span>
+  </div>
+</div>
+
+<!-- WHAT WE DO -->
+<section style="padding: 80px 3vw;" id="about-detail">
+  <div class="what fade-up">
+    <div class="section-eyebrow">What We Do</div>
+    <h2 class="section-title">We refine lived experience<br />into living expertise.</h2>
+    <p class="section-body">Communities know what's broken. LELI trains young adults to do something about it — translating ground-truth knowledge into the research, analysis, and advocacy that moves policy.</p>
+
+    <div class="what-grid">
+      <div class="what-card">
+        <div class="what-card-num">01</div>
+        <h3>Leadership Identity</h3>
+        <p>Fellows develop deep self-validation, learning to operate with confidence in rooms where their expertise may not yet be recognized — because it always was.</p>
+      </div>
+      <div class="what-card">
+        <div class="what-card-num">02</div>
+        <h3>Civic Intelligence Research</h3>
+        <p>Fellows translate personal experience and community input into system-level insight, analyzing public comments and surfacing patterns across thousands of voices.</p>
+      </div>
+      <div class="what-card">
+        <div class="what-card-num">03</div>
+        <h3>Directing AI as a Tool</h3>
+        <p>Fellows learn to direct AI to handle scale — translating across languages, processing thousands of comments at once — while keeping judgment and meaning-making in community hands.</p>
+      </div>
+      <div class="what-card">
+        <div class="what-card-num">04</div>
+        <h3>Real Policy Engagement</h3>
+        <p>Fellows apply those insights at City Councils, County meetings, State hearings, and legislative visits — at the speed and scale policymaking actually requires.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how" id="how">
+  <div class="how-inner">
+    <div class="section-eyebrow">The Fellowship</div>
+    <h2 class="section-title">12 months. Real work.<br />Lasting impact.</h2>
+    <p class="section-body">The fellowship runs August 2026 through July 2027. Fellows are paid for their expertise and engaged in real civic processes from day one.</p>
+
+    <div class="how-phases">
+      <div class="phase phase-a fade-up">
+        <div class="phase-label">Phase One</div>
+        <div class="phase-months">Months 1–4</div>
+        <p class="phase-desc">Training in civic intelligence research, the LELI method, and how to direct AI as a research tool. Fellows begin engagement with local government partners and learn to move community input into actionable insight.</p>
+        <div class="phase-tags">
+          <span class="tag">Civic Research</span>
+          <span class="tag">AI Direction</span>
+          <span class="tag">LELI Method</span>
+          <span class="tag">Government Intro</span>
+        </div>
+      </div>
+
+      <div class="phase phase-b fade-up">
+        <div class="phase-label">Phase Two</div>
+        <div class="phase-months">Months 4–12</div>
+        <p class="phase-desc">Cohort-led research sprints addressing urgent equity issues identified by and for the five communities. Findings are delivered on timelines aligned with active policy conversations — not after the fact.</p>
+        <div class="phase-tags">
+          <span class="tag">Research Sprints</span>
+          <span class="tag">Policy Submissions</span>
+          <span class="tag">Cross-Neighborhood Findings</span>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+</section>
+
+<!-- CIVIC SIGNALS NETWORK -->
+<section style="padding: 80px 3vw;" id="network">
+  <div class="csn fade-up">
+    <div class="section-eyebrow">The Civic Signals Network</div>
+    <h2 class="section-title">Community-owned research infrastructure, built by Fellows.</h2>
+    <p class="csn-body">
+      Until now, community input has lived in silos — a comment at a Rodeo town hall, a concern at a Crockett planning meeting, a testimony in Pacheco. The Civic Signals Network breaks those silos. Fellows read across volume, surface patterns across neighborhoods, and carry findings into policy conversations with the weight of community-validated insight.
+      <br /><br />
+      <strong style="color: rgba(255,255,255,.9);">AI handles scale. Fellows handle truth.</strong>
+    </p>
+
+    <div class="csn-flow">
+      <div class="csn-node">Community Input<br /><small style="opacity:1; font-weight:400; color:rgba(255,255,255,1);">Public comments, hearings, surveys</small></div>
+      <div class="csn-arrow">→</div>
+      <div class="csn-node">AI at Scale<br /><small style="opacity:1; font-weight:400; color:rgba(255,255,255,1);">Language, volume, cross-neighborhood patterns</small></div>
+      <div class="csn-arrow">→</div>
+      <div class="csn-node highlight">Fellows Analyze<br /><small style="opacity:1; font-weight:400; color:rgba(255,255,255,1);">Judgment, meaning-making, decisions</small></div>
+      <div class="csn-arrow">→</div>
+      <div class="csn-node">Policy Findings<br /><small style="opacity:1; font-weight:400; color:rgba(255,255,255,1);">Submitted to County, City, State</small></div>
+    </div>
+  </div>
+</section>
+
+<!-- COMMUNITIES -->
+<section class="communities" id="communities">
+  <div class="communities-inner">
+    <div class="section-eyebrow">The Communities</div>
+    <h2 class="section-title">Five neighborhoods.<br />One shared voice.</h2>
+    <p class="section-body">LELI serves unincorporated Contra Costa communities routinely overlooked by traditional civic systems — and connects them to each other for the first time.</p>
+
+    <div class="neighborhood-grid">
+      <div class="neighborhood fade-up">
+        <div class="neighborhood-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/><line x1="2" y1="12" x2="22" y2="12"/></svg>
+        </div>
+        <h4>Rodeo</h4>
+        <p>Contra Costa County</p>
+      </div>
+      <div class="neighborhood fade-up">
+        <div class="neighborhood-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/><line x1="2" y1="12" x2="22" y2="12"/></svg>
+        </div>
+        <h4>Crockett</h4>
+        <p>Contra Costa County</p>
+      </div>
+      <div class="neighborhood fade-up">
+        <div class="neighborhood-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/><line x1="2" y1="12" x2="22" y2="12"/></svg>
+        </div>
+        <h4>Pacheco</h4>
+        <p>Contra Costa County</p>
+      </div>
+      <div class="neighborhood fade-up">
+        <div class="neighborhood-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/><line x1="2" y1="12" x2="22" y2="12"/></svg>
+        </div>
+        <h4>Vine Hill</h4>
+        <p>Contra Costa County</p>
+      </div>
+      <div class="neighborhood fade-up">
+        <div class="neighborhood-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/><line x1="2" y1="12" x2="22" y2="12"/></svg>
+        </div>
+        <h4>Clyde</h4>
+        <p>Contra Costa County</p>
+      </div>
+    </div>
+
+    <div style="margin-top: 48px; background: var(--white); border-radius: var(--r-md); padding: 36px 40px; border-left: 4px solid var(--signal);" class="fade-up">
+      <p style="font-size: 1.05rem; line-height: 1.7; color: #3a3a3a; max-width: 780px;">
+        "Housing pressures in Rodeo can now be understood alongside Crockett's. Transportation gaps in Clyde can be connected to those in Vine Hill and Pacheco. Cross-neighborhood visibility enables coordinated advocacy that was previously difficult to organize."
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- IMPACT / OUTCOMES -->
+<section class="impact">
+  <div class="impact-inner">
+    <div class="section-eyebrow">Measurable Outcomes</div>
+    <h2 class="section-title">What success looks like.</h2>
+    <p class="section-body">Three dimensions of impact — for Fellows, for communities, and for the policy systems that shape both.</p>
+
+    <div class="impact-grid">
+      <div class="impact-card fade-up">
+        <div class="impact-card-icon" style="background: var(--signal-lt);">
+          <svg viewBox="0 0 20 20" fill="var(--signal)"><path d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"/></svg>
+        </div>
+        <div class="impact-card-num">10<em>+</em></div>
+        <div class="impact-card-desc">Young adults from unincorporated CCC communities gain paid, career-launching fellowship experience each cohort.</div>
+      </div>
+      <div class="impact-card fade-up">
+        <div class="impact-card-icon" style="background: var(--sage-lt);">
+          <svg viewBox="0 0 20 20" fill="var(--sage)"><path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"/><path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clip-rule="evenodd"/></svg>
+        </div>
+        <div class="impact-card-num">3<em>+</em></div>
+        <div class="impact-card-desc">Fellow-produced research findings submitted to active policy or civic decision-making processes per cohort.</div>
+      </div>
+      <div class="impact-card fade-up">
+        <div class="impact-card-icon" style="background: var(--gold-lt);">
+          <svg viewBox="0 0 20 20" fill="var(--gold)"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clip-rule="evenodd"/></svg>
+        </div>
+        <div class="impact-card-num">80<em>%</em></div>
+        <div class="impact-card-desc">Of Fellows report increased leadership identity and civic self-efficacy through pre/post program surveys.</div>
+      </div>
+      <div class="impact-card fade-up">
+        <div class="impact-card-icon" style="background: #eef2ff;">
+          <svg viewBox="0 0 20 20" fill="#4a5de4"><path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"/></svg>
+        </div>
+        <div class="impact-card-num">1<em>+</em></div>
+        <div class="impact-card-desc">County or municipal partnerships formalized to sustain community input pathways beyond the grant period.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- CTA BAND -->
+<div id="apply">
+  <div class="cta-band fade-up">
+    <div>
+      <h2>Your experience is expertise.<br />Ready to use it?</h2>
+      <p>The 2026–27 Fellowship is open to young adults ages 18–26 living in Rodeo, Crockett, Pacheco, Vine Hill, or Clyde. Applications open Summer 2026.</p>
+    </div>
+    <div class="cta-band-actions">
+      <a href="leli-apply.html" class="btn-white">Apply to the Fellowship</a>
+      <a href="mailto:hello@leli.design" class="btn-ghost-white">Partner with LELI</a>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <h3>LELI</h3>
+      <p>The Lived Experience Leadership Institute prepares community members to co-design programs and policy at the speed and scale of policymaking spaces.</p>
+      <p style="margin-top: 16px; font-size: .8rem;">A flagship program of Ridiculously Hopeful Futures in California.<br />Fiscally sponsored by Realize Impact, a 501(c)(3) public charity.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Program</h4>
+      <ul>
+        <li><a href="leli-about.html">About LELI</a></li>
+        <li><a href="leli-fellowship.html">The Fellowship</a></li>
+        <li><a href="leli-csn.html">Civic Signals Network</a></li>
+        <li><a href="leli-apply.html">Apply</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Communities</h4>
+      <ul>
+        <li><a href="#">Rodeo</a></li>
+        <li><a href="#">Crockett</a></li>
+        <li><a href="#">Pacheco</a></li>
+        <li><a href="#">Vine Hill</a></li>
+        <li><a href="#">Clyde</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Connect</h4>
+      <ul>
+        <li><a href="#">Partners</a></li>
+        <li><a href="#">Contact</a></li>
+        <li><a href="#">Press</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Ridiculously Hopeful Futures in California · Dalbert Design × CivicMakers</span>
+    <span>Rodeo · Crockett · Pacheco · Vine Hill · Clyde</span>
+  </div>
+</footer>
+
+<script>
+  /* ── NAV scroll effect ── */
+  const nav = document.getElementById('main-nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  /* ── Intersection Observer for fade-up ── */
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        // stagger siblings
+        const siblings = [...e.target.parentElement.querySelectorAll('.fade-up')];
+        const idx = siblings.indexOf(e.target);
+        setTimeout(() => { e.target.classList.add('visible'); }, idx * 80);
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  /* ── Civic Radar Canvas — signature element ── */
+  (function() {
+    const canvas = document.getElementById('radar-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    let W, H, raf;
+
+    function resize() {
+      W = canvas.width  = canvas.parentElement.clientWidth || window.innerWidth;
+      H = canvas.height = canvas.parentElement.clientHeight || window.innerHeight;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    const rings = [
+      { r: 0.18, alpha: 0.07 },
+      { r: 0.32, alpha: 0.055 },
+      { r: 0.50, alpha: 0.04 },
+      { r: 0.72, alpha: 0.028 },
+    ];
+
+    // Five signal dots, one per neighborhood
+    const neighborhoods = ['Rodeo','Crockett','Pacheco','Vine Hill','Clyde'];
+    const dots = neighborhoods.map((name, i) => {
+      const angle = (i / neighborhoods.length) * Math.PI * 2 - Math.PI / 2;
+      const ring  = rings[Math.floor(Math.random() * 3)];
+      return {
+        name, angle,
+        baseR: ring.r,
+        pulse: Math.random() * Math.PI * 2,
+        pulseSpeed: 0.008 + Math.random() * 0.004,
+      };
+    });
+
+    let sweep = 0;
+
+    function draw(ts) {
+      ctx.clearRect(0, 0, W, H);
+
+      // Center the radar in the full hero
+      const cx = W * 0.5;
+      const cy = H * 0.5;
+      const maxR = Math.min(W * 0.7, H * 0.85);
+
+      // Rings — very faint, decorative only
+      rings.forEach(ring => {
+        ctx.beginPath();
+        ctx.arc(cx, cy, ring.r * maxR, 0, Math.PI * 2);
+        ctx.strokeStyle = `rgba(13,15,20,${ring.alpha * 0.5})`;
+        ctx.lineWidth = 1;
+        ctx.stroke();
+      });
+
+      // Cross-hairs — barely visible
+      ctx.strokeStyle = 'rgba(13,15,20,0.025)';
+      ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.moveTo(cx - maxR, cy); ctx.lineTo(cx + maxR, cy); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(cx, cy - maxR); ctx.lineTo(cx, cy + maxR); ctx.stroke();
+
+      // Sweep line — keep it subtle
+      sweep += 0.008;
+      ctx.save();
+      ctx.translate(cx, cy);
+      ctx.rotate(sweep);
+      // Sweep wedge — very low opacity
+      const g = ctx.createLinearGradient(0, 0, maxR, 0);
+      g.addColorStop(0, 'rgba(232,75,47,0.08)');
+      g.addColorStop(1, 'rgba(232,75,47,0)');
+      ctx.beginPath();
+      ctx.moveTo(0, 0);
+      ctx.arc(0, 0, maxR, -0.35, 0, false);
+      ctx.closePath();
+      ctx.fillStyle = g;
+      ctx.fill();
+      // Sweep line
+      ctx.beginPath(); ctx.moveTo(0,0); ctx.lineTo(maxR, 0);
+      ctx.strokeStyle = 'rgba(232,75,47,0.18)';
+      ctx.lineWidth = 1.5; ctx.stroke();
+      ctx.restore();
+
+      // Neighborhood dots
+      dots.forEach(dot => {
+        dot.pulse += dot.pulseSpeed;
+        const r = dot.baseR * maxR;
+        const dx = cx + Math.cos(dot.angle) * r;
+        const dy = cy + Math.sin(dot.angle) * r;
+
+        // Check if sweep just passed this dot (glow effect)
+        const normalizedAngle = ((dot.angle % (Math.PI*2)) + Math.PI*2) % (Math.PI*2);
+        const normalizedSweep = (sweep % (Math.PI*2) + Math.PI*2) % (Math.PI*2);
+        const diff = ((normalizedSweep - normalizedAngle) + Math.PI*2) % (Math.PI*2);
+        const freshHit = diff < 0.5;
+        const glow = freshHit ? Math.max(0, 1 - diff * 2) : 0;
+
+        if (glow > 0.01) {
+          ctx.beginPath();
+          ctx.arc(dx, dy, 12 + glow * 16, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(232,75,47,${glow * 0.10})`;
+          ctx.fill();
+        }
+
+        ctx.beginPath();
+        ctx.arc(dx, dy, 3.5, 0, Math.PI * 2);
+        ctx.fillStyle = freshHit
+          ? `rgba(200,48,16,${0.7 + glow * 0.3})`
+          : 'rgba(13,15,20,0.18)';
+        ctx.fill();
+
+        // Label — only on hit, stays to the right side
+        if (glow > 0.3) {
+          ctx.font = '500 11px Inter, sans-serif';
+          ctx.fillStyle = `rgba(180,40,10,${glow * 0.85})`;
+          ctx.fillText(dot.name, dx + 10, dy + 4);
+        }
+      });
+
+      raf = requestAnimationFrame(draw);
+    }
+    raf = requestAnimationFrame(draw);
+
+    // Stop animation if tab hidden
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) cancelAnimationFrame(raf);
+      else raf = requestAnimationFrame(draw);
+    });
+  })();
+</script>
+</body>
+</html>
