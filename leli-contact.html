@@ -592,7 +592,7 @@
 
   /* ── CONTACT FORM ── */
   // ⚠️  Replace this URL with your deployed Google Apps Script Web App URL
-  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzFnpJDF_qmwTJSiBI2MApzeLkD8hdwveG3SSCWLm8Ct2f-IBitoO-RXdCTgLljND0_Eg/exec';
+  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwWoYe7M9gUFldHByTNixr7o9D0ftvfZHu-L3e29cNXLo59A8WTVTDunTKmGy3Ud4P4ew/exec';
 
   const form = document.getElementById('contactForm');
   const submitBtn = document.getElementById('submitBtn');
@@ -634,11 +634,9 @@
     });
 
     try {
-      await fetch(SCRIPT_URL, {
-        method: 'POST',
+      await fetch(SCRIPT_URL + '?' + params.toString(), {
+        method: 'GET',
         mode: 'no-cors',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: params.toString(),
       });
       // no-cors means we can't read the response — assume success
       form.reset();
