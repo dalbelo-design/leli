@@ -2,18 +2,18 @@
  * LELI Contact Form — Google Apps Script Backend
  *
  * SETUP INSTRUCTIONS:
- * 1. Open your Google Sheet (create one named "LELI Contact Form Submissions")
+ * 1. Open your Google Sheet
  * 2. Go to Extensions > Apps Script
  * 3. Paste this entire file, replacing anything already there
- * 4. Save, then click Deploy > New Deployment
+ * 4. Save, then click Deploy > Manage Deployments
+ *    - Edit your existing deployment (or create a new one)
  *    - Type: Web App
  *    - Execute as: Me
  *    - Who has access: Anyone
- * 5. Copy the Web App URL and paste it into leli-contact.html
- *    replacing 'YOUR_APPS_SCRIPT_WEB_APP_URL_HERE'
+ *    - Click Deploy and copy the URL into leli-contact.html
  */
 
-const SHEET_NAME = 'Contacts';  // Tab name in your Google Sheet
+const SHEET_NAME = 'Contacts';
 
 function doPost(e) {
   try {
@@ -23,25 +23,17 @@ function doPost(e) {
     // Create the sheet and header row if it doesn't exist yet
     if (!sheet) {
       sheet = ss.insertSheet(SHEET_NAME);
-      sheet.appendRow([
-        'Submitted At',
-        'First Name',
-        'Last Name',
-        'Email',
-        'Phone',
-        'Organization',
-        'Reason for Contact',
-        'Message',
-        'How They Heard',
-      ]);
-      // Bold the header row
-      sheet.getRange(1, 1, 1, 9).setFontWeight('bold');
+      const headers = [
+        'Submitted At', 'First Name', 'Last Name', 'Email', 'Phone',
+        'Organization', 'Reason for Contact', 'Message', 'How They Heard'
+      ];
+      sheet.appendRow(headers);
+      sheet.getRange(1, 1, 1, headers.length).setFontWeight('bold');
     }
 
-    // Parse the incoming JSON
-    const data = JSON.parse(e.postData.contents);
+    // Parse URL-encoded form data (e.g. firstName=Maria&lastName=Gonzalez...)
+    const data = e.parameter;
 
-    // Append one row per submission
     sheet.appendRow([
       data.submittedAt    || new Date().toLocaleString(),
       data.firstName      || '',
@@ -54,7 +46,6 @@ function doPost(e) {
       data.hearAbout      || '',
     ]);
 
-    // Optional: send a notification email
     sendNotification(data);
 
     return ContentService
@@ -68,12 +59,8 @@ function doPost(e) {
   }
 }
 
-/**
- * Sends an email notification to the team when a new message arrives.
- * Remove or comment out this function if you don't want email alerts.
- */
 function sendNotification(data) {
-  const recipient = 'loren@dalbert.design';  // Change or add comma-separated addresses
+  const recipient = 'loren@dalbert.design';
   const subject   = `[LELI Contact] ${data.reason || 'New message'} from ${data.firstName} ${data.lastName}`;
   const body = `
 New contact form submission on leli.design
@@ -93,10 +80,6 @@ ${data.message}
   MailApp.sendEmail(recipient, subject, body);
 }
 
-/**
- * GET handler — returns a simple health-check so you can confirm the
- * deployment is live by visiting the URL in a browser.
- */
 function doGet() {
   return ContentService
     .createTextOutput('LELI Contact Form endpoint is live.')

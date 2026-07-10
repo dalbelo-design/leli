@@ -335,7 +335,6 @@
     <a href="index.html">Home</a>
     <a href="leli-about.html">About</a>
     <a href="leli-fellowship.html">Fellowship</a>
-    <a href="leli-communities.html">Communities</a>
     <a href="leli-csn.html">Civic Signals</a>
     <a href="leli-donate.html">Donate</a>
     <a href="leli-apply.html" class="nav-cta">Apply Now</a>
@@ -362,8 +361,7 @@
       <a href="index.html">Home</a>
       <a href="leli-about.html">About</a>
       <a href="leli-fellowship.html">Fellowship</a>
-      <a href="leli-communities.html">Communities</a>
-      <a href="leli-csn.html">Civic Signals</a>
+        <a href="leli-csn.html">Civic Signals</a>
       <a href="leli-donate.html">Donate</a>
     </div>
     <div class="nav-drawer-cta">
@@ -379,7 +377,7 @@
       <div class="eyebrow eyebrow-white">Get in Touch</div>
       <h1>We'd love to<br /><em>hear from you.</em></h1>
       <p class="page-hero-lead">
-        Whether you're curious about the fellowship, interested in partnering, or just want to learn more about the communities we serve — reach out. We read every message.
+        Whether you're curious about the fellowship, interested in partnering, or supporting the work — reach out. We read every message. And if phone or email is hard for you right now, tell us the best way to reach you and we'll adapt.
       </p>
     </div>
   </div>
@@ -446,7 +444,7 @@
                 <option value="Partnership Inquiry">Partnership Inquiry</option>
                 <option value="Donation / Funding">Donation / Funding</option>
                 <option value="Media / Press">Media / Press</option>
-                <option value="Community Member">Community Member (Rodeo, Crockett, Pacheco, Vine Hill, or Clyde)</option>
+                <option value="Community Member">Community Member (Contra Costa County)</option>
                 <option value="Government / Policy">Government / Policy</option>
                 <option value="Other">Other</option>
               </select>
@@ -469,7 +467,7 @@
                 <option value="Social media">Social media</option>
                 <option value="Community event">Community event</option>
                 <option value="Contra Costa County">Contra Costa County</option>
-                <option value="Marathon / Phillips 66">Marathon / Phillips 66</option>
+                <option value="Case manager or service provider">Case manager or service provider</option>
                 <option value="CivicMakers">CivicMakers</option>
                 <option value="Dalbert Design">Dalbert Design</option>
                 <option value="Web search">Web search</option>
@@ -522,7 +520,7 @@
   <div class="footer-inner">
     <div class="footer-brand">
       <h3>LELI</h3>
-      <p>The Lived Experience Leadership Institute prepares community members to co-design programs and policy at the speed and scale of policymaking spaces.</p>
+      <p>The Lived Experience Leadership Institute trains people who have experienced homelessness in Contra Costa County to shape the strategy, implementation, and evaluation of the systems built to serve them.</p>
       <p style="margin-top: 16px; font-size: .8rem;">A flagship program of Ridiculously Hopeful Futures in California.<br />Fiscally sponsored by Realize Impact, a 501(c)(3) public charity.</p>
     </div>
     <div class="footer-col">
@@ -535,13 +533,12 @@
       </ul>
     </div>
     <div class="footer-col">
-      <h4>Communities</h4>
+      <h4>The Work</h4>
       <ul>
-        <li><a href="leli-communities.html#rodeo">Rodeo</a></li>
-        <li><a href="leli-communities.html#crockett">Crockett</a></li>
-        <li><a href="leli-communities.html#pacheco">Pacheco</a></li>
-        <li><a href="leli-communities.html#vinehill">Vine Hill</a></li>
-        <li><a href="leli-communities.html#clyde">Clyde</a></li>
+        <li><a href="leli-fellowship.html#phase1">Strategic Plan</a></li>
+        <li><a href="leli-fellowship.html#phase2">Implementation</a></li>
+        <li><a href="leli-fellowship.html#phase2">Evaluation</a></li>
+        <li><a href="leli-csn.html">Civic Signals Network</a></li>
       </ul>
     </div>
     <div class="footer-col">
@@ -555,7 +552,7 @@
   </div>
   <div class="footer-bottom">
     <span>© 2026 Ridiculously Hopeful Futures in California · Dalbert Design × CivicMakers</span>
-    <span>Rodeo · Crockett · Pacheco · Vine Hill · Clyde</span>
+    <span>Contra Costa County · Continuum of Care</span>
   </div>
 </footer>
 
@@ -592,7 +589,7 @@
 
   /* ── CONTACT FORM ── */
   // ⚠️  Replace this URL with your deployed Google Apps Script Web App URL
-  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwWoYe7M9gUFldHByTNixr7o9D0ftvfZHu-L3e29cNXLo59A8WTVTDunTKmGy3Ud4P4ew/exec';
+  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzFnpJDF_qmwTJSiBI2MApzeLkD8hdwveG3SSCWLm8Ct2f-IBitoO-RXdCTgLljND0_Eg/exec';
 
   const form = document.getElementById('contactForm');
   const submitBtn = document.getElementById('submitBtn');
@@ -634,9 +631,11 @@
     });
 
     try {
-      await fetch(SCRIPT_URL + '?' + params.toString(), {
-        method: 'GET',
+      await fetch(SCRIPT_URL, {
+        method: 'POST',
         mode: 'no-cors',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: params.toString(),
       });
       // no-cors means we can't read the response — assume success
       form.reset();
