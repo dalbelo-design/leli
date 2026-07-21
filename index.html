@@ -6,15 +6,16 @@
   <title>LELI — Lived Experience Leadership Institute</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,800;0,9..144,900;1,9..144,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,800;0,9..144,900;1,9..144,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <style>
+
     /* ── TOKENS ── */
     :root {
       --ink:       #0d0f14;
       --paper:     #f9f8ff;
-      --signal:    #e84b2f;   /* civic red-orange — the live signal */
+      --signal:    #e84b2f;
       --signal-lt: #fef0ed;
-      --sage:      #3a5c4e;   /* grounded / community green */
+      --sage:      #3a5c4e;
       --sage-lt:   #eaf1ee;
       --gold:      #c9952a;
       --gold-lt:   #fdf4e3;
@@ -79,12 +80,13 @@
       50%      { opacity: .5; transform: scale(.7); }
     }
 
-    .nav-links { display: flex; gap: 2rem; align-items: center; }
+    .nav-links { display: flex; gap: 1.6rem; align-items: center; }
     .nav-links a {
       font-size: .875rem; font-weight: 500;
       color: #555; transition: color .2s;
     }
     .nav-links a:hover { color: var(--ink); }
+    .nav-links a.active { color: var(--ink); font-weight: 600; }
 
     .nav-cta {
       background: var(--ink); color: var(--white) !important;
@@ -97,143 +99,72 @@
     .nav-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
     .nav-hamburger span { display: block; width: 24px; height: 2px; background: var(--ink); border-radius: 2px; transition: .3s; }
 
-    /* ── HERO ── */
-    .hero {
-      min-height: 100svh;
-      display: grid;
-      grid-template-rows: 1fr auto;
-      padding: 0 5vw;
-      padding-top: 80px;
-      position: relative;
-      overflow: hidden;
+    /* ── PAGE HERO (interior pages) ── */
+    .page-hero {
+      padding: 170px 5vw 70px;
+      text-align: center;
       background: var(--paper);
     }
-
-    /* Radar spans full hero but sits behind the radial gradient shield */
-    .hero-canvas {
-      position: absolute; inset: 0;
-      pointer-events: none;
-      width: 100% !important;
-    }
-
-    /* Gradient shield: keeps text readable over the radar */
-    .hero::after {
-      content: '';
-      position: absolute; inset: 0;
-      pointer-events: none;
-      background: radial-gradient(
-        ellipse at center,
-        rgba(249,248,255,0.92) 0%,
-        rgba(249,248,255,0.75) 55%,
-        rgba(249,248,255,0.3) 100%
-      );
-      z-index: 0;
-    }
-
-    /* Content sits above the gradient shield */
-    .hero-content { position: relative; z-index: 2; }
-    .hero-stats    { position: relative; z-index: 2; }
-
-    .hero-content {
-      display: flex; flex-direction: column; justify-content: center; align-items: center;
-      gap: 2rem; max-width: min(860px, 100%); position: relative; z-index: 2;
-      padding: 80px 0 60px;
-      word-break: break-word;
-      text-align: center;
-      margin: 0 auto;
-    }
-
+    .page-hero-inner { max-width: 860px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 1.4rem; }
     .hero-eyebrow {
       display: inline-flex; align-items: center; gap: 10px;
       font-size: .8rem; font-weight: 600; letter-spacing: .12em;
       text-transform: uppercase; color: #c73010;
     }
     .hero-eyebrow-line { width: 32px; height: 2px; background: #c73010; flex-shrink: 0; }
-
-    .hero-headline {
+    .page-hero h1 {
       font-family: var(--font-display);
       font-weight: 800;
-      font-size: clamp(2rem, 7vw, 5.5rem);
-      line-height: 1.04;
+      font-size: clamp(1.9rem, 5.4vw, 4rem);
+      line-height: 1.06;
       letter-spacing: -.03em;
     }
-    .hero-headline em {
+    .page-hero h1 em {
       font-style: normal;
       background: linear-gradient(135deg, var(--signal) 0%, var(--gold) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
     }
-
-    .hero-sub {
-      font-size: clamp(0.95rem, 2.2vw, 1.25rem);
-      font-weight: 400;
+    .page-hero-sub {
+      font-size: clamp(0.95rem, 2vw, 1.15rem);
       color: #4a4a4a;
-      max-width: 620px;
+      max-width: 660px;
       line-height: 1.65;
     }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; justify-content: center; }
 
-    .hero-actions {
-      display: flex; flex-wrap: wrap; gap: 14px; align-items: center;
-    }
     .btn-primary {
       background: var(--signal); color: var(--white);
       padding: 15px 32px; border-radius: var(--r-pill);
       font-size: 1rem; font-weight: 600;
       transition: transform .15s, box-shadow .15s;
       box-shadow: 0 4px 24px rgba(232,75,47,.28);
+      display: inline-block;
     }
     .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(232,75,47,.38); }
 
+    .btn-outline {
+      border: 2px solid var(--ink); color: var(--ink);
+      padding: 13px 30px; border-radius: var(--r-pill);
+      font-size: .95rem; font-weight: 600;
+      transition: background .15s, color .15s, transform .15s;
+      display: inline-block;
+    }
+    .btn-outline:hover { background: var(--ink); color: var(--white); transform: translateY(-2px); }
+
     .btn-secondary {
-      display: flex; align-items: center; gap: 8px;
+      display: inline-flex; align-items: center; gap: 8px;
       font-size: .95rem; font-weight: 500; color: var(--ink);
       transition: gap .2s;
     }
     .btn-secondary:hover { gap: 12px; }
     .btn-secondary svg { width: 18px; height: 18px; }
 
-    .hero-stats {
-      display: flex; flex-wrap: wrap; gap: 32px;
-      padding: 28px 0 48px;
-      border-top: 1px solid var(--mist);
-      justify-content: center;
-      position: relative; z-index: 2;
-    }
-    .stat { display: flex; flex-direction: column; gap: 4px; }
-    .stat-num {
-      font-family: var(--font-display);
-      font-size: clamp(1.1rem, 2.5vw, 1.6rem);
-      font-weight: 700; line-height: 1;
-      color: var(--ink);
-    }
-    .stat-num span { color: var(--signal); }
-    .stat-label { font-size: .8rem; font-weight: 500; color: #6b6b6b; letter-spacing: .05em; text-transform: uppercase; }
-
-    /* ── SCROLL TICKER ── */
-    .ticker {
-      background: var(--ink); color: var(--white);
-      padding: 14px 0; overflow: hidden;
-      display: flex;
-      width: 100%;
-      max-width: 100vw;
-    }
-    .ticker-track {
-      display: flex; gap: 64px;
-      white-space: nowrap;
-      animation: ticker-scroll 30s linear infinite;
-    }
-    .ticker-item {
-      display: flex; align-items: center; gap: 14px;
-      font-family: var(--font-display);
-      font-size: .85rem; font-weight: 600; letter-spacing: .06em;
-      text-transform: uppercase; flex-shrink: 0;
-    }
-    .ticker-dot { width: 6px; height: 6px; background: var(--signal); border-radius: 50%; flex-shrink: 0; }
-    @keyframes ticker-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-
     /* ── SECTION BASE ── */
     section { padding: 100px 5vw; }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+    .section-inner-narrow { max-width: 820px; margin: 0 auto; }
     .section-eyebrow {
       display: inline-flex; align-items: center; gap: 10px;
       font-size: .75rem; font-weight: 700; letter-spacing: .14em;
@@ -249,241 +180,223 @@
       letter-spacing: -.025em;
       margin-bottom: 20px;
     }
+    .section-title em {
+      font-style: normal;
+      background: linear-gradient(135deg, var(--signal) 0%, var(--gold) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
     .section-body {
       font-size: 1.05rem; color: #4a4a4a; line-height: 1.7;
-      max-width: 640px;
+      max-width: 680px;
+    }
+    .section-body + .section-body { margin-top: 18px; }
+    .section-body strong { color: var(--ink); }
+
+    /* ── LIGHT CARD GRID ── */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 24px; margin-top: 56px;
+    }
+    .card {
+      padding: 34px 28px;
+      border-radius: var(--r-md);
+      border: 2px solid var(--mist);
+      background: var(--white);
+      transition: border-color .2s;
+    }
+    .card:hover { border-color: var(--sage); }
+    .card h3 {
+      font-family: var(--font-display);
+      font-size: 1.12rem; font-weight: 700;
+      margin-bottom: 10px;
+    }
+    .card p { font-size: .9rem; color: #5a5a5a; line-height: 1.65; }
+    .card-icon {
+      width: 42px; height: 42px; border-radius: var(--r-sm);
+      background: var(--sage-lt); color: var(--sage);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 18px; font-size: 1.2rem;
     }
 
-    /* ── WHAT WE DO ── */
-    .what {
+    /* ── DARK PANEL ── */
+    .dark-panel {
       background: var(--ink); color: var(--white);
       border-radius: var(--r-lg);
       margin: 0 3vw;
       padding: 80px 6vw;
       max-width: calc(100% - 6vw);
     }
-    .what .section-eyebrow { color: var(--gold); }
-    .what .section-eyebrow::before { background: var(--gold); }
-    .what .section-title { color: var(--white); max-width: 700px; }
-    .what .section-body { color: rgba(255,255,255,.7); }
+    .dark-panel .section-eyebrow { color: var(--gold); }
+    .dark-panel .section-eyebrow::before { background: var(--gold); }
+    .dark-panel .section-title { color: var(--white); max-width: 720px; }
+    .dark-panel .section-body { color: rgba(255,255,255,.72); }
+    .dark-panel-inner { max-width: 1100px; margin: 0 auto; }
 
-    .what-grid {
+    .dark-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 2px; margin-top: 60px;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 2px; margin-top: 56px;
       border: 2px solid rgba(255,255,255,.08);
       border-radius: var(--r-md);
       overflow: hidden;
     }
-    .what-card {
-      padding: 40px 36px;
-      border-right: 2px solid rgba(255,255,255,.08);
+    .dark-card {
+      padding: 38px 34px;
+      background: transparent;
       transition: background .25s;
     }
-    .what-card:last-child { border-right: none; }
-    .what-card:hover { background: rgba(255,255,255,.04); }
-
-    .what-card-num {
+    .dark-card:hover { background: rgba(255,255,255,.04); }
+    .dark-card-num {
       font-family: var(--font-display);
-      font-size: 3rem; font-weight: 800;
-      color: rgba(255,255,255,0.35);
-      line-height: 1; margin-bottom: 20px;
+      font-size: 2.6rem; font-weight: 800;
+      color: rgba(255,255,255,0.32);
+      line-height: 1; margin-bottom: 18px;
     }
-    .what-card-icon {
-      width: 48px; height: 48px; margin-bottom: 20px;
-      border-radius: var(--r-sm);
-      display: flex; align-items: center; justify-content: center;
-    }
-    .what-card-icon svg { width: 24px; height: 24px; }
-    .what-card h3 {
+    .dark-card h3 {
       font-family: var(--font-display);
-      font-size: 1.2rem; font-weight: 700;
+      font-size: 1.18rem; font-weight: 700;
       margin-bottom: 12px; color: var(--white);
     }
-    .what-card p { font-size: .9rem; color: rgba(255,255,255,.6); line-height: 1.65; }
+    .dark-card p { font-size: .9rem; color: rgba(255,255,255,.62); line-height: 1.65; }
 
-    /* ── HOW IT WORKS ── */
-    .how { background: var(--white); }
-    .how-inner { max-width: 1100px; margin: 0 auto; }
-
-    .how-phases {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 32px; margin-top: 60px;
+    /* ── SPLIT DISTINCTION ── */
+    .split-2 {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 24px; margin-top: 56px;
     }
-
-    .phase {
-      background: var(--paper);
+    .split-card {
       border-radius: var(--r-md);
-      padding: 44px 40px;
-      position: relative; overflow: hidden;
-    }
-    .phase::before {
-      content: '';
-      position: absolute; top: 0; left: 0; right: 0;
-      height: 4px;
-    }
-    .phase-a::before { background: linear-gradient(90deg, var(--signal), var(--gold)); }
-    .phase-b::before { background: linear-gradient(90deg, var(--sage), #6da38e); }
-
-    .phase-label {
-      font-size: .72rem; font-weight: 700; letter-spacing: .12em;
-      text-transform: uppercase; color: #767676; margin-bottom: 8px;
-    }
-    .phase-months {
-      font-family: var(--font-display);
-      font-size: 1.4rem; font-weight: 800; margin-bottom: 20px;
-    }
-    .phase-desc { font-size: .92rem; color: #555; line-height: 1.7; }
-
-    .phase-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
-    .tag {
-      padding: 5px 14px; border-radius: var(--r-pill);
-      font-size: .75rem; font-weight: 600;
-      background: var(--white); border: 1px solid var(--mist);
-    }
-
-    /* ── CIVIC SIGNALS NETWORK ── */
-    .csn {
-      background: var(--sage);
-      color: var(--white);
-      border-radius: var(--r-lg);
-      margin: 0 3vw;
-      padding: 80px 6vw;
-      overflow: hidden; position: relative;
-    }
-    .csn::before {
-      content: 'CSN';
-      position: absolute; right: 0; top: 50%; transform: translateY(-50%);
-      font-family: var(--font-display); font-weight: 800;
-      font-size: clamp(6rem, 18vw, 14rem);
-      color: rgba(255,255,255,.05); line-height: 1;
-      pointer-events: none; white-space: nowrap;
-      max-width: 100%; overflow: hidden;
-    }
-
-    .csn .section-eyebrow { color: rgba(255,255,255,.7); }
-    .csn .section-eyebrow::before { background: rgba(255,255,255,.4); }
-    .csn .section-title { color: var(--white); max-width: 680px; }
-    .csn-body { font-size: 1.05rem; color: rgba(255,255,255,.75); line-height: 1.7; max-width: 600px; margin-bottom: 48px; }
-
-    .csn-flow {
-      display: flex; flex-wrap: wrap;
-      gap: 12px; align-items: center;
-      position: relative; z-index: 1;
-    }
-    .csn-node {
-      background: rgba(255,255,255,.12);
-      border: 1px solid rgba(255,255,255,.2);
-      border-radius: var(--r-md);
-      padding: 20px 24px;
-      font-size: .9rem; font-weight: 600; color: var(--white);
-      backdrop-filter: blur(6px);
-    }
-    .csn-arrow {
-      font-size: 1.2rem; color: rgba(255,255,255,.4);
-    }
-    .csn-node.highlight {
-      background: rgba(232,75,47,.25);
-      border-color: rgba(232,75,47,.5);
-    }
-
-    /* ── COMMUNITIES ── */
-    .communities { background: var(--paper); }
-    .communities-inner { max-width: 1100px; margin: 0 auto; }
-
-    .neighborhood-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 16px;
-      margin-top: 56px;
-    }
-    .neighborhood {
-      flex: 1 1 calc(20% - 16px);
-      min-width: 140px;
-      background: var(--white);
-      border-radius: var(--r-md);
-      padding: 32px 20px 28px;
-      text-align: center;
-      border: 2px solid transparent;
-      transition: border-color .25s, transform .2s, box-shadow .2s;
-      cursor: default;
-    }
-    @media (max-width: 900px) {
-      .neighborhood { flex: 1 1 calc(33.333% - 16px); max-width: calc(33.333% - 11px); }
-    }
-    @media (max-width: 560px) {
-      .neighborhood { flex: 1 1 calc(50% - 16px); max-width: calc(50% - 8px); }
-    }
-    .neighborhood:hover {
-      border-color: var(--signal);
-      transform: translateY(-4px);
-      box-shadow: 0 12px 40px rgba(232,75,47,.1);
-    }
-    .neighborhood-icon {
-      width: 56px; height: 56px; border-radius: 50%;
-      background: var(--signal-lt);
-      display: flex; align-items: center; justify-content: center;
-      margin: 0 auto 16px;
-    }
-    .neighborhood-icon svg { width: 26px; height: 26px; color: var(--signal); }
-    .neighborhood h4 {
-      font-family: var(--font-display);
-      font-size: 1.05rem; font-weight: 700; margin-bottom: 6px;
-    }
-    .neighborhood p { font-size: .78rem; color: #6b6b6b; }
-
-    /* ── IMPACT ── */
-    .impact { background: var(--white); }
-    .impact-inner { max-width: 1100px; margin: 0 auto; }
-
-    .impact-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 24px; margin-top: 60px;
-    }
-    .impact-card {
-      padding: 36px 28px;
-      border-radius: var(--r-md);
+      padding: 40px 36px;
       border: 2px solid var(--mist);
-      transition: border-color .2s;
-    }
-    .impact-card:hover { border-color: var(--sage); }
-    .impact-card-icon {
-      width: 40px; height: 40px;
-      border-radius: var(--r-sm);
-      margin-bottom: 20px;
-      display: flex; align-items: center; justify-content: center;
-    }
-    .impact-card-icon svg { width: 20px; height: 20px; }
-    .impact-card-num {
-      font-family: var(--font-display);
-      font-size: 2.4rem; font-weight: 800;
-      color: var(--ink); line-height: 1; margin-bottom: 8px;
-    }
-    .impact-card-num em { font-style: normal; color: var(--signal); }
-    .impact-card-desc { font-size: .88rem; color: #666; line-height: 1.55; }
-
-    /* ── PARTNERS ── */
-    .partners { background: var(--paper); padding: 80px 5vw; }
-    .partners-inner { max-width: 1100px; margin: 0 auto; }
-    .partners-label {
-      font-size: .75rem; font-weight: 700; letter-spacing: .12em;
-      text-transform: uppercase; color: #5f5f5f; text-align: center; margin-bottom: 40px;
-    }
-    .partners-grid {
-      display: flex; flex-wrap: wrap;
-      gap: 16px; justify-content: center; align-items: center;
-    }
-    .partner-badge {
       background: var(--white);
-      border: 1.5px solid var(--mist);
-      border-radius: var(--r-pill);
-      padding: 12px 24px;
-      font-size: .875rem; font-weight: 600; color: #555;
-      transition: border-color .2s, color .2s;
     }
-    .partner-badge:hover { border-color: var(--sage); color: var(--sage); }
+    .split-card.accent {
+      border-color: var(--sage);
+      background: var(--sage-lt);
+    }
+    .split-label {
+      font-size: .75rem; font-weight: 700; letter-spacing: .12em;
+      text-transform: uppercase; margin-bottom: 16px; color: #6b6b6b;
+    }
+    .split-card.accent .split-label { color: var(--sage); }
+    .split-quote {
+      font-family: var(--font-display);
+      font-size: 1.15rem; font-weight: 600; line-height: 1.45;
+      margin-bottom: 16px; letter-spacing: -.01em;
+    }
+    .split-card p { font-size: .92rem; color: #4f4f4f; line-height: 1.68; }
+    .split-card.accent p { color: #33473e; }
+
+    .thesis-banner {
+      margin-top: 40px;
+      background: var(--ink); color: var(--white);
+      border-radius: var(--r-md);
+      padding: 30px 36px;
+      font-family: var(--font-display);
+      font-size: clamp(1.05rem, 2.4vw, 1.4rem);
+      font-weight: 700; line-height: 1.4; letter-spacing: -.01em;
+      text-align: center;
+    }
+    .thesis-banner em { font-style: normal; color: var(--gold); }
+
+    /* ── PULL QUOTE ── */
+    .pull-quote {
+      border-left: 4px solid var(--signal);
+      padding: 8px 0 8px 28px;
+      margin: 44px 0;
+      font-family: var(--font-display);
+      font-size: clamp(1.2rem, 2.8vw, 1.7rem);
+      font-weight: 700; line-height: 1.35; letter-spacing: -.015em;
+      max-width: 720px;
+    }
+    .pull-quote em { font-style: normal; color: var(--signal); }
+
+    /* ── CHECK LIST ── */
+    .check-list { list-style: none; margin-top: 36px; display: flex; flex-direction: column; gap: 18px; max-width: 760px; }
+    .check-list li {
+      display: flex; gap: 16px; align-items: flex-start;
+      font-size: .98rem; color: #444; line-height: 1.65;
+    }
+    .check-list li strong { color: var(--ink); }
+    .check-list .check {
+      flex-shrink: 0; width: 24px; height: 24px; border-radius: 50%;
+      background: var(--sage-lt); color: var(--sage);
+      display: flex; align-items: center; justify-content: center;
+      font-size: .8rem; font-weight: 800; margin-top: 2px;
+    }
+
+    /* ── COMPARE TABLE ── */
+    .compare-wrap { margin-top: 56px; border: 2px solid var(--mist); border-radius: var(--r-md); overflow: hidden; background: var(--white); }
+    .compare-row { display: grid; grid-template-columns: 1fr 1fr; }
+    .compare-row + .compare-row { border-top: 1.5px solid var(--mist); }
+    .compare-row.head { background: var(--ink); color: var(--white); }
+    .compare-cell { padding: 20px 26px; font-size: .93rem; line-height: 1.6; color: #4f4f4f; }
+    .compare-cell:first-child { border-right: 1.5px solid var(--mist); }
+    .compare-row.head .compare-cell {
+      font-family: var(--font-display); font-weight: 700; font-size: 1rem; color: var(--white);
+      border-right-color: rgba(255,255,255,.15);
+    }
+    .compare-row .compare-cell.leli { background: var(--sage-lt); color: #2f4038; font-weight: 500; }
+    .compare-row.head .compare-cell.leli { background: var(--sage); color: var(--white); }
+
+    /* ── STEPS ── */
+    .steps { margin-top: 56px; display: flex; flex-direction: column; gap: 0; max-width: 820px; }
+    .step {
+      display: grid; grid-template-columns: 64px 1fr; gap: 24px;
+      padding: 28px 0;
+      border-bottom: 1.5px solid var(--mist);
+    }
+    .step:last-child { border-bottom: none; }
+    .step-num {
+      font-family: var(--font-display);
+      font-size: 2rem; font-weight: 800; color: var(--signal);
+      line-height: 1;
+    }
+    .step h3 { font-family: var(--font-display); font-size: 1.15rem; font-weight: 700; margin-bottom: 8px; }
+    .step p { font-size: .93rem; color: #555; line-height: 1.65; }
+
+    /* ── DOMAIN BLOCKS (curriculum) ── */
+    .domain { 
+      margin-top: 48px; padding: 40px 38px;
+      background: var(--white); border: 2px solid var(--mist); border-radius: var(--r-md);
+    }
+    .domain:hover { border-color: var(--sage); }
+    .domain-head { display: flex; align-items: baseline; gap: 18px; margin-bottom: 10px; flex-wrap: wrap; }
+    .domain-num {
+      font-family: var(--font-display); font-size: 1rem; font-weight: 800;
+      color: var(--white); background: var(--sage);
+      border-radius: var(--r-pill); padding: 4px 14px; letter-spacing: .04em;
+    }
+    .domain h3 { font-family: var(--font-display); font-size: 1.35rem; font-weight: 800; letter-spacing: -.015em; }
+    .domain-tag { font-size: .92rem; color: var(--sage); font-weight: 600; margin-bottom: 18px; }
+    .domain ul { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-top: 6px; }
+    .domain ul li {
+      display: flex; gap: 12px; font-size: .93rem; color: #4c4c4c; line-height: 1.6;
+    }
+    .domain ul li::before { content: '—'; color: var(--gold); font-weight: 700; flex-shrink: 0; }
+
+    /* ── SYSTEMS DIAGRAM ── */
+    .systems-diagram { margin-top: 56px; text-align: center; }
+    .sys-center {
+      display: inline-block;
+      background: var(--ink); color: var(--white);
+      font-family: var(--font-display); font-weight: 700; font-size: 1.05rem;
+      padding: 16px 34px; border-radius: var(--r-pill);
+      margin-bottom: 14px;
+    }
+    .sys-down { font-size: 1.4rem; color: var(--signal); margin: 4px 0 18px; }
+    .sys-chips { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; max-width: 760px; margin: 0 auto; }
+    .sys-chip {
+      background: var(--white); border: 1.5px solid var(--mist);
+      border-radius: var(--r-pill); padding: 10px 22px;
+      font-size: .88rem; font-weight: 600; color: #555;
+      transition: border-color .2s, color .2s, transform .15s;
+    }
+    .sys-chip:hover { border-color: var(--sage); color: var(--sage); transform: translateY(-2px); }
+    .sys-caption { margin: 26px auto 0; font-size: .92rem; color: #666; max-width: 620px; line-height: 1.65; }
 
     /* ── CTA BAND ── */
     .cta-band {
@@ -498,10 +411,10 @@
     }
     .cta-band h2 {
       font-family: var(--font-display);
-      font-size: clamp(1.4rem, 3.5vw, 2.8rem);
+      font-size: clamp(1.4rem, 3.5vw, 2.6rem);
       font-weight: 800; line-height: 1.1; letter-spacing: -.025em;
     }
-    .cta-band p { font-size: 1rem; color: rgba(255,255,255,1); margin-top: 12px; max-width: 500px; }
+    .cta-band p { font-size: 1rem; color: rgba(255,255,255,1); margin-top: 12px; max-width: 520px; }
     .cta-band-actions { display: flex; flex-direction: column; gap: 12px; flex-shrink: 0; }
 
     .btn-white {
@@ -510,6 +423,7 @@
       font-size: .95rem; font-weight: 700; text-align: center;
       transition: transform .15s, box-shadow .15s;
       white-space: nowrap;
+      display: inline-block;
     }
     .btn-white:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(0,0,0,.15); }
 
@@ -518,6 +432,7 @@
       padding: 13px 28px; border-radius: var(--r-pill);
       font-size: .95rem; font-weight: 600; text-align: center;
       transition: border-color .15s, background .15s;
+      display: inline-block;
     }
     .btn-ghost-white:hover { border-color: var(--white); background: rgba(255,255,255,.12); }
 
@@ -560,37 +475,33 @@
     .fade-up.visible { opacity: 1; transform: translateY(0); }
 
     /* ── RESPONSIVE ── */
-    @media (max-width: 900px) {
-      .how-phases { grid-template-columns: 1fr; }
-      .cta-band { grid-template-columns: 1fr; }
-      .footer-inner { grid-template-columns: 1fr 1fr; }
-    }
-
-    @media (max-width: 640px) {
-      nav { padding: 14px 5vw; }
+    @media (max-width: 1080px) {
       .nav-links { display: none; }
       .nav-hamburger { display: flex; }
+    }
+    @media (max-width: 900px) {
+      .cta-band { grid-template-columns: 1fr; }
+      .footer-inner { grid-template-columns: 1fr 1fr; }
+      .split-2 { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 640px) {
+      nav { padding: 14px 5vw; }
       .footer-inner { grid-template-columns: 1fr; }
-      .what { margin: 0; border-radius: 0; padding: 56px 5vw; }
-      .csn  { margin: 0; border-radius: 0; padding: 56px 5vw; }
+      .dark-panel { margin: 0; border-radius: 0; padding: 56px 5vw; }
       .cta-band { margin: 0 0 48px; border-radius: 0; padding: 52px 6vw; grid-template-columns: 1fr; }
-      .hero-stats { gap: 16px; flex-wrap: wrap; }
-      .what-card { padding: 28px 24px; }
-      .what-grid { grid-template-columns: 1fr; }
-      .phase { padding: 32px 24px; }
       section { padding: 72px 5vw; }
-      .csn-flow { flex-direction: column; align-items: flex-start; }
-      .csn-arrow { transform: rotate(90deg); }
-      /* Hide radar on mobile — no room, text must stay clear */
-      .hero-canvas { display: none; }
-      /* On mobile, gradient shield not needed since canvas is hidden */
-      .hero::after { display: none; }
+      .page-hero { padding: 140px 5vw 56px; }
+      .compare-row { grid-template-columns: 1fr; }
+      .compare-cell:first-child { border-right: none; border-bottom: 1px dashed var(--mist); }
+      .compare-row.head .compare-cell:first-child { border-bottom: none; }
+      .step { grid-template-columns: 44px 1fr; gap: 16px; }
+      .domain { padding: 30px 24px; }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .ticker-track { animation: none; }
       .nav-logo-dot { animation: none; }
-      .fade-up { transition: none; }
+      .fade-up { transition: none; opacity: 1; transform: none; }
+      .ticker-track { animation: none; }
     }
 
     /* ── MOBILE NAV DRAWER ── */
@@ -617,9 +528,7 @@
       transform: translateX(100%);
       transition: transform .3s cubic-bezier(.4,0,.2,1);
     }
-    .nav-drawer.open .nav-drawer-panel {
-      transform: translateX(0);
-    }
+    .nav-drawer.open .nav-drawer-panel { transform: translateX(0); }
     .nav-drawer-close {
       display: flex; align-items: center; justify-content: space-between;
       padding: 0 24px 24px;
@@ -630,9 +539,7 @@
       font-family: var(--font-display); font-weight: 800; font-size: 1.1rem;
       color: var(--white); display: flex; align-items: center; gap: 10px;
     }
-    .nav-drawer-logo-dot {
-      width: 8px; height: 8px; background: var(--signal); border-radius: 50%;
-    }
+    .nav-drawer-logo-dot { width: 8px; height: 8px; background: var(--signal); border-radius: 50%; }
     .nav-drawer-x {
       width: 36px; height: 36px; border-radius: 50%;
       background: rgba(255,255,255,.08); border: none; cursor: pointer;
@@ -641,10 +548,7 @@
     }
     .nav-drawer-x:hover { background: rgba(255,255,255,.16); }
     .nav-drawer-x svg { width: 16px; height: 16px; color: var(--white); }
-    .nav-drawer-links {
-      display: flex; flex-direction: column; padding: 8px 0;
-      flex: 1;
-    }
+    .nav-drawer-links { display: flex; flex-direction: column; padding: 8px 0; flex: 1; }
     .nav-drawer-links a {
       padding: 14px 24px;
       font-size: 1rem; font-weight: 600; color: rgba(255,255,255,.75);
@@ -659,9 +563,7 @@
       color: var(--white); border-left-color: var(--signal);
       background: rgba(232,75,47,.1);
     }
-    .nav-drawer-cta {
-      margin: 16px 24px 0;
-    }
+    .nav-drawer-cta { margin: 16px 24px 0; }
     .nav-drawer-cta a {
       display: block; background: var(--signal); color: var(--white) !important;
       padding: 14px 24px; border-radius: var(--r-pill);
@@ -670,24 +572,118 @@
     }
     .nav-drawer-cta a:hover { background: #c73010; }
 
+
+    /* ── HOME HERO ── */
+    .hero {
+      min-height: 100svh;
+      display: grid;
+      grid-template-rows: 1fr auto;
+      padding: 0 5vw;
+      padding-top: 80px;
+      position: relative;
+      overflow: hidden;
+      background: var(--paper);
+    }
+    .hero-canvas { position: absolute; inset: 0; pointer-events: none; width: 100% !important; }
+    .hero::after {
+      content: '';
+      position: absolute; inset: 0;
+      pointer-events: none;
+      background: radial-gradient(ellipse at center,
+        rgba(249,248,255,0.92) 0%,
+        rgba(249,248,255,0.75) 55%,
+        rgba(249,248,255,0.3) 100%);
+      z-index: 0;
+    }
+    .hero-content {
+      display: flex; flex-direction: column; justify-content: center; align-items: center;
+      gap: 2rem; max-width: min(880px, 100%); position: relative; z-index: 2;
+      padding: 80px 0 60px;
+      word-break: break-word;
+      text-align: center;
+      margin: 0 auto;
+    }
+    .hero-headline {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: clamp(2rem, 6.6vw, 5rem);
+      line-height: 1.04;
+      letter-spacing: -.03em;
+    }
+    .hero-headline em {
+      font-style: normal;
+      background: linear-gradient(135deg, var(--signal) 0%, var(--gold) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-sub {
+      font-size: clamp(0.95rem, 2.2vw, 1.2rem);
+      font-weight: 400;
+      color: #4a4a4a;
+      max-width: 640px;
+      line-height: 1.65;
+    }
+    .hero-stats {
+      display: flex; flex-wrap: wrap; gap: 32px;
+      padding: 28px 0 48px;
+      border-top: 1px solid var(--mist);
+      justify-content: center;
+      position: relative; z-index: 2;
+    }
+    .stat { display: flex; flex-direction: column; gap: 4px; align-items: center; }
+    .stat-num {
+      font-family: var(--font-display);
+      font-size: clamp(1.05rem, 2.4vw, 1.5rem);
+      font-weight: 700; line-height: 1;
+      color: var(--ink);
+    }
+    .stat-label { font-size: .8rem; font-weight: 500; color: #6b6b6b; letter-spacing: .05em; text-transform: uppercase; }
+
+    /* ── TICKER ── */
+    .ticker {
+      background: var(--ink); color: var(--white);
+      padding: 14px 0; overflow: hidden;
+      display: flex; width: 100%; max-width: 100vw;
+    }
+    .ticker-track {
+      display: flex; gap: 64px;
+      white-space: nowrap;
+      animation: ticker-scroll 32s linear infinite;
+    }
+    .ticker-item {
+      display: flex; align-items: center; gap: 14px;
+      font-family: var(--font-display);
+      font-size: .85rem; font-weight: 600; letter-spacing: .06em;
+      text-transform: uppercase; flex-shrink: 0;
+    }
+    .ticker-dot { width: 6px; height: 6px; background: var(--signal); border-radius: 50%; flex-shrink: 0; }
+    @keyframes ticker-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    @media (max-width: 640px) {
+      .hero-canvas { display: none; }
+      .hero::after { display: none; }
+      .hero-stats { gap: 16px; }
+    }
+
   </style>
 </head>
 <body>
-
 <!-- NAV -->
 <nav id="main-nav">
-  <div class="nav-logo">
+  <a class="nav-logo" href="index.html" aria-label="LELI home">
     <span class="nav-logo-dot"></span>
     LELI
-  </div>
+  </a>
   <div class="nav-links">
     <a href="index.html" class="active">Home</a>
+    <a href="leli-how.html">How It Works</a>
+    <a href="leli-curriculum.html">Curriculum</a>
+    <a href="leli-counties.html">For Counties</a>
+    <a href="leli-consultants.html">For Consultants</a>
     <a href="leli-about.html">About</a>
-    <a href="leli-fellowship.html">Fellowship</a>
-    <a href="leli-csn.html">Civic Signals</a>
-    <a href="leli-donate.html">Donate</a>
     <a href="leli-contact.html">Contact</a>
-    <a href="leli-apply.html" class="nav-cta">Apply Now</a>
+    <a href="leli-apply.html" class="nav-cta">Become a Consultant</a>
   </div>
   <div class="nav-hamburger" role="button" aria-label="Open menu" tabindex="0">
     <span></span><span></span><span></span>
@@ -699,309 +695,216 @@
   <div class="nav-drawer-overlay" id="nav-overlay"></div>
   <div class="nav-drawer-panel">
     <div class="nav-drawer-close">
-      <div class="nav-drawer-logo">
-        <span class="nav-drawer-logo-dot"></span>
-        LELI
-      </div>
+      <span class="nav-drawer-logo"><span class="nav-drawer-logo-dot"></span> LELI</span>
       <button class="nav-drawer-x" id="nav-close" aria-label="Close menu">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 2l12 12M14 2L2 14"/></svg>
       </button>
     </div>
     <div class="nav-drawer-links">
       <a href="index.html" class="active">Home</a>
+      <a href="leli-how.html">How It Works</a>
+      <a href="leli-curriculum.html">Curriculum</a>
+      <a href="leli-counties.html">For Counties</a>
+      <a href="leli-consultants.html">For Consultants</a>
       <a href="leli-about.html">About</a>
-      <a href="leli-fellowship.html">Fellowship</a>
-        <a href="leli-csn.html">Civic Signals</a>
-      <a href="leli-donate.html">Donate</a>
       <a href="leli-contact.html">Contact</a>
     </div>
     <div class="nav-drawer-cta">
-      <a href="leli-apply.html">Apply Now</a>
+      <a href="leli-apply.html">Become a Consultant</a>
     </div>
   </div>
 </div>
 
 <!-- HERO -->
-<section class="hero" id="about">
-  <!-- SVG Civic Radar — signature element -->
+<section class="hero" style="padding-left:5vw;padding-right:5vw;">
   <canvas class="hero-canvas" id="radar-canvas" aria-hidden="true"></canvas>
-
   <div class="hero-content">
     <div class="hero-eyebrow">
       <span class="hero-eyebrow-line"></span>
       Lived Experience Leadership Institute
+      <span class="hero-eyebrow-line"></span>
     </div>
-
-    <h1 class="hero-headline">
-      Turning lived<br />
-      experience into<br />
-      <em>policy power.</em>
-    </h1>
-
-    <p class="hero-sub">
-      LELI trains people who have experienced homelessness — and navigated the continuum of care firsthand — to become paid lived experience consultants shaping strategic plans to reduce homelessness: their design, their implementation, and their evaluation. Our flagship partnership is with Contra Costa County, and the training can be customized for any municipality.
-    </p>
-
+    <h1 class="hero-headline">Institutionalize <em>living expertise</em> across your county.</h1>
+    <p class="hero-sub">LELI prepares people with lived experience to work as professional consultants across your county's service systems — fluent in your language, your structures, your governance, and your policy cycles. Meaningful engagement of subject matter experts with lived experience.</p>
     <div class="hero-actions">
-      <a href="#apply" class="btn-primary">Apply to the Fellowship</a>
-      <a href="#how" class="btn-secondary">
-        How it works
-        <svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M3 9h12M9 3l6 6-6 6"/>
-        </svg>
+      <a href="leli-counties.html" class="btn-primary">For County Leaders</a>
+      <a href="leli-apply.html" class="btn-secondary">Become a Consultant
+        <svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9h12M9 3l6 6-6 6"/></svg>
       </a>
     </div>
   </div>
-
-  <div class="hero-stats fade-up">
-    <div class="stat">
-      <span class="stat-num">Paid Fellowship</span>
-    </div>
-    <div class="stat">
-      <span class="stat-num">12 Months</span>
-    </div>
-    <div class="stat">
-      <span class="stat-num">1 Countywide System</span>
-    </div>
+  <div class="hero-stats">
+    <div class="stat"><span class="stat-num">Standing</span><span class="stat-label">Program</span></div>
+    <div class="stat"><span class="stat-num">County</span><span class="stat-label">Scale</span></div>
+    <div class="stat"><span class="stat-num">Multi</span><span class="stat-label">System</span></div>
   </div>
 </section>
 
 <!-- TICKER -->
 <div class="ticker" aria-hidden="true">
   <div class="ticker-track">
-    <span class="ticker-item"><span class="ticker-dot"></span>Lived Expertise</span>
-    <span class="ticker-item"><span class="ticker-dot"></span>Strategic Plan Co-Design</span>
-    <span class="ticker-item"><span class="ticker-dot"></span>Continuum of Care Fluency</span>
-    <span class="ticker-item"><span class="ticker-dot"></span>Real-Time Community Signal</span>
-    <span class="ticker-item"><span class="ticker-dot"></span>Service Gap Analysis</span>
-    <span class="ticker-item"><span class="ticker-dot"></span>AI-Powered Analysis</span>
-    <span class="ticker-item"><span class="ticker-dot"></span>Implementation &amp; Evaluation</span>
-    <span class="ticker-item"><span class="ticker-dot"></span>Peer-Led Research</span>
-    <span class="ticker-item"><span class="ticker-dot"></span>Lived Expertise</span>
-    <span class="ticker-item"><span class="ticker-dot"></span>Strategic Plan Co-Design</span>
-    <span class="ticker-item"><span class="ticker-dot"></span>Continuum of Care Fluency</span>
-    <span class="ticker-item"><span class="ticker-dot"></span>Real-Time Community Signal</span>
-    <span class="ticker-item"><span class="ticker-dot"></span>Service Gap Analysis</span>
-    <span class="ticker-item"><span class="ticker-dot"></span>AI-Powered Analysis</span>
-    <span class="ticker-item"><span class="ticker-dot"></span>Implementation &amp; Evaluation</span>
-    <span class="ticker-item"><span class="ticker-dot"></span>Peer-Led Research</span>
+    <div class="ticker-item"><span class="ticker-dot"></span>Living Expertise</div><div class="ticker-item"><span class="ticker-dot"></span>Prepared Consultants</div><div class="ticker-item"><span class="ticker-dot"></span>Standing Program</div><div class="ticker-item"><span class="ticker-dot"></span>County-Scale</div><div class="ticker-item"><span class="ticker-dot"></span>Multi-System</div><div class="ticker-item"><span class="ticker-dot"></span>Policy-Ready Findings</div><div class="ticker-item"><span class="ticker-dot"></span>Meaningful Engagement</div><div class="ticker-item"><span class="ticker-dot"></span>Paid Expertise</div><div class="ticker-item"><span class="ticker-dot"></span>Living Expertise</div><div class="ticker-item"><span class="ticker-dot"></span>Prepared Consultants</div><div class="ticker-item"><span class="ticker-dot"></span>Standing Program</div><div class="ticker-item"><span class="ticker-dot"></span>County-Scale</div><div class="ticker-item"><span class="ticker-dot"></span>Multi-System</div><div class="ticker-item"><span class="ticker-dot"></span>Policy-Ready Findings</div><div class="ticker-item"><span class="ticker-dot"></span>Meaningful Engagement</div><div class="ticker-item"><span class="ticker-dot"></span>Paid Expertise</div>
   </div>
 </div>
 
-<!-- WHAT WE DO -->
-<section style="padding: 80px 3vw;" id="about-detail">
-  <div class="what fade-up">
-    <div class="section-eyebrow">What We Do</div>
-    <h2 class="section-title">We refine lived experience<br />into living expertise.</h2>
-    <p class="section-body">Nobody knows how to help the homelessness response system work better than the people who've been inside it. LELI trains them to put that knowledge to work — translating firsthand experience into the analysis, consultation, and partnership that strengthens policy.</p>
 
-    <div class="what-grid">
-      <div class="what-card">
-        <div class="what-card-num">01</div>
-        <h3>Leadership Identity</h3>
-        <p>Fellows develop deep self-validation, learning to operate with confidence in rooms where their expertise may not yet be recognized — because it always was.</p>
+<!-- THE DISTINCTION -->
+<section id="distinction">
+  <div class="section-inner">
+    <div class="fade-up">
+      <div class="section-eyebrow">The Difference That Changes Everything</div>
+      <h2 class="section-title">Lived experience is where it starts.<br />Living expertise is what delivers.</h2>
+    </div>
+    <div class="split-2">
+      <div class="split-card fade-up">
+        <div class="split-label">Lived Experience</div>
+        <p class="split-quote">"I've navigated homelessness and the systems built to respond to it."</p>
+        <p>Essential. Irreplaceable. The one perspective no training can provide — and the foundation everything else is built on.</p>
       </div>
-      <div class="what-card">
-        <div class="what-card-num">02</div>
-        <h3>System Fluency</h3>
-        <p>Fellows deepen their firsthand knowledge of the Continuum of Care, coordinated entry, County health and housing services, funding streams, and how decisions get made — so they can contribute as informed partners.</p>
+      <div class="split-card accent fade-up">
+        <div class="split-label">Living Expertise</div>
+        <p class="split-quote">"I've navigated homelessness — and I understand this county's coordinated entry system, its funding streams, its governance bodies, its policy calendar, and how decisions actually get made."</p>
+        <p>The same experience, refined into strategic capability. Ready to advise on day one. Able to anticipate downstream effects. Fluent enough to contribute while plans are being written — right where decisions take shape.</p>
       </div>
-      <div class="what-card">
-        <div class="what-card-num">03</div>
-        <h3>Directing AI as a Tool</h3>
-        <p>Fellows learn to direct AI to handle scale — analyzing plans, data, and thousands of community inputs at once — while keeping judgment and meaning-making in human hands.</p>
-      </div>
-      <div class="what-card">
-        <div class="what-card-num">04</div>
-        <h3>Real Policy Engagement</h3>
-        <p>Fellows bring their analysis to the bodies that guide the County's homelessness response — Continuum of Care committees, County boards, and the public processes where the strategic plan takes shape.</p>
-      </div>
+    </div>
+    <div class="thesis-banner fade-up">LELI institutionalizes the preparation and refinement of lived experience into <em>living expertise.</em></div>
+  </div>
+</section>
+
+<!-- THE OPPORTUNITY -->
+<section id="opportunity" style="background: var(--white); padding-top: 90px; padding-bottom: 90px;">
+  <div class="section-inner">
+    <div class="fade-up">
+      <div class="section-eyebrow">The Opportunity</div>
+      <h2 class="section-title">Counties are investing in lived experience engagement. Preparation multiplies the return.</h2>
+      <p class="section-body">Counties across the country are building lived experience engagement into planning, implementation, and evaluation — advisory bodies, consultant contracts, governance seats. It's the right direction: the people who have navigated your systems hold expertise no other source can provide.</p>
+      <p class="section-body">Preparation is what unlocks that expertise's full value. When subject matter experts with lived experience understand your county's structures, funding flows, and policy language, their insight connects directly to the levers your departments control — and every engagement hour delivers.</p>
+      <p class="section-body"><strong>Better policy. Better programs. Better return on every engagement dollar.</strong></p>
     </div>
   </div>
 </section>
 
-<!-- HOW IT WORKS -->
-<section class="how" id="how">
-  <div class="how-inner">
-    <div class="section-eyebrow">The Fellowship</div>
-    <h2 class="section-title">12 months. Real work.<br />Lasting impact.</h2>
-    <p class="section-body">The fellowship runs a full 12 months. Fellows are paid for their expertise and engaged in the County's real planning processes from day one.</p>
-
-    <div class="how-phases">
-      <div class="phase phase-a fade-up">
-        <div class="phase-label">Phase One</div>
-        <div class="phase-months">Months 1–4</div>
-        <p class="phase-desc">Training in leadership identity, homelessness system fluency, consulting and research skills, and directing AI as a research tool. Fellows begin building relationships with County staff and Continuum of Care partners.</p>
-        <div class="phase-tags">
-          <span class="tag">System Fluency</span>
-          <span class="tag">Consulting Skills</span>
-          <span class="tag">AI Direction</span>
-          <span class="tag">LELI Method</span>
-        </div>
+<!-- THE FRAMEWORK -->
+<div class="dark-panel fade-up" id="framework">
+  <div class="dark-panel-inner">
+    <div class="section-eyebrow">The Framework</div>
+    <h2 class="section-title">Recruit. Prepare. Deploy.</h2>
+    <div class="dark-grid">
+      <div class="dark-card">
+        <div class="dark-card-num">01</div>
+        <h3>Recruit</h3>
+        <p>People with lived experience of homelessness and the systems that surround it — recruited from the communities your plans are written for.</p>
       </div>
-
-      <div class="phase phase-b fade-up">
-        <div class="phase-label">Phase Two</div>
-        <div class="phase-months">Months 5–12</div>
-        <p class="phase-desc">Applied consulting across the full arc of the County's strategic plan to reduce homelessness — reviewing drafts, joining implementation workgroups, and evaluating outcomes on the timelines active decisions actually run on.</p>
-        <div class="phase-tags">
-          <span class="tag">Plan Consultation</span>
-          <span class="tag">Implementation Workgroups</span>
-          <span class="tag">Evaluation</span>
-        </div>
+      <div class="dark-card">
+        <div class="dark-card-num">02</div>
+        <h3>Prepare</h3>
+        <p>Months of structured preparation: county structures and governance, system fluency, policy language and methodology, consulting and research skills, and directing AI as an analysis tool.</p>
+      </div>
+      <div class="dark-card">
+        <div class="dark-card-num">03</div>
+        <h3>Deploy</h3>
+        <p>Consultants advise across your active policy and program work — plan consultation, implementation workgroups, evaluation, and real-time community research — as system-fluent partners.</p>
       </div>
     </div>
-
-
-  </div>
-</section>
-
-<!-- CIVIC SIGNALS NETWORK -->
-<section style="padding: 80px 3vw;" id="network">
-  <div class="csn fade-up">
-    <div class="section-eyebrow">The Civic Signals Network</div>
-    <h2 class="section-title">Community-owned research infrastructure, built by Fellows.</h2>
-    <p class="csn-body">
-      The homelessness response system hears from the community every day — at public hearings, in intake conversations, through surveys and outreach. The Civic Signals Network connects those voices into something the county has never had: a closer-to-real-time picture of homelessness between annual Point-in-Time counts. Fellows read across volume, surface patterns, and carry findings into the strategic planning process — a living feedback loop no single team could build alone.
-      <br /><br />
-      <strong style="color: rgba(255,255,255,.9);">AI handles scale. Fellows handle truth.</strong>
-    </p>
-
-    <div class="csn-flow">
-      <div class="csn-node">Community Input<br /><small style="opacity:1; font-weight:400; color:rgba(255,255,255,1);">Comments, surveys, outreach conversations</small></div>
-      <div class="csn-arrow">→</div>
-      <div class="csn-node">AI at Scale<br /><small style="opacity:1; font-weight:400; color:rgba(255,255,255,1);">Language, volume, pattern detection</small></div>
-      <div class="csn-arrow">→</div>
-      <div class="csn-node highlight">Fellows Analyze<br /><small style="opacity:1; font-weight:400; color:rgba(255,255,255,1);">Judgment, meaning-making, decisions</small></div>
-      <div class="csn-arrow">→</div>
-      <div class="csn-node">Policy Findings<br /><small style="opacity:1; font-weight:400; color:rgba(255,255,255,1);">Delivered to County planning bodies</small></div>
+    <div style="margin-top: 40px;">
+      <a href="leli-how.html" class="btn-secondary" style="color: var(--white);">See How It Works
+        <svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9h12M9 3l6 6-6 6"/></svg>
+      </a>
     </div>
   </div>
-</section>
+</div>
 
-<!-- WHY LIVED EXPERIENCE -->
-<section class="communities" id="why">
-  <div class="communities-inner">
-    <div class="section-eyebrow">Why Lived Experience</div>
-    <h2 class="section-title">Experience is the expertise<br />the system is asking for.</h2>
-    <p class="section-body">The people working in Contra Costa's homelessness response bring dedication, data, and professional skill. Lived experience consultants bring the one perspective no training can provide: what services feel like from the inside, which handoffs work smoothly, and where a small change would make a big difference. And because lived experience rarely stays in one lane, Fellows carry that same insight into the other systems they've navigated — behavioral health, disability, workforce development, reentry, youth welfare, and aging. Together, that partnership produces plans that work better for everyone, across every service the County delivers.</p>
-
-    <div style="margin-top: 48px; background: var(--white); border-radius: var(--r-md); padding: 36px 40px; border-left: 4px solid var(--signal);" class="fade-up">
-      <p style="font-size: 1.05rem; line-height: 1.7; color: #3a3a3a; max-width: 780px;">
-        "The strongest plans are written by the people who run the system and the people who've navigated it — working side by side."
-      </p>
+<!-- ONE CONSULTANT MANY TABLES -->
+<section id="many-tables">
+  <div class="section-inner">
+    <div class="fade-up">
+      <div class="section-eyebrow">The County-Scale Advantage</div>
+      <h2 class="section-title">One consultant. <em>Every table.</em></h2>
+      <p class="section-body">Lived experience rarely stays in one lane. Navigating homelessness usually means also navigating behavioral health, disability services, workforce development, reentry, youth services, or aging systems — often several at once, often for family as well as self.</p>
+      <p class="section-body">Every LELI Consultant carries that whole map. Prepare one consultant, and you've strengthened planning, implementation, and evaluation across every system they've navigated.</p>
+    </div>
+    <div class="systems-diagram fade-up">
+  <div class="sys-center">One Prepared Consultant</div>
+  <div class="sys-down">▼</div>
+  <div class="sys-chips">
+    <span class="sys-chip">Homelessness Response</span>
+    <span class="sys-chip">Behavioral Health</span>
+    <span class="sys-chip">Disability Services</span>
+    <span class="sys-chip">Workforce Development</span>
+    <span class="sys-chip">Youth Services</span>
+    <span class="sys-chip">Aging</span>
+    <span class="sys-chip">Reentry</span>
+  </div>
+  <p class="sys-caption">That's why LELI is built for counties: one preparation investment, returns across every department. Co-fund it across departments, and the value multiplies while the cost distributes.</p>
+</div>
+    <div style="margin-top: 40px; text-align: center;" class="fade-up">
+      <a href="leli-counties.html" class="btn-outline">Explore the County Model</a>
     </div>
   </div>
 </section>
-
-<!-- IMPACT / OUTCOMES -->
-<section class="impact">
-  <div class="impact-inner">
-    <div class="section-eyebrow">Measurable Outcomes</div>
-    <h2 class="section-title">What success looks like.</h2>
-    <p class="section-body">Three dimensions of impact — for Fellows, for the community, and for the system that serves them both.</p>
-
-    <div class="impact-grid">
-      <div class="impact-card fade-up">
-        <div class="impact-card-icon" style="background: var(--signal-lt);">
-          <svg viewBox="0 0 20 20" fill="var(--signal)"><path d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"/></svg>
-        </div>
-        <div class="impact-card-num">100<em>%</em></div>
-        <div class="impact-card-desc">Of Fellows are paid for their expertise — training as professional lived experience consultants, not volunteers.</div>
-      </div>
-      <div class="impact-card fade-up">
-        <div class="impact-card-icon" style="background: var(--sage-lt);">
-          <svg viewBox="0 0 20 20" fill="var(--sage)"><path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"/><path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clip-rule="evenodd"/></svg>
-        </div>
-        <div class="impact-card-num">3<em>+</em></div>
-        <div class="impact-card-desc">Formal contributions to the strategic plan, its implementation, or its evaluation per cohort.</div>
-      </div>
-      <div class="impact-card fade-up">
-        <div class="impact-card-icon" style="background: var(--gold-lt);">
-          <svg viewBox="0 0 20 20" fill="var(--gold)"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clip-rule="evenodd"/></svg>
-        </div>
-        <div class="impact-card-num">80<em>%</em></div>
-        <div class="impact-card-desc">Of Fellows report increased leadership identity and civic self-efficacy through pre/post program surveys.</div>
-      </div>
-      <div class="impact-card fade-up">
-        <div class="impact-card-icon" style="background: #eef2ff;">
-          <svg viewBox="0 0 20 20" fill="#4a5de4"><path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"/></svg>
-        </div>
-        <div class="impact-card-num">1<em>+</em></div>
-        <div class="impact-card-desc">Lasting consulting relationships between Fellows and County or Continuum of Care bodies beyond the fellowship year.</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-
 
 <!-- CTA BAND -->
-<div id="apply">
-  <div class="cta-band fade-up">
-    <div>
-      <h2>Your experience is expertise.<br />Ready to use it?</h2>
-      <p>The Fellowship is open to anyone with current or former lived experience of homelessness — in Contra Costa County or your own community. No policy background required — that's what we build together.</p>
-    </div>
-    <div class="cta-band-actions">
-      <a href="leli-apply.html" class="btn-white">Apply to the Fellowship</a>
-      <a href="leli-donate.html" class="btn-ghost-white">Donate</a>
-    </div>
+<div class="cta-band fade-up">
+  <div>
+    <h2>Turn your engagement commitment into your strongest asset.</h2>
+    <p>Bring living expertise into the rooms where your plans take shape. Tell us about your county and we'll come back with a scoped proposal.</p>
+  </div>
+  <div class="cta-band-actions">
+    <a href="leli-contact.html#county-form" class="btn-white">Contact us for a scoped proposal</a>
+    <a href="leli-apply.html" class="btn-ghost-white">Become a Consultant</a>
   </div>
 </div>
+
 
 <!-- FOOTER -->
 <footer>
   <div class="footer-inner">
     <div class="footer-brand">
       <h3>LELI</h3>
-      <p>The Lived Experience Leadership Institute trains people who have experienced homelessness to shape the strategy, implementation, and evaluation of the systems built to serve them.</p>
-      <p style="margin-top: 16px; font-size: .8rem;">A flagship program of Ridiculously Hopeful Futures in California.<br />Fiscally sponsored by Realize Impact, a 501(c)(3) public charity.</p>
+      <p>The Lived Experience Leadership Institute prepares people with lived experience to work as professional consultants — shaping the policy, implementation, and evaluation of the systems they've navigated.</p>
+      <p style="margin-top: 16px; font-size: .8rem;">Institutionalizing the preparation and refinement of lived experience into living expertise.</p>
     </div>
     <div class="footer-col">
-      <h4>Program</h4>
+      <h4>The Framework</h4>
       <ul>
+        <li><a href="leli-how.html">How It Works</a></li>
+        <li><a href="leli-curriculum.html">The Curriculum</a></li>
         <li><a href="leli-about.html">About LELI</a></li>
-        <li><a href="leli-fellowship.html">The Fellowship</a></li>
-        <li><a href="leli-csn.html">Civic Signals Network</a></li>
-        <li><a href="leli-apply.html">Apply</a></li>
       </ul>
     </div>
     <div class="footer-col">
-      <h4>The Work</h4>
+      <h4>Get Involved</h4>
       <ul>
-        <li><a href="leli-fellowship.html#phase1">Strategic Plan</a></li>
-        <li><a href="leli-fellowship.html#phase2">Implementation</a></li>
-        <li><a href="leli-fellowship.html#phase2">Evaluation</a></li>
-        <li><a href="leli-csn.html">Civic Signals Network</a></li>
+        <li><a href="leli-counties.html">For Counties</a></li>
+        <li><a href="leli-consultants.html">For Consultants</a></li>
+        <li><a href="leli-apply.html">Become a Consultant</a></li>
       </ul>
     </div>
     <div class="footer-col">
       <h4>Connect</h4>
       <ul>
-        <li><a href="leli-donate.html">Donate</a></li>
         <li><a href="leli-contact.html">Contact</a></li>
+        <li><a href="leli-contact.html#county-form">Request a Proposal</a></li>
       </ul>
     </div>
   </div>
   <div class="footer-bottom">
-    <span>© 2026 Ridiculously Hopeful Futures in California · Dalbert Design × CivicMakers</span>
-    <span>Contra Costa County · Continuum of Care</span>
+    <span>© 2026 Lived Experience Leadership Institute</span>
+    <span><a href="https://leli.design">leli.design</a></span>
   </div>
 </footer>
 
 <script>
   /* ── NAV scroll effect ── */
-  const nav = document.getElementById('main-nav');
+  const navEl = document.getElementById('main-nav');
   window.addEventListener('scroll', () => {
-    nav.classList.toggle('scrolled', window.scrollY > 40);
+    navEl.classList.toggle('scrolled', window.scrollY > 40);
   });
 
   /* ── Intersection Observer for fade-up ── */
   const observer = new IntersectionObserver((entries) => {
-    entries.forEach((e, i) => {
+    entries.forEach((e) => {
       if (e.isIntersecting) {
-        // stagger siblings
         const siblings = [...e.target.parentElement.querySelectorAll('.fade-up')];
         const idx = siblings.indexOf(e.target);
         setTimeout(() => { e.target.classList.add('visible'); }, idx * 80);
@@ -1010,133 +913,6 @@
     });
   }, { threshold: 0.12 });
   document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
-
-  /* ── Civic Radar Canvas — signature element ── */
-  (function() {
-    const canvas = document.getElementById('radar-canvas');
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    let W, H, raf;
-
-    function resize() {
-      W = canvas.width  = canvas.parentElement.clientWidth || window.innerWidth;
-      H = canvas.height = canvas.parentElement.clientHeight || window.innerHeight;
-    }
-    resize();
-    window.addEventListener('resize', resize);
-
-    const rings = [
-      { r: 0.18, alpha: 0.07 },
-      { r: 0.32, alpha: 0.055 },
-      { r: 0.50, alpha: 0.04 },
-      { r: 0.72, alpha: 0.028 },
-    ];
-
-    // Five signal dots, one per neighborhood
-    const neighborhoods = ['Outreach','Coordinated Entry','Shelter','Housing','Aftercare'];
-    const dots = neighborhoods.map((name, i) => {
-      const angle = (i / neighborhoods.length) * Math.PI * 2 - Math.PI / 2;
-      const ring  = rings[Math.floor(Math.random() * 3)];
-      return {
-        name, angle,
-        baseR: ring.r,
-        pulse: Math.random() * Math.PI * 2,
-        pulseSpeed: 0.008 + Math.random() * 0.004,
-      };
-    });
-
-    let sweep = 0;
-
-    function draw(ts) {
-      ctx.clearRect(0, 0, W, H);
-
-      // Center the radar in the full hero
-      const cx = W * 0.5;
-      const cy = H * 0.5;
-      const maxR = Math.min(W * 0.7, H * 0.85);
-
-      // Rings — very faint, decorative only
-      rings.forEach(ring => {
-        ctx.beginPath();
-        ctx.arc(cx, cy, ring.r * maxR, 0, Math.PI * 2);
-        ctx.strokeStyle = `rgba(13,15,20,${ring.alpha * 0.5})`;
-        ctx.lineWidth = 1;
-        ctx.stroke();
-      });
-
-      // Cross-hairs — barely visible
-      ctx.strokeStyle = 'rgba(13,15,20,0.025)';
-      ctx.lineWidth = 1;
-      ctx.beginPath(); ctx.moveTo(cx - maxR, cy); ctx.lineTo(cx + maxR, cy); ctx.stroke();
-      ctx.beginPath(); ctx.moveTo(cx, cy - maxR); ctx.lineTo(cx, cy + maxR); ctx.stroke();
-
-      // Sweep line — keep it subtle
-      sweep += 0.008;
-      ctx.save();
-      ctx.translate(cx, cy);
-      ctx.rotate(sweep);
-      // Sweep wedge — very low opacity
-      const g = ctx.createLinearGradient(0, 0, maxR, 0);
-      g.addColorStop(0, 'rgba(232,75,47,0.08)');
-      g.addColorStop(1, 'rgba(232,75,47,0)');
-      ctx.beginPath();
-      ctx.moveTo(0, 0);
-      ctx.arc(0, 0, maxR, -0.35, 0, false);
-      ctx.closePath();
-      ctx.fillStyle = g;
-      ctx.fill();
-      // Sweep line
-      ctx.beginPath(); ctx.moveTo(0,0); ctx.lineTo(maxR, 0);
-      ctx.strokeStyle = 'rgba(232,75,47,0.18)';
-      ctx.lineWidth = 1.5; ctx.stroke();
-      ctx.restore();
-
-      // Neighborhood dots
-      dots.forEach(dot => {
-        dot.pulse += dot.pulseSpeed;
-        const r = dot.baseR * maxR;
-        const dx = cx + Math.cos(dot.angle) * r;
-        const dy = cy + Math.sin(dot.angle) * r;
-
-        // Check if sweep just passed this dot (glow effect)
-        const normalizedAngle = ((dot.angle % (Math.PI*2)) + Math.PI*2) % (Math.PI*2);
-        const normalizedSweep = (sweep % (Math.PI*2) + Math.PI*2) % (Math.PI*2);
-        const diff = ((normalizedSweep - normalizedAngle) + Math.PI*2) % (Math.PI*2);
-        const freshHit = diff < 0.5;
-        const glow = freshHit ? Math.max(0, 1 - diff * 2) : 0;
-
-        if (glow > 0.01) {
-          ctx.beginPath();
-          ctx.arc(dx, dy, 12 + glow * 16, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(232,75,47,${glow * 0.10})`;
-          ctx.fill();
-        }
-
-        ctx.beginPath();
-        ctx.arc(dx, dy, 3.5, 0, Math.PI * 2);
-        ctx.fillStyle = freshHit
-          ? `rgba(200,48,16,${0.7 + glow * 0.3})`
-          : 'rgba(13,15,20,0.18)';
-        ctx.fill();
-
-        // Label — only on hit, stays to the right side
-        if (glow > 0.3) {
-          ctx.font = '500 11px Inter, sans-serif';
-          ctx.fillStyle = `rgba(180,40,10,${glow * 0.85})`;
-          ctx.fillText(dot.name, dx + 10, dy + 4);
-        }
-      });
-
-      raf = requestAnimationFrame(draw);
-    }
-    raf = requestAnimationFrame(draw);
-
-    // Stop animation if tab hidden
-    document.addEventListener('visibilitychange', () => {
-      if (document.hidden) cancelAnimationFrame(raf);
-      else raf = requestAnimationFrame(draw);
-    });
-  })();
 
   /* ── Mobile nav drawer ── */
   (function() {
@@ -1154,19 +930,107 @@
     function closeDrawer() {
       drawer.classList.remove('open');
       document.body.style.overflow = '';
-      hamburger.focus();
     }
-
     hamburger.addEventListener('click', openDrawer);
-    hamburger.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openDrawer(); } });
-    overlay.addEventListener('click', closeDrawer);
+    hamburger.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') openDrawer(); });
     closeBtn.addEventListener('click', closeDrawer);
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer(); });
-
-    // Close drawer when a link is clicked
-    drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', closeDrawer));
+    overlay.addEventListener('click', closeDrawer);
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeDrawer(); });
+    drawer.querySelectorAll('.nav-drawer-links a, .nav-drawer-cta a').forEach(a => a.addEventListener('click', closeDrawer));
   })();
+</script>
+<script>
+  /* ── Civic Radar Canvas — signature element ── */
+  (function() {
+    const canvas = document.getElementById('radar-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    let W, H;
 
+    function resize() {
+      W = canvas.width  = canvas.parentElement.clientWidth || window.innerWidth;
+      H = canvas.height = canvas.parentElement.clientHeight || window.innerHeight;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    const rings = [
+      { r: 0.18, alpha: 0.07 },
+      { r: 0.32, alpha: 0.055 },
+      { r: 0.50, alpha: 0.04 },
+      { r: 0.72, alpha: 0.028 },
+    ];
+
+    const systems = ['Homelessness Response','Behavioral Health','Disability','Workforce','Youth','Aging','Reentry'];
+    const dots = systems.map((name, i) => {
+      const angle = (i / systems.length) * Math.PI * 2 - Math.PI / 2;
+      const ring  = rings[Math.floor(Math.random() * 3)];
+      return {
+        name, angle,
+        baseR: ring.r,
+        pulse: Math.random() * Math.PI * 2,
+        pulseSpeed: 0.008 + Math.random() * 0.004,
+      };
+    });
+
+    let sweep = 0;
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function draw() {
+      ctx.clearRect(0, 0, W, H);
+      const cx = W / 2, cy = H / 2;
+      const maxR = Math.min(W, H) * 0.62;
+
+      rings.forEach(ring => {
+        ctx.beginPath();
+        ctx.arc(cx, cy, ring.r * maxR, 0, Math.PI * 2);
+        ctx.strokeStyle = 'rgba(13,15,20,' + ring.alpha + ')';
+        ctx.lineWidth = 1;
+        ctx.stroke();
+      });
+
+      if (!reduced) {
+        const grad = ctx.createConicGradient ? (function(){
+          const g = ctx.createConicGradient(sweep, cx, cy);
+          g.addColorStop(0, 'rgba(232,75,47,0.10)');
+          g.addColorStop(0.12, 'rgba(232,75,47,0)');
+          g.addColorStop(1, 'rgba(232,75,47,0)');
+          return g;
+        })() : null;
+        if (grad) {
+          ctx.beginPath();
+          ctx.moveTo(cx, cy);
+          ctx.arc(cx, cy, rings[3].r * maxR, sweep, sweep + 0.9);
+          ctx.closePath();
+          ctx.fillStyle = grad;
+          ctx.fill();
+        }
+        sweep += 0.005;
+      }
+
+      dots.forEach(d => {
+        d.pulse += reduced ? 0 : d.pulseSpeed;
+        const r = d.baseR * maxR;
+        const x = cx + Math.cos(d.angle) * r;
+        const y = cy + Math.sin(d.angle) * r;
+        const p = (Math.sin(d.pulse) + 1) / 2;
+
+        ctx.beginPath();
+        ctx.arc(x, y, 3 + p * 2, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(232,75,47,' + (0.35 + p * 0.35) + ')';
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.arc(x, y, 8 + p * 8, 0, Math.PI * 2);
+        ctx.strokeStyle = 'rgba(232,75,47,' + (0.10 + p * 0.08) + ')';
+        ctx.lineWidth = 1;
+        ctx.stroke();
+      });
+
+      requestAnimationFrame(draw);
+    }
+    requestAnimationFrame(draw);
+  })();
 </script>
 </body>
 </html>
