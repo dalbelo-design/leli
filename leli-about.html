@@ -80,7 +80,7 @@
       50%      { opacity: .5; transform: scale(.7); }
     }
 
-    .nav-links { display: flex; gap: 1.6rem; align-items: center; }
+    .nav-links { display: flex; gap: 1.4rem; align-items: center; }
     .nav-links a {
       font-size: .875rem; font-weight: 500;
       color: #555; transition: color .2s;
@@ -573,21 +573,109 @@
     .nav-drawer-cta a:hover { background: #c73010; }
 
 
-    .founder-grid {
-      display: grid; grid-template-columns: 280px 1fr; gap: 48px;
-      margin-top: 44px; align-items: start;
+    /* ── TEAM CARDS ── */
+    .team-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr);
+      gap: 32px; margin-top: 52px;
     }
-    .founder-photo {
-      width: 100%; border-radius: var(--r-md);
-      border: 2px solid var(--mist);
+    .team-card {
+      background: var(--white); border-radius: var(--r-md);
+      overflow: hidden; border: 1.5px solid var(--mist);
+      transition: border-color .25s, box-shadow .25s, transform .2s;
+      display: flex; flex-direction: column;
     }
-    .founder-role {
-      font-size: .8rem; font-weight: 700; letter-spacing: .12em;
-      text-transform: uppercase; color: var(--signal); margin-bottom: 16px;
+    .team-card:hover {
+      border-color: var(--sage);
+      box-shadow: 0 12px 40px rgba(58,92,78,.1);
+      transform: translateY(-3px);
     }
-    @media (max-width: 760px) {
-      .founder-grid { grid-template-columns: 1fr; gap: 28px; }
-      .founder-photo { max-width: 280px; }
+    .team-card-top { height: 8px; flex-shrink: 0; }
+    .team-card-top.signal { background: linear-gradient(90deg, #c73010, var(--signal)); }
+    .team-card-top.sage   { background: linear-gradient(90deg, var(--sage), #6da38e); }
+    .team-card-head {
+      padding: 24px 28px 0;
+      display: flex; align-items: center; gap: 16px;
+    }
+    .team-avatar {
+      width: 72px; height: 72px; border-radius: 50%;
+      object-fit: cover; object-position: center top;
+      flex-shrink: 0; border: 3px solid var(--mist);
+      background: var(--paper);
+    }
+    .team-avatar.signal { border-color: var(--signal-lt); }
+    .team-avatar.sage   { border-color: var(--sage-lt); }
+    .team-monogram {
+      width: 72px; height: 72px; border-radius: 50%;
+      flex-shrink: 0; display: none;
+      align-items: center; justify-content: center;
+      font-family: var(--font-display); font-weight: 800; font-size: 1.5rem;
+      background: var(--sage-lt); color: var(--sage);
+      border: 3px solid var(--sage-lt);
+    }
+    .team-card-role {
+      font-size: .7rem; font-weight: 700; letter-spacing: .14em;
+      text-transform: uppercase; color: var(--sage); margin-bottom: 2px;
+    }
+    .team-card-name {
+      font-family: var(--font-display);
+      font-size: 1.35rem; font-weight: 800;
+      line-height: 1.15; letter-spacing: -.015em;
+    }
+    .team-card-body { padding: 16px 28px 36px; }
+    .team-card-org {
+      font-size: .8rem; color: #6b6b6b; font-weight: 600;
+      margin-bottom: 20px; letter-spacing: .01em;
+    }
+    .team-card-bio { font-size: .92rem; color: #4a4a4a; line-height: 1.7; }
+    .team-card-bio + .team-card-bio { margin-top: 14px; }
+    .team-card-bio strong { color: var(--ink); }
+    .team-card-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px; }
+    .team-tag {
+      padding: 4px 12px; border-radius: var(--r-pill);
+      font-size: .72rem; font-weight: 600;
+      background: var(--paper); border: 1px solid var(--mist);
+      color: #4a4a4a;
+    }
+
+    /* ── ORGANIZATIONAL PARTNERS ── */
+    .orgs-band { background: var(--sage-lt); }
+    .orgs-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 24px; margin-top: 52px;
+    }
+    .org-card {
+      background: var(--white); border-radius: var(--r-md);
+      padding: 40px 32px;
+      border: 1.5px solid rgba(58,92,78,.15);
+      transition: border-color .2s, box-shadow .2s;
+    }
+    .org-card:hover {
+      border-color: var(--sage);
+      box-shadow: 0 8px 32px rgba(58,92,78,.1);
+    }
+    .org-card-icon {
+      width: 48px; height: 48px; border-radius: var(--r-sm);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 20px;
+    }
+    .org-card h3 {
+      font-family: var(--font-display);
+      font-size: 1.15rem; font-weight: 800; margin-bottom: 6px;
+    }
+    .org-card-type {
+      font-size: .72rem; font-weight: 700; letter-spacing: .1em;
+      text-transform: uppercase; color: #6b6b6b; margin-bottom: 16px;
+    }
+    .org-card p { font-size: .9rem; color: #4a4a4a; line-height: 1.65; }
+    .org-card a.org-link {
+      display: inline-flex; align-items: center; gap: 6px;
+      margin-top: 16px; font-size: .85rem; font-weight: 700; color: var(--sage);
+      text-decoration: underline; text-underline-offset: 2px;
+    }
+
+    @media (max-width: 900px) {
+      .team-grid { grid-template-columns: 1fr; }
+      .orgs-grid { grid-template-columns: 1fr; }
     }
 
   </style>
@@ -606,6 +694,7 @@
     <a href="leli-counties.html">For Counties</a>
     <a href="leli-consultants.html">For Consultants</a>
     <a href="leli-about.html" class="active">About</a>
+    <a href="leli-donate.html">Donate</a>
     <a href="leli-contact.html">Contact</a>
     <a href="leli-apply.html" class="nav-cta">Become a Consultant</a>
   </div>
@@ -631,6 +720,7 @@
       <a href="leli-counties.html">For Counties</a>
       <a href="leli-consultants.html">For Consultants</a>
       <a href="leli-about.html" class="active">About</a>
+      <a href="leli-donate.html">Donate</a>
       <a href="leli-contact.html">Contact</a>
     </div>
     <div class="nav-drawer-cta">
@@ -678,20 +768,104 @@
   </div>
 </section>
 
-<!-- THE FOUNDER -->
-<section id="founder" style="background: var(--white);">
+<!-- THE TEAM -->
+<section id="team" style="background: var(--white);">
   <div class="section-inner">
     <div class="fade-up">
       <div class="section-eyebrow">The Team</div>
-      <h2 class="section-title">Loren Dalbert</h2>
+      <h2 class="section-title">The people behind LELI.</h2>
+      <p class="section-body">LELI is built by a partnership that pairs lived experience of the systems the framework addresses with more than a decade of human-centered design practice inside government.</p>
     </div>
-    <div class="founder-grid fade-up">
-      <img src="Loren.png" alt="Loren Dalbert" class="founder-photo" />
-      <div>
-        <p class="founder-role">Founder &amp; Framework Designer</p>
-        <p class="section-body">Loren Dalbert is a community systems designer focused on integrating lived experience into public policy design. His work spans strategic planning consultation inside county government, guaranteed income pilot design, community-centered economic mobility initiatives, and the development of the LELI framework and curriculum.</p>
-        <p class="section-body" style="margin-top: 16px;">A disabled veteran with lived experience of homelessness and poverty, Loren designs from both sides of the table: the navigator's knowledge of how systems actually feel, and the consultant's fluency in how they actually run. LELI is the institutionalization of that combination — built so it no longer depends on any single person to exist.</p>
-        <p class="section-body" style="margin-top: 16px; font-size: .9rem; color: #777;">Based in Antioch, California.</p>
+
+    <div class="team-grid">
+
+      <div class="team-card fade-up">
+        <div class="team-card-top signal"></div>
+        <div class="team-card-head">
+          <img src="Loren.png" alt="Loren Dalbert" class="team-avatar signal" />
+          <div>
+            <div class="team-card-role">Founder &amp; Framework Designer</div>
+            <div class="team-card-name">Loren Dalbert</div>
+          </div>
+        </div>
+        <div class="team-card-body">
+          <div class="team-card-org">Dalbert Design</div>
+          <p class="team-card-bio">A community systems designer focused on integrating lived experience into public policy design. Loren created the LELI framework and curriculum, designed the CoCo Go BIG guaranteed income pilot, and served as Program Manager of the East Contra Costa Mobility LABs initiative.</p>
+          <p class="team-card-bio">A disabled veteran who has navigated homelessness twice, he designs from both sides of the table: the navigator's knowledge of how systems actually feel, and the consultant's fluency in how they actually run. Based in Antioch, California.</p>
+          <div class="team-card-tags">
+            <span class="team-tag">Community Systems Design</span>
+            <span class="team-tag">Policy Research</span>
+            <span class="team-tag">Lived Experience</span>
+            <span class="team-tag">Antioch, CA</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="team-card fade-up">
+        <div class="team-card-top sage"></div>
+        <div class="team-card-head">
+          <img src="Judi.png" alt="Judi Brown" class="team-avatar sage"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+          <div class="team-monogram" aria-hidden="true">JB</div>
+          <div>
+            <div class="team-card-role">Co-Director</div>
+            <div class="team-card-name">Judi Brown</div>
+          </div>
+        </div>
+        <div class="team-card-body">
+          <div class="team-card-org">CivicMakers</div>
+          <p class="team-card-bio">A creative systems thinker and human-centered design practitioner with over a decade in social innovation and graduate education in public administration and policy. As Co-Founder and Managing Partner of CivicMakers, Judi designs immersive, accessible learning experiences — from graduate-level courses to co-design sessions with women business owners in Kenya to trainings with municipal staff at every level.</p>
+          <p class="team-card-bio">On LELI: curriculum and learning design, facilitation practice, and the evaluation framework that measures what preparation actually produces.</p>
+          <div class="team-card-tags">
+            <span class="team-tag">Human-Centered Design</span>
+            <span class="team-tag">Facilitation</span>
+            <span class="team-tag">Public Administration</span>
+            <span class="team-tag">Impact Evaluation</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ORGANIZATIONAL PARTNERS -->
+<section id="partners" class="orgs-band">
+  <div class="section-inner">
+    <div class="fade-up">
+      <div class="section-eyebrow">Organizational Partners</div>
+      <h2 class="section-title">Three layers of <em>infrastructure.</em></h2>
+      <p class="section-body">LELI is delivered through a partnership built to combine lived-experience leadership, proven public-sector delivery capacity, and rigorous charitable compliance — so a county can contract with confidence.</p>
+    </div>
+
+    <div class="orgs-grid">
+      <div class="org-card fade-up">
+        <div class="org-card-icon" style="background: var(--signal-lt);">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#c73010" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        </div>
+        <h3>Dalbert Design</h3>
+        <div class="org-card-type">Lived Experience Led · Framework Lead</div>
+        <p>A Lived Experience Led Organization founded by Loren Dalbert. Contributes the LELI framework and curriculum, the community-rooted recruitment approach, and the lived-experience leadership that anchors how consultants are prepared and deployed.</p>
+      </div>
+
+      <div class="org-card fade-up">
+        <div class="org-card-icon" style="background: var(--sage-lt);">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3a5c4e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+        </div>
+        <h3>CivicMakers</h3>
+        <div class="org-card-type">Delivery Partner</div>
+        <p>A strategic consultancy and community of practitioners with over ten years of human-centered design work alongside governments, nonprofits, and mission-driven organizations. Brings institutional capacity in community engagement, facilitation, training design, and the operational infrastructure public funders require.</p>
+        <a href="https://civicmakers.com" target="_blank" rel="noopener" class="org-link">civicmakers.com &rarr;</a>
+      </div>
+
+      <div class="org-card fade-up">
+        <div class="org-card-icon" style="background: var(--gold-lt);">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#a07018" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/></svg>
+        </div>
+        <h3>Realize Impact</h3>
+        <div class="org-card-type">Fiscal Sponsor · 501(c)(3)</div>
+        <p>A registered 501(c)(3) public charity specializing in fiscal sponsorship of mission-driven projects. Provides the charitable umbrella, financial oversight, grants administration, and reimbursement-grant cash-flow management — removing compliance risk from the county's side of the table.</p>
+        <a href="leli-donate.html" class="org-link">How giving works &rarr;</a>
       </div>
     </div>
   </div>
@@ -717,6 +891,7 @@
       <h3>LELI</h3>
       <p>The Lived Experience Leadership Institute prepares people with lived experience to work as professional consultants — shaping the policy, implementation, and evaluation of the systems they've navigated.</p>
       <p style="margin-top: 16px; font-size: .8rem;">Institutionalizing the preparation and refinement of lived experience into living expertise.</p>
+      <p style="margin-top: 16px; font-size: .8rem;">Fiscally sponsored by Realize Impact, a 501(c)(3) public charity.</p>
     </div>
     <div class="footer-col">
       <h4>The Framework</h4>
@@ -737,6 +912,7 @@
     <div class="footer-col">
       <h4>Connect</h4>
       <ul>
+        <li><a href="leli-donate.html">Donate</a></li>
         <li><a href="leli-contact.html">Contact</a></li>
         <li><a href="leli-contact.html#county-form">Request a Proposal</a></li>
       </ul>
