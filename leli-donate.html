@@ -457,7 +457,7 @@ footer{background:var(--ink);color:rgba(255,255,255,.55);padding:44px var(--pad)
   .hero-eyebrow::after{content:'';width:24px;height:2px;background:#c73010}
   .phero .btn-stack{justify-content:center}
 
-  .hero{min-height:78vh;display:flex;align-items:center;padding:70px var(--pad) 80px;text-align:center}
+  .hero{padding:72px var(--pad) 52px;text-align:center}
   .hero-inner{max-width:900px;margin:0 auto}
   .hero h1{font-size:clamp(2.8rem,5.4vw,4.4rem)}
   .hero-sub{font-size:1.15rem;margin:0 auto;text-align:center}
@@ -467,6 +467,17 @@ footer{background:var(--ink);color:rgba(255,255,255,.55);padding:44px var(--pad)
   .hero::after{content:'';position:absolute;inset:0;pointer-events:none;z-index:1;
     background:radial-gradient(ellipse at center,rgba(249,248,255,.92) 0%,
       rgba(249,248,255,.74) 55%,rgba(249,248,255,.28) 100%)}
+
+  /* section heads with intro copy: heading left rail, intro right rail */
+  .head-split{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);
+    column-gap:80px;align-items:start;margin-bottom:12px}
+  .head-split .section-head{margin-bottom:0}
+  .head-split .section-head h2{margin-bottom:0}
+  .head-split .prose-body > :first-child{margin-top:0!important}
+  .head-split .body-t{max-width:none}
+  /* trailing closing lines align to the same right rail */
+  .kicker{max-width:none;margin-left:calc((100% - 80px) * 0.425 + 80px)}
+  .thesis{max-width:none}
 
   /* prose-only sections: heading left, body right — no dead space at width */
   .prose-split .inner{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);
@@ -613,10 +624,14 @@ footer{background:var(--ink);color:rgba(255,255,255,.55);padding:44px var(--pad)
 <!-- WAYS TO GIVE -->
 <section class="section" id="ways-to-give">
   <div class="inner">
-    <div class="section-head reveal">
-      <p class="eyebrow signal">Three Ways to Give</p>
-      <h2>Choose how you want to support.</h2>
-      <p class="body-t" style="margin-top:16px">All donations reach LELI through our fiscal sponsor, Realize Impact. However you give, your contribution is fully tax-deductible.</p>
+        <div class="head-split reveal">
+      <div class="section-head">
+        <p class="eyebrow signal">Three Ways to Give</p>
+        <h2>Choose how you want to support.</h2>
+      </div>
+      <div class="prose-body">
+        <p class="body-t" style="margin-top:16px">All donations reach LELI through our fiscal sponsor, Realize Impact. However you give, your contribution is fully tax-deductible.</p>
+      </div>
     </div>
 
     <div class="notify reveal">
@@ -682,10 +697,10 @@ footer{background:var(--ink);color:rgba(255,255,255,.55);padding:44px var(--pad)
     <div class="section-head reveal">
       <p class="eyebrow gold">Fiscal Sponsorship</p>
       <h2>About Realize Impact.</h2>
-      <p class="body-t" style="margin-top:16px">LELI operates under the charitable umbrella of Realize Impact — a registered 501(c)(3) that makes your gift fully tax-deductible.</p>
     </div>
     <div class="prose-body reveal">
     <div class="reveal">
+      <p class="body-t">LELI operates under the charitable umbrella of Realize Impact — a registered 501(c)(3) that makes your gift fully tax-deductible.</p>
       <p class="body-t">LELI is fiscally sponsored by Realize Impact, a 501(c)(3) public charity specializing in fiscal sponsorship of mission-driven projects. Realize Impact provides the charitable umbrella, financial oversight, grants administration, and compliance infrastructure that lets LELI focus entirely on consultants and the counties they serve.</p>
       <p class="body-t">Fiscal sponsorship means your gift is made to Realize Impact on behalf of LELI. It is fully tax-deductible, subject to all 501(c)(3) rules, and directed entirely to LELI's programming — consultant compensation, preparation and curriculum delivery, and the wraparound support that makes participation possible.</p>
       <p class="body-t">All donations, whether made online, by check, or by wire transfer, are processed through Realize Impact. When you give, please <a href="leli-contact.html" class="inline-link">notify us through our contact form</a> so we can ensure your gift is properly allocated.</p>

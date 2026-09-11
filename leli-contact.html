@@ -457,7 +457,7 @@ footer{background:var(--ink);color:rgba(255,255,255,.55);padding:44px var(--pad)
   .hero-eyebrow::after{content:'';width:24px;height:2px;background:#c73010}
   .phero .btn-stack{justify-content:center}
 
-  .hero{min-height:78vh;display:flex;align-items:center;padding:70px var(--pad) 80px;text-align:center}
+  .hero{padding:72px var(--pad) 52px;text-align:center}
   .hero-inner{max-width:900px;margin:0 auto}
   .hero h1{font-size:clamp(2.8rem,5.4vw,4.4rem)}
   .hero-sub{font-size:1.15rem;margin:0 auto;text-align:center}
@@ -467,6 +467,17 @@ footer{background:var(--ink);color:rgba(255,255,255,.55);padding:44px var(--pad)
   .hero::after{content:'';position:absolute;inset:0;pointer-events:none;z-index:1;
     background:radial-gradient(ellipse at center,rgba(249,248,255,.92) 0%,
       rgba(249,248,255,.74) 55%,rgba(249,248,255,.28) 100%)}
+
+  /* section heads with intro copy: heading left rail, intro right rail */
+  .head-split{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);
+    column-gap:80px;align-items:start;margin-bottom:12px}
+  .head-split .section-head{margin-bottom:0}
+  .head-split .section-head h2{margin-bottom:0}
+  .head-split .prose-body > :first-child{margin-top:0!important}
+  .head-split .body-t{max-width:none}
+  /* trailing closing lines align to the same right rail */
+  .kicker{max-width:none;margin-left:calc((100% - 80px) * 0.425 + 80px)}
+  .thesis{max-width:none}
 
   /* prose-only sections: heading left, body right — no dead space at width */
   .prose-split .inner{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);
@@ -579,10 +590,14 @@ footer{background:var(--ink);color:rgba(255,255,255,.55);padding:44px var(--pad)
 <!-- COUNTY FORM -->
 <section class="section tight" id="county-form">
   <div class="form-outer">
-    <div class="section-head reveal">
-      <p class="eyebrow">For County Leaders &amp; Departments</p>
-      <h2>Request a scoped proposal.</h2>
-      <p class="body-t" style="margin-top:16px">Every LELI implementation is designed around your county's structures, priorities, and scale. Tell us a little about where you are, and we'll come back with a proposal scoped to fit.</p>
+        <div class="head-split reveal">
+      <div class="section-head">
+        <p class="eyebrow">For County Leaders &amp; Departments</p>
+        <h2>Request a scoped proposal.</h2>
+      </div>
+      <div class="prose-body">
+        <p class="body-t" style="margin-top:16px">Every LELI implementation is designed around your county's structures, priorities, and scale. Tell us a little about where you are, and we'll come back with a proposal scoped to fit.</p>
+      </div>
     </div>
 
     <div class="form-card reveal">

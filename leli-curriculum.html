@@ -457,7 +457,7 @@ footer{background:var(--ink);color:rgba(255,255,255,.55);padding:44px var(--pad)
   .hero-eyebrow::after{content:'';width:24px;height:2px;background:#c73010}
   .phero .btn-stack{justify-content:center}
 
-  .hero{min-height:78vh;display:flex;align-items:center;padding:70px var(--pad) 80px;text-align:center}
+  .hero{padding:72px var(--pad) 52px;text-align:center}
   .hero-inner{max-width:900px;margin:0 auto}
   .hero h1{font-size:clamp(2.8rem,5.4vw,4.4rem)}
   .hero-sub{font-size:1.15rem;margin:0 auto;text-align:center}
@@ -467,6 +467,17 @@ footer{background:var(--ink);color:rgba(255,255,255,.55);padding:44px var(--pad)
   .hero::after{content:'';position:absolute;inset:0;pointer-events:none;z-index:1;
     background:radial-gradient(ellipse at center,rgba(249,248,255,.92) 0%,
       rgba(249,248,255,.74) 55%,rgba(249,248,255,.28) 100%)}
+
+  /* section heads with intro copy: heading left rail, intro right rail */
+  .head-split{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);
+    column-gap:80px;align-items:start;margin-bottom:12px}
+  .head-split .section-head{margin-bottom:0}
+  .head-split .section-head h2{margin-bottom:0}
+  .head-split .prose-body > :first-child{margin-top:0!important}
+  .head-split .body-t{max-width:none}
+  /* trailing closing lines align to the same right rail */
+  .kicker{max-width:none;margin-left:calc((100% - 80px) * 0.425 + 80px)}
+  .thesis{max-width:none}
 
   /* prose-only sections: heading left, body right — no dead space at width */
   .prose-split .inner{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);
@@ -726,10 +737,14 @@ footer{background:var(--ink);color:rgba(255,255,255,.55);padding:44px var(--pad)
 <!-- CUSTOMIZATION -->
 <section class="section">
   <div class="inner">
-    <div class="section-head reveal">
-      <p class="eyebrow">Adapted to Your County</p>
-      <h2>Same domains. <span class="grad">Your county's content.</span></h2>
-      <p class="body-t" style="margin-top:16px">The five domains are constant. Everything inside them is built for the implementing county:</p>
+        <div class="head-split reveal">
+      <div class="section-head">
+        <p class="eyebrow">Adapted to Your County</p>
+        <h2>Same domains. <span class="grad">Your county's content.</span></h2>
+      </div>
+      <div class="prose-body">
+        <p class="body-t" style="margin-top:16px">The five domains are constant. Everything inside them is built for the implementing county:</p>
+      </div>
     </div>
     <ul class="checks reveal">
       <li><span class="tick">✓</span><span><strong>Your structures</strong> — the curriculum maps your departments, your governance bodies, your budget cycle</span></li>
@@ -738,7 +753,7 @@ footer{background:var(--ink);color:rgba(255,255,255,.55);padding:44px var(--pad)
       <li><span class="tick">✓</span><span><strong>Your people</strong> — county staff present their own work, building relationships as they go</span></li>
       <li><span class="tick">✓</span><span><strong>Your language</strong> — consultants prepare in the vocabulary your departments actually use</span></li>
     </ul>
-    <p class="body-t reveal" style="margin-top:26px">Curriculum development is part of every LELI implementation — scoped during the design phase.</p>
+    <p class="body-t kicker reveal" style="margin-top:26px">Curriculum development is part of every LELI implementation — scoped during the design phase.</p>
   </div>
 </section>
 

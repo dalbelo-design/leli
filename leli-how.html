@@ -457,7 +457,7 @@ footer{background:var(--ink);color:rgba(255,255,255,.55);padding:44px var(--pad)
   .hero-eyebrow::after{content:'';width:24px;height:2px;background:#c73010}
   .phero .btn-stack{justify-content:center}
 
-  .hero{min-height:78vh;display:flex;align-items:center;padding:70px var(--pad) 80px;text-align:center}
+  .hero{padding:72px var(--pad) 52px;text-align:center}
   .hero-inner{max-width:900px;margin:0 auto}
   .hero h1{font-size:clamp(2.8rem,5.4vw,4.4rem)}
   .hero-sub{font-size:1.15rem;margin:0 auto;text-align:center}
@@ -467,6 +467,17 @@ footer{background:var(--ink);color:rgba(255,255,255,.55);padding:44px var(--pad)
   .hero::after{content:'';position:absolute;inset:0;pointer-events:none;z-index:1;
     background:radial-gradient(ellipse at center,rgba(249,248,255,.92) 0%,
       rgba(249,248,255,.74) 55%,rgba(249,248,255,.28) 100%)}
+
+  /* section heads with intro copy: heading left rail, intro right rail */
+  .head-split{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);
+    column-gap:80px;align-items:start;margin-bottom:12px}
+  .head-split .section-head{margin-bottom:0}
+  .head-split .section-head h2{margin-bottom:0}
+  .head-split .prose-body > :first-child{margin-top:0!important}
+  .head-split .body-t{max-width:none}
+  /* trailing closing lines align to the same right rail */
+  .kicker{max-width:none;margin-left:calc((100% - 80px) * 0.425 + 80px)}
+  .thesis{max-width:none}
 
   /* prose-only sections: heading left, body right — no dead space at width */
   .prose-split .inner{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);
@@ -579,11 +590,15 @@ footer{background:var(--ink);color:rgba(255,255,255,.55);padding:44px var(--pad)
 <!-- WHY PREPARATION MATTERS -->
 <section class="section white">
   <div class="inner">
-    <div class="section-head reveal">
-      <p class="eyebrow">The Core Insight</p>
-      <h2>Expertise delivers when it's prepared to.</h2>
-      <p class="body-t" style="margin-top:16px">The people who have navigated your county's systems hold knowledge no survey, dataset, or professional training can replicate: what services feel like from the inside, which handoffs hold, and where a small change would make an outsized difference.</p>
-      <p class="body-t">Preparation is what makes that knowledge fully actionable.</p>
+        <div class="head-split reveal">
+      <div class="section-head">
+        <p class="eyebrow">The Core Insight</p>
+        <h2>Expertise delivers when it's prepared to.</h2>
+      </div>
+      <div class="prose-body">
+        <p class="body-t" style="margin-top:16px">The people who have navigated your county's systems hold knowledge no survey, dataset, or professional training can replicate: what services feel like from the inside, which handoffs hold, and where a small change would make an outsized difference.</p>
+        <p class="body-t">Preparation is what makes that knowledge fully actionable.</p>
+      </div>
     </div>
     <div class="stack-cards cards-3">
       <div class="card reveal">
@@ -602,7 +617,7 @@ footer{background:var(--ink);color:rgba(255,255,255,.55);padding:44px var(--pad)
         <p>A consultant who can read a strategic plan and interpret performance data connects what the community is experiencing to what the county can act on.</p>
       </div>
     </div>
-    <p class="body-t reveal" style="margin-top:28px"><strong>That's the refinement LELI institutionalizes.</strong> The experience stays the foundation. The preparation makes it deployable.</p>
+    <p class="body-t kicker reveal" style="margin-top:28px"><strong>That's the refinement LELI institutionalizes.</strong> The experience stays the foundation. The preparation makes it deployable.</p>
   </div>
 </section>
 
@@ -627,7 +642,7 @@ footer{background:var(--ink);color:rgba(255,255,255,.55);padding:44px var(--pad)
         <p>A county implementation serves every city and unincorporated area within it — one standing program instead of a patchwork of local efforts.</p>
       </div>
     </div>
-    <p class="body-t reveal" style="margin-top:28px">Cities — particularly large cities with their own service systems — can adapt the framework as well. Every implementation is scoped to the structure it serves.</p>
+    <p class="body-t kicker reveal" style="margin-top:28px">Cities — particularly large cities with their own service systems — can adapt the framework as well. Every implementation is scoped to the structure it serves.</p>
   </div>
 </section>
 
@@ -648,11 +663,15 @@ footer{background:var(--ink);color:rgba(255,255,255,.55);padding:44px var(--pad)
 <!-- STEP 02 PREPARE -->
 <section class="section">
   <div class="inner">
-    <div class="section-head reveal">
-      <p class="eyebrow">The Framework · Step 02</p>
-      <h2>Prepare.</h2>
-      <p style="font-size:.92rem;font-weight:600;color:#888;letter-spacing:.04em;text-transform:uppercase;margin-top:-6px">Phase One · Months 1–4</p>
-      <p class="body-t" style="margin-top:16px">Structured preparation across five domains:</p>
+        <div class="head-split reveal">
+      <div class="section-head">
+        <p class="eyebrow">The Framework · Step 02</p>
+        <h2>Prepare.</h2>
+        <p style="font-size:.92rem;font-weight:600;color:#888;letter-spacing:.04em;text-transform:uppercase;margin-top:-6px">Phase One · Months 1–4</p>
+      </div>
+      <div class="prose-body">
+        <p class="body-t" style="margin-top:16px">Structured preparation across five domains:</p>
+      </div>
     </div>
     <div class="stack-cards cards-3">
       <div class="card reveal">
@@ -676,7 +695,7 @@ footer{background:var(--ink);color:rgba(255,255,255,.55);padding:44px var(--pad)
         <p>Consultants learn to direct AI to handle scale — reading thousands of community inputs, translating across languages, flagging patterns — while judgment, interpretation, and meaning-making stay in human hands.</p>
       </div>
     </div>
-    <p class="body-t reveal" style="margin-top:28px">Phase One also includes structured introductions to county staff and system partners, so the working relationships consulting depends on are in place before deployment begins.</p>
+    <p class="body-t kicker reveal" style="margin-top:28px">Phase One also includes structured introductions to county staff and system partners, so the working relationships consulting depends on are in place before deployment begins.</p>
     <div style="margin-top:18px" class="reveal">
       <a href="leli-curriculum.html" class="link-arrow">Explore the full curriculum
         <svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9h12M9 3l6 6-6 6"/></svg>
@@ -688,11 +707,15 @@ footer{background:var(--ink);color:rgba(255,255,255,.55);padding:44px var(--pad)
 <!-- STEP 03 DEPLOY -->
 <section class="section white">
   <div class="inner">
-    <div class="section-head reveal">
-      <p class="eyebrow">The Framework · Step 03</p>
-      <h2>Deploy.</h2>
-      <p style="font-size:.92rem;font-weight:600;color:#888;letter-spacing:.04em;text-transform:uppercase;margin-top:-6px">Phase Two · Months 5–12</p>
-      <p class="body-t" style="margin-top:16px">Consultants move into active advisory work across the county's real processes:</p>
+        <div class="head-split reveal">
+      <div class="section-head">
+        <p class="eyebrow">The Framework · Step 03</p>
+        <h2>Deploy.</h2>
+        <p style="font-size:.92rem;font-weight:600;color:#888;letter-spacing:.04em;text-transform:uppercase;margin-top:-6px">Phase Two · Months 5–12</p>
+      </div>
+      <div class="prose-body">
+        <p class="body-t" style="margin-top:16px">Consultants move into active advisory work across the county's real processes:</p>
+      </div>
     </div>
     <div class="stack-cards cards-2">
       <div class="card reveal">
@@ -718,10 +741,14 @@ footer{background:var(--ink);color:rgba(255,255,255,.55);padding:44px var(--pad)
 <!-- BEYOND 12 MONTHS -->
 <section class="dark">
   <div class="inner">
-    <div class="section-head reveal">
-      <p class="eyebrow on-dark">A Standing Program</p>
-      <h2>The first year builds the consultant. The program builds the county's capacity.</h2>
-      <p class="body-t" style="margin-top:16px">LELI is not a cohort that ends. It's standing county infrastructure:</p>
+        <div class="head-split reveal">
+      <div class="section-head">
+        <p class="eyebrow on-dark">A Standing Program</p>
+        <h2>The first year builds the consultant. The program builds the county's capacity.</h2>
+      </div>
+      <div class="prose-body">
+        <p class="body-t" style="margin-top:16px">LELI is not a cohort that ends. It's standing county infrastructure:</p>
+      </div>
     </div>
     <div class="dark-list two reveal">
       <div class="dark-item">

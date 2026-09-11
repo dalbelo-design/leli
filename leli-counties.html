@@ -457,7 +457,7 @@ footer{background:var(--ink);color:rgba(255,255,255,.55);padding:44px var(--pad)
   .hero-eyebrow::after{content:'';width:24px;height:2px;background:#c73010}
   .phero .btn-stack{justify-content:center}
 
-  .hero{min-height:78vh;display:flex;align-items:center;padding:70px var(--pad) 80px;text-align:center}
+  .hero{padding:72px var(--pad) 52px;text-align:center}
   .hero-inner{max-width:900px;margin:0 auto}
   .hero h1{font-size:clamp(2.8rem,5.4vw,4.4rem)}
   .hero-sub{font-size:1.15rem;margin:0 auto;text-align:center}
@@ -467,6 +467,17 @@ footer{background:var(--ink);color:rgba(255,255,255,.55);padding:44px var(--pad)
   .hero::after{content:'';position:absolute;inset:0;pointer-events:none;z-index:1;
     background:radial-gradient(ellipse at center,rgba(249,248,255,.92) 0%,
       rgba(249,248,255,.74) 55%,rgba(249,248,255,.28) 100%)}
+
+  /* section heads with intro copy: heading left rail, intro right rail */
+  .head-split{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);
+    column-gap:80px;align-items:start;margin-bottom:12px}
+  .head-split .section-head{margin-bottom:0}
+  .head-split .section-head h2{margin-bottom:0}
+  .head-split .prose-body > :first-child{margin-top:0!important}
+  .head-split .body-t{max-width:none}
+  /* trailing closing lines align to the same right rail */
+  .kicker{max-width:none;margin-left:calc((100% - 80px) * 0.425 + 80px)}
+  .thesis{max-width:none}
 
   /* prose-only sections: heading left, body right — no dead space at width */
   .prose-split .inner{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);
@@ -582,11 +593,15 @@ footer{background:var(--ink);color:rgba(255,255,255,.55);padding:44px var(--pad)
 <!-- THE OPPORTUNITY -->
 <section class="section white">
   <div class="inner">
-    <div class="section-head reveal">
-      <p class="eyebrow">The Opportunity</p>
-      <h2>Your county is already invested in this. LELI multiplies the return.</h2>
-      <p class="body-t" style="margin-top:16px">Counties across the country are building lived experience engagement into planning, implementation, and evaluation — through advisory bodies, consultant contracts, and governance seats. It's the right direction: the people who have navigated your systems hold expertise no other source can provide.</p>
-      <p class="body-t">LELI takes that commitment further. When subject matter experts with lived experience are prepared to understand your county's structures, funding streams, governance, and policy calendar, their expertise becomes fully actionable:</p>
+        <div class="head-split reveal">
+      <div class="section-head">
+        <p class="eyebrow">The Opportunity</p>
+        <h2>Your county is already invested in this. LELI multiplies the return.</h2>
+      </div>
+      <div class="prose-body">
+        <p class="body-t" style="margin-top:16px">Counties across the country are building lived experience engagement into planning, implementation, and evaluation — through advisory bodies, consultant contracts, and governance seats. It's the right direction: the people who have navigated your systems hold expertise no other source can provide.</p>
+        <p class="body-t">LELI takes that commitment further. When subject matter experts with lived experience are prepared to understand your county's structures, funding streams, governance, and policy calendar, their expertise becomes fully actionable:</p>
+      </div>
     </div>
     <ul class="checks reveal">
       <li><span class="tick">✓</span><span><strong>Insight that lands.</strong> System-fluent consultants can connect what they know to the levers your departments actually control — so recommendations arrive ready to act on.</span></li>
@@ -600,10 +615,14 @@ footer{background:var(--ink);color:rgba(255,255,255,.55);padding:44px var(--pad)
 <!-- WHAT LELI DELIVERS -->
 <section class="section">
   <div class="inner">
-    <div class="section-head reveal">
-      <p class="eyebrow">The LELI Approach</p>
-      <h2>Prepared experts. Strategic partnership. Lasting capacity.</h2>
-      <p class="body-t" style="margin-top:16px">LELI is a standing, county-institutionalized program that recruits people with lived experience from your community and prepares them — through months of structured training — to consult at the level your departments operate.</p>
+        <div class="head-split reveal">
+      <div class="section-head">
+        <p class="eyebrow">The LELI Approach</p>
+        <h2>Prepared experts. Strategic partnership. Lasting capacity.</h2>
+      </div>
+      <div class="prose-body">
+        <p class="body-t" style="margin-top:16px">LELI is a standing, county-institutionalized program that recruits people with lived experience from your community and prepares them — through months of structured training — to consult at the level your departments operate.</p>
+      </div>
     </div>
     <div class="stack-cards cards-2">
       <div class="card reveal">
@@ -673,11 +692,15 @@ footer{background:var(--ink);color:rgba(255,255,255,.55);padding:44px var(--pad)
 <!-- MULTI-DEPARTMENT -->
 <section class="section">
   <div class="inner">
-    <div class="section-head reveal">
-      <p class="eyebrow">The County-Scale Advantage</p>
-      <h2>One expert strengthens every system they've navigated.</h2>
-      <p class="body-t" style="margin-top:16px">Lived experience rarely stays in one lane. The subject matter expert who has navigated your homelessness response system has often also navigated behavioral health, disability services, workforce development, reentry, youth services, or aging supports — frequently several at once, for themselves or for family.</p>
-      <p class="body-t">A LELI Consultant is prepared to consult across that whole map. One preparation investment returns value across every department whose system that consultant knows from the inside.</p>
+        <div class="head-split reveal">
+      <div class="section-head">
+        <p class="eyebrow">The County-Scale Advantage</p>
+        <h2>One expert strengthens every system they've navigated.</h2>
+      </div>
+      <div class="prose-body">
+        <p class="body-t" style="margin-top:16px">Lived experience rarely stays in one lane. The subject matter expert who has navigated your homelessness response system has often also navigated behavioral health, disability services, workforce development, reentry, youth services, or aging supports — frequently several at once, for themselves or for family.</p>
+        <p class="body-t">A LELI Consultant is prepared to consult across that whole map. One preparation investment returns value across every department whose system that consultant knows from the inside.</p>
+      </div>
     </div>
     <div class="sys reveal">
       <div class="sys-center">One Prepared Consultant</div>
@@ -720,7 +743,7 @@ footer{background:var(--ink);color:rgba(255,255,255,.55);padding:44px var(--pad)
         <p>LELI operates as permanent county infrastructure — a standing roster, continuous recruitment, and county-wide community research. Meaningful engagement becomes part of how the county does business.</p>
       </div>
     </div>
-    <p class="body-t reveal" style="margin-top:26px">Every implementation is scoped to your county's structure, priorities, and scale.</p>
+    <p class="body-t kicker reveal" style="margin-top:26px">Every implementation is scoped to your county's structure, priorities, and scale.</p>
     <div class="btn-stack reveal">
       <a href="leli-contact.html#county-form" class="btn btn-white">Contact us for a scoped proposal</a>
     </div>
@@ -787,17 +810,21 @@ footer{background:var(--ink);color:rgba(255,255,255,.55);padding:44px var(--pad)
       <li><span class="tick">✓</span><span><strong>Curriculum and preparation delivery</strong> — the full training arc, customized to your county's systems and language</span></li>
       <li><span class="tick">✓</span><span><strong>First-year partnership support</strong> — coaching, troubleshooting, and refinement as the program takes root</span></li>
     </ul>
-    <p class="body-t reveal" style="margin-top:26px"><strong>The goal is a standing capacity your county owns.</strong></p>
+    <p class="body-t kicker reveal" style="margin-top:26px"><strong>The goal is a standing capacity your county owns.</strong></p>
   </div>
 </section>
 
 <!-- METRICS -->
 <section class="section">
   <div class="inner">
-    <div class="section-head reveal">
-      <p class="eyebrow">What You Can Measure</p>
-      <h2>Defined outcomes from day one.</h2>
-      <p class="body-t" style="margin-top:16px">Every LELI implementation is scoped with measurable commitments, including:</p>
+        <div class="head-split reveal">
+      <div class="section-head">
+        <p class="eyebrow">What You Can Measure</p>
+        <h2>Defined outcomes from day one.</h2>
+      </div>
+      <div class="prose-body">
+        <p class="body-t" style="margin-top:16px">Every LELI implementation is scoped with measurable commitments, including:</p>
+      </div>
     </div>
     <ul class="checks reveal">
       <li><span class="tick">✓</span><span>Consultants recruited, prepared, and deployed</span></li>
@@ -806,7 +833,7 @@ footer{background:var(--ink);color:rgba(255,255,255,.55);padding:44px var(--pad)
       <li><span class="tick">✓</span><span>Consultant-reported growth in leadership identity and civic self-efficacy</span></li>
       <li><span class="tick">✓</span><span>Sustained advisory relationships between consultants and county bodies beyond the initial engagement</span></li>
     </ul>
-    <p class="body-t reveal" style="margin-top:26px">Specific targets are set with your county during design.</p>
+    <p class="body-t kicker reveal" style="margin-top:26px">Specific targets are set with your county during design.</p>
   </div>
 </section>
 
