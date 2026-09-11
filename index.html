@@ -468,6 +468,15 @@ footer{background:var(--ink);color:rgba(255,255,255,.55);padding:44px var(--pad)
     background:radial-gradient(ellipse at center,rgba(249,248,255,.92) 0%,
       rgba(249,248,255,.74) 55%,rgba(249,248,255,.28) 100%)}
 
+  /* prose-only sections: heading left, body right — no dead space at width */
+  .prose-split .inner{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);
+    column-gap:80px;align-items:start}
+  .prose-split .section-head{margin-bottom:0}
+  .prose-split .section-head h2{margin-bottom:0}
+  .prose-split .prose-body > :first-child{margin-top:0!important}
+  .prose-split .body-t{max-width:none}
+  .prose-split .pull-quote{margin-top:32px;max-width:none}
+
   .stack-cards{gap:24px}
   .card{padding:34px 30px}
   .thesis{padding:30px 36px;font-size:1.3rem;text-align:center;margin-top:32px}
@@ -614,13 +623,17 @@ footer{background:var(--ink);color:rgba(255,255,255,.55);padding:44px var(--pad)
 </section>
 
 <!-- THE OPPORTUNITY -->
-<section class="section white">
+<section class="section white prose-split">
   <div class="inner reveal">
+    <div class="section-head reveal">
     <p class="eyebrow">The Opportunity</p>
     <h2>Counties are investing in lived experience engagement. Preparation multiplies the return.</h2>
+    </div>
+    <div class="prose-body reveal">
     <p class="body-t" style="margin-top:18px">Counties across the country are building lived experience engagement into planning, implementation, and evaluation — advisory bodies, consultant contracts, governance seats. It's the right direction: the people who have navigated your systems hold expertise no other source can provide.</p>
     <p class="body-t">Preparation is what unlocks that expertise's full value. When subject matter experts with lived experience understand your county's structures, funding flows, and policy language, their insight connects directly to the levers your departments control.</p>
     <p class="body-t"><strong>Better policy. Better programs. Better return on every engagement dollar.</strong></p>
+    </div>
   </div>
 </section>
 

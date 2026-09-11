@@ -468,6 +468,15 @@ footer{background:var(--ink);color:rgba(255,255,255,.55);padding:44px var(--pad)
     background:radial-gradient(ellipse at center,rgba(249,248,255,.92) 0%,
       rgba(249,248,255,.74) 55%,rgba(249,248,255,.28) 100%)}
 
+  /* prose-only sections: heading left, body right — no dead space at width */
+  .prose-split .inner{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);
+    column-gap:80px;align-items:start}
+  .prose-split .section-head{margin-bottom:0}
+  .prose-split .section-head h2{margin-bottom:0}
+  .prose-split .prose-body > :first-child{margin-top:0!important}
+  .prose-split .body-t{max-width:none}
+  .prose-split .pull-quote{margin-top:32px;max-width:none}
+
   .stack-cards{gap:24px}
   .card{padding:34px 30px}
   .thesis{padding:30px 36px;font-size:1.3rem;text-align:center;margin-top:32px}
@@ -623,12 +632,16 @@ footer{background:var(--ink);color:rgba(255,255,255,.55);padding:44px var(--pad)
 </section>
 
 <!-- STEP 01 RECRUIT -->
-<section class="dark">
+<section class="dark prose-split">
   <div class="inner reveal">
+    <div class="section-head reveal">
     <p class="eyebrow on-dark">The Framework · Step 01</p>
     <h2>Recruit.</h2>
+    </div>
+    <div class="prose-body reveal">
     <p class="body-t" style="margin-top:16px">Consultants are recruited from the communities the county's plans are written for: people with current or former lived experience of homelessness, who have navigated the county's response systems firsthand — and usually several neighboring systems as well.</p>
     <p class="body-t">Recruitment is community-rooted and designed to reach the experts counties most want to hear from: people living unsheltered, families in vehicles, youth on their own, veterans, elders, returning citizens, and people navigating homelessness alongside disability, mental health, or recovery. No policy background is required. That's what the preparation builds.</p>
+    </div>
   </div>
 </section>
 

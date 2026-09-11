@@ -468,6 +468,15 @@ footer{background:var(--ink);color:rgba(255,255,255,.55);padding:44px var(--pad)
     background:radial-gradient(ellipse at center,rgba(249,248,255,.92) 0%,
       rgba(249,248,255,.74) 55%,rgba(249,248,255,.28) 100%)}
 
+  /* prose-only sections: heading left, body right — no dead space at width */
+  .prose-split .inner{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);
+    column-gap:80px;align-items:start}
+  .prose-split .section-head{margin-bottom:0}
+  .prose-split .section-head h2{margin-bottom:0}
+  .prose-split .prose-body > :first-child{margin-top:0!important}
+  .prose-split .body-t{max-width:none}
+  .prose-split .pull-quote{margin-top:32px;max-width:none}
+
   .stack-cards{gap:24px}
   .card{padding:34px 30px}
   .thesis{padding:30px 36px;font-size:1.3rem;text-align:center;margin-top:32px}
@@ -568,30 +577,36 @@ footer{background:var(--ink);color:rgba(255,255,255,.55);padding:44px var(--pad)
 </section>
 
 <!-- THE THESIS -->
-<section class="section white">
+<section class="section white prose-split">
   <div class="inner reveal">
+    <div class="section-head reveal">
     <p class="eyebrow">Why LELI Exists</p>
     <h2>The people closest to the problem hold the deepest expertise for solving it. Preparation is what puts it to work.</h2>
+    </div>
+    <div class="prose-body reveal">
     <p class="body-t" style="margin-top:18px">Counties everywhere are bringing lived experience into planning, implementation, and evaluation — and they're right to. No dataset, no consultant report, no professional training can substitute for knowing a system from the inside.</p>
     <p class="body-t">LELI was founded on the next insight: that expertise delivers its full value when it's prepared. When subject matter experts with lived experience understand the county's structures, funding streams, governance, and policy language, their knowledge stops being testimony and becomes strategy — findings a department can act on, timed to the decisions being made.</p>
     <p class="body-t"><strong>LELI institutionalizes that preparation.</strong> Not a one-time program. Not a single engagement. A standing county capacity that refines lived experience into living expertise, year over year.</p>
+    </div>
   </div>
 </section>
 
 <!-- OUR STORY -->
-<section class="section">
+<section class="section prose-split">
   <div class="inner">
-    <div class="reveal">
+    <div class="section-head reveal">
       <p class="eyebrow">Where LELI Comes From</p>
       <h2>This framework wasn't designed about the work. It was designed <span class="grad">from inside it.</span></h2>
-      <p class="body-t" style="margin-top:18px">LELI comes from the lived experience of its founder — and from years spent doing exactly the work the framework now prepares others to do.</p>
+    </div>
+    <div class="prose-body reveal">
+      <p class="body-t">LELI comes from the lived experience of its founder — and from years spent doing exactly the work the framework now prepares others to do.</p>
       <p class="body-t">Loren Dalbert has navigated homelessness twice. He has lived most of his life in poverty, served in the military, and navigated the county systems that surround housing instability — as the person on the other side of the desk. He then spent years as a lived experience consultant inside county government: sitting in strategic planning rooms, joining implementation workgroups with department and division leadership, and helping shape how a county plans, delivers, and evaluates its homelessness response.</p>
       <p class="body-t">That work surfaced two truths.</p>
       <p class="body-t"><strong>First: lived experience rarely stays in one lane.</strong> Navigating homelessness usually means also navigating behavioral health, disability services, workforce systems, reentry, youth services, or aging supports — often several at once, often for family as well as self. One consultant carries a whole map of systems with them.</p>
       <p class="body-t"><strong>Second: one prepared consultant at the table works.</strong> The preparation — learning the county's language, its structures, its funding, its rhythms — is what turned firsthand knowledge into advisory capability that departments could actually use. But that preparation happened the hard way: alone, over years, without a curriculum.</p>
       <p class="body-t">LELI is the answer to a simple question: <em>what if that preparation were institutionalized?</em> What if every county could refine the expertise already present in its community — systematically, professionally, and permanently?</p>
+      <p class="pull-quote">One consultant at that table works. <em>It shouldn't be singular.</em></p>
     </div>
-    <p class="pull-quote reveal">One consultant at that table works. <em>It shouldn't be singular.</em></p>
   </div>
 </section>
 

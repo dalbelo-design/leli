@@ -468,6 +468,15 @@ footer{background:var(--ink);color:rgba(255,255,255,.55);padding:44px var(--pad)
     background:radial-gradient(ellipse at center,rgba(249,248,255,.92) 0%,
       rgba(249,248,255,.74) 55%,rgba(249,248,255,.28) 100%)}
 
+  /* prose-only sections: heading left, body right — no dead space at width */
+  .prose-split .inner{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);
+    column-gap:80px;align-items:start}
+  .prose-split .section-head{margin-bottom:0}
+  .prose-split .section-head h2{margin-bottom:0}
+  .prose-split .prose-body > :first-child{margin-top:0!important}
+  .prose-split .body-t{max-width:none}
+  .prose-split .pull-quote{margin-top:32px;max-width:none}
+
   .stack-cards{gap:24px}
   .card{padding:34px 30px}
   .thesis{padding:30px 36px;font-size:1.3rem;text-align:center;margin-top:32px}
@@ -583,12 +592,13 @@ footer{background:var(--ink);color:rgba(255,255,255,.55);padding:44px var(--pad)
 </section>
 
 <!-- WHY IT MATTERS -->
-<section class="section white">
+<section class="section white prose-split">
   <div class="inner">
     <div class="section-head reveal">
       <p class="eyebrow">Why It Matters</p>
       <h2>Better policy comes from <span class="grad">better policy design.</span></h2>
     </div>
+    <div class="prose-body reveal">
     <div class="reveal">
       <p class="body-t">Policy works best when the people closest to the issue help shape it. Too often, that perspective enters the room after the key decisions are already made — leading to well-intentioned investment that misses the mark.</p>
       <p class="body-t">LELI changes the design table. We prepare people with lived experience to consult as professionals — fluent in the county's structures, funding streams, governance, and policy calendar — so their expertise arrives as findings a department can act on, timed to the decisions being made.</p>
@@ -596,6 +606,7 @@ footer{background:var(--ink);color:rgba(255,255,255,.55);padding:44px var(--pad)
       <p class="body-t">Your gift goes directly to consultant compensation, preparation, and the wraparound support — transportation, technology, scheduling — that makes participation possible for people currently navigating homelessness.</p>
     </div>
     <p class="pull-quote reveal">"Lived experience can tell you what's wrong. <em>Living expertise</em> can help you build it right."</p>
+    </div>
   </div>
 </section>
 
@@ -666,13 +677,14 @@ footer{background:var(--ink);color:rgba(255,255,255,.55);padding:44px var(--pad)
 </section>
 
 <!-- FISCAL SPONSOR -->
-<section class="section white" id="sponsor">
+<section class="section white prose-split" id="sponsor">
   <div class="inner">
     <div class="section-head reveal">
       <p class="eyebrow gold">Fiscal Sponsorship</p>
       <h2>About Realize Impact.</h2>
       <p class="body-t" style="margin-top:16px">LELI operates under the charitable umbrella of Realize Impact — a registered 501(c)(3) that makes your gift fully tax-deductible.</p>
     </div>
+    <div class="prose-body reveal">
     <div class="reveal">
       <p class="body-t">LELI is fiscally sponsored by Realize Impact, a 501(c)(3) public charity specializing in fiscal sponsorship of mission-driven projects. Realize Impact provides the charitable umbrella, financial oversight, grants administration, and compliance infrastructure that lets LELI focus entirely on consultants and the counties they serve.</p>
       <p class="body-t">Fiscal sponsorship means your gift is made to Realize Impact on behalf of LELI. It is fully tax-deductible, subject to all 501(c)(3) rules, and directed entirely to LELI's programming — consultant compensation, preparation and curriculum delivery, and the wraparound support that makes participation possible.</p>
@@ -686,6 +698,7 @@ footer{background:var(--ink);color:rgba(255,255,255,.55);padding:44px var(--pad)
       </div>
 
       <p class="fineprint">LELI is a project of Realize Impact, a 501(c)(3) public charity (EIN available upon request). All donations are tax-deductible to the extent permitted by law. No goods or services were provided in exchange for your contribution.</p>
+    </div>
     </div>
   </div>
 </section>

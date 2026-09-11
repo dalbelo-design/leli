@@ -468,6 +468,15 @@ footer{background:var(--ink);color:rgba(255,255,255,.55);padding:44px var(--pad)
     background:radial-gradient(ellipse at center,rgba(249,248,255,.92) 0%,
       rgba(249,248,255,.74) 55%,rgba(249,248,255,.28) 100%)}
 
+  /* prose-only sections: heading left, body right — no dead space at width */
+  .prose-split .inner{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);
+    column-gap:80px;align-items:start}
+  .prose-split .section-head{margin-bottom:0}
+  .prose-split .section-head h2{margin-bottom:0}
+  .prose-split .prose-body > :first-child{margin-top:0!important}
+  .prose-split .body-t{max-width:none}
+  .prose-split .pull-quote{margin-top:32px;max-width:none}
+
   .stack-cards{gap:24px}
   .card{padding:34px 30px}
   .thesis{padding:30px 36px;font-size:1.3rem;text-align:center;margin-top:32px}
@@ -682,26 +691,34 @@ footer{background:var(--ink);color:rgba(255,255,255,.55);padding:44px var(--pad)
 </section>
 
 <!-- HOW IT'S TAUGHT -->
-<section class="dark">
+<section class="dark prose-split">
   <div class="inner reveal">
+    <div class="section-head reveal">
     <p class="eyebrow on-dark">The Learning Model</p>
     <h2>Cohort-based. Discussion-driven. Anchored in the county.</h2>
+    </div>
+    <div class="prose-body reveal">
     <p class="body-t" style="margin-top:16px">Consultants move through the curriculum as a cohort — a community of experts learning alongside each other, comparing what each has navigated, and building the peer network their consulting practice will draw on.</p>
     <p class="body-t">Sessions combine structured learning, guest presentations from county staff and system partners, and applied assignments tied to the county's live documents and processes. Wraparound support — transportation, technology, scheduling — is built in so the full cohort can participate fully.</p>
+    </div>
   </div>
 </section>
 
 <!-- HANDOFF -->
-<section class="section white">
+<section class="section white prose-split">
   <div class="inner reveal">
+    <div class="section-head reveal">
     <p class="eyebrow">The Handoff</p>
     <h2>By month five, nothing happens for the first time.</h2>
+    </div>
+    <div class="prose-body reveal">
     <p class="body-t" style="margin-top:16px">The curriculum runs months one through four. By its close, consultants have read the county's actual plans, interpreted its actual data, drafted findings in the formats its departments use, and met the staff and partners they'll be working with.</p>
     <p class="body-t">Deployment isn't a leap — it's a handoff. Phase Two advisory work begins with relationships in place, fluency established, and expertise ready to deploy.</p>
     <div style="margin-top:18px">
       <a href="leli-how.html" class="link-arrow">See the full framework
         <svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9h12M9 3l6 6-6 6"/></svg>
       </a>
+    </div>
     </div>
   </div>
 </section>

@@ -468,6 +468,15 @@ footer{background:var(--ink);color:rgba(255,255,255,.55);padding:44px var(--pad)
     background:radial-gradient(ellipse at center,rgba(249,248,255,.92) 0%,
       rgba(249,248,255,.74) 55%,rgba(249,248,255,.28) 100%)}
 
+  /* prose-only sections: heading left, body right — no dead space at width */
+  .prose-split .inner{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);
+    column-gap:80px;align-items:start}
+  .prose-split .section-head{margin-bottom:0}
+  .prose-split .section-head h2{margin-bottom:0}
+  .prose-split .prose-body > :first-child{margin-top:0!important}
+  .prose-split .body-t{max-width:none}
+  .prose-split .pull-quote{margin-top:32px;max-width:none}
+
   .stack-cards{gap:24px}
   .card{padding:34px 30px}
   .thesis{padding:30px 36px;font-size:1.3rem;text-align:center;margin-top:32px}
@@ -659,24 +668,32 @@ footer{background:var(--ink);color:rgba(255,255,255,.55);padding:44px var(--pad)
 </section>
 
 <!-- CONSULTANT POINTER -->
-<section class="section white">
+<section class="section white prose-split">
   <div class="inner reveal">
+    <div class="section-head reveal">
     <p class="eyebrow">For Future Consultants</p>
     <h2>Ready to put your experience to work?</h2>
+    </div>
+    <div class="prose-body reveal">
     <p class="body-t" style="margin-top:16px">If you have lived experience of homelessness — current or former — you're who this program is built for. No policy background, no degree, no fixed address, and no technology required to start.</p>
     <div class="btn-stack">
       <a href="leli-apply.html" class="btn btn-primary">Become a Consultant</a>
+    </div>
     </div>
   </div>
 </section>
 
 <!-- GENERAL -->
-<section class="section">
+<section class="section prose-split">
   <div class="inner reveal">
+    <div class="section-head reveal">
     <p class="eyebrow">Everything Else</p>
     <h2>Press, partnerships, and questions.</h2>
+    </div>
+    <div class="prose-body reveal">
     <p class="body-t" style="margin-top:16px">For media inquiries, potential partnerships, research collaborations, or anything else, use the form above and select "Other" — or reach out directly and we'll route it to the right place.</p>
     <p class="body-t" style="font-family:var(--font-display);font-weight:700;font-size:1.15rem;color:var(--ink);margin-top:20px">The expertise is already in your community. Let's prepare it.</p>
+    </div>
   </div>
 </section>
 </main>
