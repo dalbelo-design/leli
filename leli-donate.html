@@ -1,753 +1,813 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Support LELI — Fund a Fellow | Lived Experience Leadership Institute</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,800;0,9..144,900;1,9..144,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
-  <style>
-    :root {
-      --ink:       #0d0f14;
-      --paper:     #f9f8ff;
-      --signal:    #e84b2f;
-      --signal-lt: #fef0ed;
-      --sage:      #3a5c4e;
-      --sage-lt:   #eaf1ee;
-      --gold:      #c9952a;
-      --gold-lt:   #fdf4e3;
-      --mist:      #e8e5de;
-      --white:     #ffffff;
-      --font-display: 'Fraunces', Georgia, serif;
-      --font-body:    'Inter', sans-serif;
-      --r-sm: 6px; --r-md: 14px; --r-lg: 28px; --r-pill: 999px;
-    }
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; overflow-x: hidden; max-width: 100%; }
-    body {
-      font-family: var(--font-body); background: var(--paper); color: var(--ink);
-      font-size: 16px; line-height: 1.6; overflow-x: hidden; width: 100%; max-width: 100vw;
-    }
-    img { display: block; max-width: 100%; }
-    a { color: inherit; text-decoration: none; }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#f9f8ff" />
+<meta name="color-scheme" content="light only" />
+<title>Support LELI — Donate | Lived Experience Leadership Institute</title>
+<meta name="description" content="Fund a consultant, fund better policy. LELI is fiscally sponsored by Realize Impact, a 501(c)(3) public charity." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,800;0,9..144,900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
 
-    /* ── NAV ── */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 18px 5vw;
-      background: rgba(249,248,255,0.92);
-      backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
-      border-bottom: 1px solid var(--mist); transition: box-shadow .3s;
-    }
-    nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,.08); }
-    .nav-logo {
-      font-family: var(--font-display); font-weight: 800; font-size: 1.1rem;
-      display: flex; align-items: center; gap: 10px;
-    }
-    .nav-logo-dot {
-      width: 9px; height: 9px; background: var(--signal); border-radius: 50%;
-      animation: pulse-dot 2.4s ease-in-out infinite;
-    }
-    @keyframes pulse-dot {
-      0%,100% { opacity: 1; transform: scale(1); }
-      50%      { opacity: .5; transform: scale(.7); }
-    }
-    .nav-links { display: flex; gap: 2rem; align-items: center; }
-    .nav-links a { font-size: .875rem; font-weight: 500; color: #555; transition: color .2s; }
-    .nav-links a:hover { color: var(--ink); }
-    .nav-links a.active { color: var(--ink); font-weight: 600; }
-    .nav-cta {
-      background: var(--ink); color: var(--white) !important;
-      padding: 9px 20px; border-radius: var(--r-pill);
-      font-size: .875rem; font-weight: 600; transition: background .2s, transform .15s;
-    }
-    .nav-cta:hover { background: var(--signal); transform: translateY(-1px); }
-    .nav-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
-    .nav-hamburger span { display: block; width: 24px; height: 2px; background: var(--ink); border-radius: 2px; }
+/* ═══════════ TOKENS ═══════════ */
+:root{
+  --ink:#0d0f14; --paper:#f9f8ff;
+  --signal:#e84b2f; --signal-lt:#fef0ed;
+  --sage:#3a5c4e; --sage-lt:#eaf1ee;
+  --gold:#c9952a; --gold-lt:#fdf4e3;
+  --mist:#e8e5de; --white:#ffffff; --body-c:#4a4a4a;
+  --font-display:'Fraunces',Georgia,serif;
+  --font-body:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+  --r-sm:8px; --r-md:14px; --r-lg:22px; --r-pill:999px;
+  --nav-h:68px; --top-h:56px; --pad:20px; --stack:56px;
+}
 
-    /* ── UTILS ── */
-    .eyebrow {
-      display: inline-flex; align-items: center; gap: 10px;
-      font-size: .75rem; font-weight: 700; letter-spacing: .14em;
-      text-transform: uppercase; margin-bottom: 16px;
-    }
-    .eyebrow::before { content: ''; width: 28px; height: 2px; }
-    .eyebrow-red   { color: #c73010; }  .eyebrow-red::before   { background: #c73010; }
-    .eyebrow-sage  { color: var(--sage); } .eyebrow-sage::before  { background: var(--sage); }
-    .eyebrow-gold  { color: #a07018; }  .eyebrow-gold::before  { background: var(--gold); }
-    .eyebrow-white { color: rgba(255,255,255,.8); } .eyebrow-white::before { background: rgba(255,255,255,.4); }
+/* ═══════════ BASE — written for the phone ═══════════ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  font-family:var(--font-body);background:var(--paper);color:var(--ink);
+  font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased;
+  overflow-x:hidden;padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom));
+}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;font-size:inherit;color:inherit;background:none;border:none;cursor:pointer}
+:focus-visible{outline:3px solid var(--sage);outline-offset:2px;border-radius:4px}
 
-    .section-title {
-      font-family: var(--font-display); font-weight: 800;
-      font-size: clamp(1.5rem, 4vw, 3rem);
-      line-height: 1.1; letter-spacing: -.025em; margin-bottom: 20px;
-    }
-    .section-body { font-size: 1.05rem; color: #4a4a4a; line-height: 1.7; max-width: 640px; }
+h1,h2,h3{font-family:var(--font-display);letter-spacing:-.02em;line-height:1.08}
+h1{font-weight:800;font-size:clamp(2rem,8.2vw,2.75rem)}
+h2{font-weight:800;font-size:clamp(1.55rem,6.2vw,2.1rem)}
+h3{font-weight:700;font-size:1.15rem;line-height:1.2}
+p{max-width:62ch}
+.grad{background:linear-gradient(135deg,var(--signal) 0%,var(--gold) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 
-    .fade-up {
-      opacity: 0; transform: translateY(24px);
-      transition: opacity .55s ease, transform .55s ease;
-    }
-    .fade-up.visible { opacity: 1; transform: translateY(0); }
-    .divider { height: 1px; background: var(--mist); }
+/* ═══════════ LAYOUT ═══════════ */
+.section{padding:var(--stack) var(--pad)}
+.section.tight{padding-top:calc(var(--stack) * .7)}
+.section.white{background:var(--white)}
+.inner{max-width:1100px;margin:0 auto}
+.inner-narrow{max-width:820px;margin:0 auto}
+.body-t{font-size:1rem;color:var(--body-c);line-height:1.7;max-width:62ch}
+.body-t + .body-t{margin-top:16px}
+.body-t strong{color:var(--ink)}
+.divider{height:1px;background:var(--mist)}
 
-    /* ── PAGE HERO ── */
-    .page-hero {
-      padding: 150px 5vw 80px;
-      background: var(--ink);
-      color: var(--white);
-      position: relative; overflow: hidden;
-    }
-    .page-hero::before {
-      content: 'GIVE';
-      position: absolute; right: -1vw; bottom: -0.15em;
-      font-family: var(--font-display); font-weight: 800;
-      font-size: clamp(8rem, 22vw, 18rem);
-      color: rgba(255,255,255,.04); line-height: 1;
-      pointer-events: none; white-space: nowrap;
-    }
-    .page-hero-inner {
-      max-width: 1100px; margin: 0 auto;
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 80px; align-items: center; position: relative; z-index: 1;
-    }
-    .page-hero h1 {
-      font-family: var(--font-display); font-weight: 800;
-      font-size: clamp(2.2rem, 5vw, 4rem);
-      line-height: 1.06; letter-spacing: -.03em; margin-bottom: 20px;
-      color: var(--white);
-    }
-    .page-hero h1 em { font-style: italic; color: var(--gold); }
-    .page-hero-lead { font-size: 1.05rem; color: rgba(255,255,255,.75); line-height: 1.75; margin-bottom: 32px; }
+.eyebrow{display:flex;align-items:center;gap:10px;font-size:.72rem;font-weight:700;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--sage);margin-bottom:14px}
+.eyebrow::before{content:'';width:24px;height:2px;background:var(--sage);flex:0 0 auto}
+.eyebrow.gold{color:#a07018}.eyebrow.gold::before{background:var(--gold)}
+.eyebrow.signal{color:#c73010}.eyebrow.signal::before{background:#c73010}
+.eyebrow.on-dark{color:var(--gold)}.eyebrow.on-dark::before{background:var(--gold)}
+.section-head{margin-bottom:28px}
+.section-head h2{margin-bottom:14px}
 
-    .hero-actions { display: flex; flex-wrap: wrap; gap: 14px; }
-    .btn-primary {
-      background: var(--signal); color: var(--white);
-      padding: 14px 30px; border-radius: var(--r-pill);
-      font-size: .95rem; font-weight: 600;
-      box-shadow: 0 4px 20px rgba(232,75,47,.3);
-      transition: transform .15s, box-shadow .15s;
-    }
-    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(232,75,47,.4); }
-    .btn-outline-white {
-      border: 2px solid rgba(255,255,255,.35); color: rgba(255,255,255,.85);
-      padding: 12px 28px; border-radius: var(--r-pill);
-      font-size: .95rem; font-weight: 600;
-      transition: border-color .2s, color .2s;
-    }
-    .btn-outline-white:hover { border-color: var(--white); color: var(--white); }
+/* ═══════════ TOP BAR ═══════════ */
+.top{position:sticky;top:0;z-index:60;height:var(--top-h);
+  display:flex;align-items:center;justify-content:space-between;padding:0 var(--pad);
+  background:rgba(249,248,255,.92);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--mist)}
+.brand{display:flex;align-items:center;gap:9px;min-height:44px;
+  font-family:var(--font-display);font-weight:800;font-size:1.15rem;letter-spacing:-.01em}
+.brand-dot{width:9px;height:9px;border-radius:50%;background:var(--signal);flex:0 0 auto;
+  animation:pulse 2.4s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.7)}}
+.top-nav{display:none}
 
-    /* Hero right — impact card */
-    .impact-card {
-      background: rgba(255,255,255,.06);
-      border: 1px solid rgba(255,255,255,.12);
-      border-radius: var(--r-lg); padding: 40px 36px;
-    }
-    .impact-card-title {
-      font-size: .72rem; font-weight: 700; letter-spacing: .14em;
-      text-transform: uppercase; color: rgba(255,255,255,.5); margin-bottom: 24px;
-    }
-    .impact-row {
-      display: flex; justify-content: space-between; align-items: baseline;
-      padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,.08); gap: 16px;
-    }
-    .impact-row:last-child { border-bottom: none; padding-bottom: 0; }
-    .impact-label { font-size: .875rem; color: rgba(255,255,255,.6); }
-    .impact-value { font-family: var(--font-display); font-size: 1rem; font-weight: 700; color: var(--white); text-align: right; }
-    .impact-value.gold   { color: var(--gold); }
-    .impact-value.signal { color: #ff8066; }
-    .impact-value.sage   { color: #6da38e; }
+/* ═══════════ BUTTONS ═══════════ */
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;
+  min-height:54px;padding:15px 22px;border-radius:var(--r-pill);
+  font-family:var(--font-body);font-weight:700;font-size:1rem;text-align:center;
+  transition:transform .12s ease,filter .15s ease,box-shadow .15s ease}
+.btn:active{transform:scale(.985)}
+.btn-primary{background:var(--signal);color:var(--white);box-shadow:0 4px 18px rgba(232,75,47,.26)}
+.btn-primary:hover{filter:brightness(1.06)}
+.btn-outline{border:2px solid var(--ink);color:var(--ink);font-weight:600}
+.btn-outline:hover{background:var(--ink);color:var(--white)}
+.btn-white{background:var(--white);color:#a82800}
+.btn-ghost-white{border:2px solid rgba(255,255,255,.5);color:var(--white);font-weight:600}
+.btn-ghost-white:hover{background:rgba(255,255,255,.12);border-color:var(--white)}
+.btn-stack{display:flex;flex-direction:column;gap:12px;margin-top:24px}
+.link-arrow{display:inline-flex;align-items:center;gap:8px;min-height:44px;
+  font-weight:600;font-size:1rem;color:var(--ink);transition:gap .15s}
+.link-arrow:hover{gap:12px}
+.link-arrow svg{width:18px;height:18px;flex:0 0 auto}
+.link-arrow.on-dark{color:var(--white)}
 
-    /* ── WHY IT MATTERS ── */
-    .why-section { padding: 100px 5vw; background: var(--white); }
-    .why-inner { max-width: 1100px; margin: 0 auto; }
-    .why-grid {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 64px; align-items: start; margin-top: 56px;
-    }
-    .why-body p {
-      font-size: 1.05rem; color: #3a3a3a; line-height: 1.8; margin-bottom: 20px;
-    }
-    .why-body p:last-child { margin-bottom: 0; }
-    .why-body strong { color: var(--ink); }
+/* ═══════════ PAGE HERO (interior) ═══════════ */
+.phero{padding:40px var(--pad) 36px}
+.phero h1{margin:14px 0 16px}
+.phero-sub{font-size:1.06rem;color:var(--body-c);line-height:1.6;max-width:58ch}
+.hero-eyebrow{display:flex;align-items:center;gap:10px;font-size:.72rem;font-weight:700;
+  letter-spacing:.13em;text-transform:uppercase;color:#c73010}
+.hero-eyebrow::before{content:'';width:24px;height:2px;background:#c73010;flex:0 0 auto}
 
-    /* Pull quote */
-    .pull-quote-block {
-      background: var(--ink); border-radius: var(--r-lg);
-      padding: 44px 40px; position: sticky; top: 100px;
-    }
-    .pull-quote-bar { width: 40px; height: 3px; background: var(--gold); margin-bottom: 24px; }
-    .pull-quote-text {
-      font-family: var(--font-display); font-size: clamp(1.2rem, 2vw, 1.5rem);
-      font-weight: 700; font-style: italic; color: var(--white);
-      line-height: 1.4; margin-bottom: 24px;
-    }
-    .pull-quote-text em { color: var(--gold); font-style: normal; }
-    .pull-quote-credit { font-size: .8rem; color: rgba(255,255,255,.45); letter-spacing: .05em; }
+/* ═══════════ CARDS ═══════════ */
+.card{background:var(--white);border:1.5px solid var(--mist);border-radius:var(--r-md);padding:24px 20px}
+.card h3{margin-bottom:10px}
+.card p{font-size:.95rem;color:#555;line-height:1.65}
+.card-icon{width:42px;height:42px;border-radius:var(--r-sm);background:var(--sage-lt);
+  color:var(--sage);display:flex;align-items:center;justify-content:center;
+  margin-bottom:16px;font-size:1.2rem;flex:0 0 auto}
+.card-label{font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  color:#6b6b6b;margin-bottom:12px}
+.card.accent{border-color:var(--sage);background:var(--sage-lt)}
+.card.accent .card-label{color:var(--sage)}
+.card.accent p{color:#33473e}
+.quote-line{font-family:var(--font-display);font-size:1.08rem;font-weight:600;
+  line-height:1.42;margin-bottom:12px;letter-spacing:-.01em}
+.stack-cards{display:flex;flex-direction:column;gap:14px;margin-top:28px}
 
-    /* ── WAYS TO GIVE ── */
-    .give-section { padding: 100px 5vw; background: var(--paper); }
-    .give-inner { max-width: 1100px; margin: 0 auto; }
+.thesis{margin-top:20px;background:var(--ink);color:var(--white);border-radius:var(--r-md);
+  padding:24px 20px;font-family:var(--font-display);font-size:1.08rem;font-weight:700;
+  line-height:1.38;letter-spacing:-.01em}
+.thesis em{font-style:normal;color:var(--gold)}
 
-    .give-cards {
-      display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: 24px; margin-top: 56px;
-    }
-    .give-card {
-      background: var(--white); border-radius: var(--r-md);
-      border: 1.5px solid var(--mist); overflow: hidden;
-      transition: border-color .2s, box-shadow .2s, transform .2s;
-    }
-    .give-card:hover {
-      border-color: var(--sage);
-      box-shadow: 0 12px 40px rgba(58,92,78,.1);
-      transform: translateY(-3px);
-    }
-    .give-card-top { height: 5px; }
-    .give-card-top.signal { background: linear-gradient(90deg, #c73010, var(--signal)); }
-    .give-card-top.sage   { background: linear-gradient(90deg, var(--sage), #6da38e); }
-    .give-card-top.gold   { background: linear-gradient(90deg, #a07018, var(--gold)); }
-    .give-card-body { padding: 36px 32px 40px; }
-    .give-card-num {
-      font-family: var(--font-display); font-size: 3rem; font-weight: 800;
-      color: rgba(13,15,20,.07); line-height: 1; margin-bottom: 16px;
-    }
-    .give-card h3 {
-      font-family: var(--font-display); font-size: 1.25rem; font-weight: 800;
-      margin-bottom: 16px; color: var(--ink);
-    }
-    .give-card p { font-size: .925rem; color: #4a4a4a; line-height: 1.7; margin-bottom: 12px; }
-    .give-card p:last-child { margin-bottom: 0; }
+.pull-quote{border-left:4px solid var(--signal);padding:6px 0 6px 20px;margin:32px 0;
+  font-family:var(--font-display);font-size:1.25rem;font-weight:700;line-height:1.32;
+  letter-spacing:-.015em;max-width:36ch}
+.pull-quote em{font-style:normal;color:var(--signal)}
 
-    .give-card-link {
-      display: inline-flex; align-items: center; gap: 6px;
-      font-size: .9rem; font-weight: 700; color: var(--signal);
-      margin-top: 20px; transition: gap .15s;
-    }
-    .give-card-link:hover { gap: 10px; }
+/* ═══════════ DARK PANEL ═══════════ */
+.dark{background:var(--ink);color:var(--white);padding:var(--stack) var(--pad)}
+.dark h2{color:var(--white)}
+.dark .body-t{color:rgba(255,255,255,.72)}
+.dark-list{margin-top:26px;border:1.5px solid rgba(255,255,255,.1);
+  border-radius:var(--r-md);overflow:hidden}
+.dark-item{padding:24px 20px;border-bottom:1.5px solid rgba(255,255,255,.1)}
+.dark-item:last-child{border-bottom:none}
+.dark-n{font-family:var(--font-display);font-size:1.9rem;font-weight:800;
+  color:rgba(255,255,255,.3);line-height:1;margin-bottom:12px}
+.dark-item h3{color:var(--white);margin-bottom:10px}
+.dark-item p{font-size:.95rem;color:rgba(255,255,255,.64);line-height:1.65}
 
-    .mono-block {
-      background: var(--paper); border-radius: var(--r-sm);
-      border: 1px solid var(--mist);
-      padding: 16px 18px; margin-top: 16px;
-      font-family: 'Courier New', monospace;
-      font-size: .82rem; color: var(--ink); line-height: 1.8;
-    }
+/* ═══════════ CHECK LIST ═══════════ */
+.checks{list-style:none;margin-top:26px;display:flex;flex-direction:column;gap:16px}
+.checks li{display:flex;gap:13px;align-items:flex-start;font-size:.98rem;
+  color:#444;line-height:1.62}
+.checks li strong{color:var(--ink)}
+.checks .tick{flex:0 0 auto;width:24px;height:24px;border-radius:50%;
+  background:var(--sage-lt);color:var(--sage);display:flex;align-items:center;
+  justify-content:center;font-size:.78rem;font-weight:800;margin-top:2px}
 
-    /* ── NOTIFY BANNER ── */
-    .notify-banner {
-      background: var(--sage-lt);
-      border: 1.5px solid var(--sage);
-      border-radius: var(--r-md);
-      padding: 28px 32px;
-      margin-top: 48px;
-      display: flex; gap: 20px; align-items: flex-start;
-    }
-    .notify-icon {
-      width: 40px; height: 40px; border-radius: 50%;
-      background: var(--sage); flex-shrink: 0;
-      display: flex; align-items: center; justify-content: center;
-    }
-    .notify-icon svg { width: 18px; height: 18px; color: var(--white); }
-    .notify-body h4 {
-      font-family: var(--font-display); font-size: 1rem; font-weight: 800;
-      color: var(--sage); margin-bottom: 6px;
-    }
-    .notify-body p { font-size: .9rem; color: #2a4a3e; line-height: 1.7; }
-    .notify-body a { color: var(--sage); font-weight: 600; text-decoration: underline; text-underline-offset: 2px; }
+/* ═══════════ STEPS ═══════════ */
+.steps{margin-top:28px;display:flex;flex-direction:column}
+.step{display:grid;grid-template-columns:44px 1fr;gap:14px;padding:22px 0;
+  border-bottom:1.5px solid var(--mist)}
+.step:first-child{padding-top:0}
+.step:last-child{border-bottom:none;padding-bottom:0}
+.step-n{font-family:var(--font-display);font-size:1.75rem;font-weight:800;
+  color:var(--signal);line-height:1}
+.step h3{margin-bottom:8px}
+.step p{font-size:.95rem;color:#555;line-height:1.65}
 
-    /* ── FISCAL SPONSOR ── */
-    .sponsor-section { padding: 100px 5vw; background: var(--white); }
-    .sponsor-inner { max-width: 1100px; margin: 0 auto; }
-    .sponsor-grid {
-      display: grid; grid-template-columns: 1fr 380px;
-      gap: 64px; align-items: start; margin-top: 56px;
-    }
-    .sponsor-body p {
-      font-size: 1rem; color: #4a4a4a; line-height: 1.8; margin-bottom: 20px;
-    }
-    .sponsor-body p:last-child { margin-bottom: 0; }
-    .sponsor-card {
-      background: var(--gold-lt); border-radius: var(--r-md);
-      border: 1.5px solid rgba(201,149,42,.25);
-      padding: 36px 32px; position: sticky; top: 100px;
-    }
-    .sponsor-card-label {
-      font-size: .72rem; font-weight: 700; letter-spacing: .14em;
-      text-transform: uppercase; color: #a07018; margin-bottom: 16px;
-    }
-    .sponsor-card h4 {
-      font-family: var(--font-display); font-size: 1.2rem; font-weight: 800;
-      color: var(--ink); margin-bottom: 12px;
-    }
-    .sponsor-card p { font-size: .9rem; color: #4a3a10; line-height: 1.7; margin-bottom: 16px; }
-    .sponsor-card a {
-      display: inline-flex; align-items: center; gap: 6px;
-      font-size: .875rem; font-weight: 700; color: #a07018;
-      text-decoration: underline; text-underline-offset: 2px;
-    }
-    .fineprint {
-      margin-top: 20px; font-size: .8rem; color: #6b6b6b;
-      line-height: 1.6; border-top: 1px solid var(--mist); padding-top: 16px;
-    }
+/* ═══════════ DOMAINS (curriculum) ═══════════ */
+.domain{margin-top:16px;padding:26px 20px;background:var(--white);
+  border:1.5px solid var(--mist);border-radius:var(--r-md)}
+.domain-head{display:flex;flex-direction:column;gap:10px;margin-bottom:8px}
+.domain-n{align-self:flex-start;font-family:var(--font-display);font-size:.85rem;
+  font-weight:800;color:var(--white);background:var(--sage);
+  border-radius:var(--r-pill);padding:5px 14px;letter-spacing:.04em}
+.domain h3{font-size:1.25rem;font-weight:800}
+.domain-tag{font-size:.92rem;color:var(--sage);font-weight:600;margin-bottom:16px}
+.domain ul{list-style:none;display:flex;flex-direction:column;gap:10px}
+.domain ul li{display:flex;gap:11px;font-size:.94rem;color:#4c4c4c;line-height:1.6}
+.domain ul li::before{content:'—';color:var(--gold);font-weight:700;flex:0 0 auto}
 
-    /* ── CTA BAND ── */
-    .cta-band {
-      background: linear-gradient(135deg, #c03220 0%, #8f1f0f 100%);
-      color: var(--white); border-radius: var(--r-lg);
-      margin: 0 3vw 80px; padding: 72px 8vw;
-      display: grid; grid-template-columns: 1fr auto;
-      gap: 40px; align-items: center;
-    }
-    .cta-band h2 {
-      font-family: var(--font-display); font-weight: 800;
-      font-size: clamp(1.4rem, 3.5vw, 2.6rem); line-height: 1.1; letter-spacing: -.025em;
-    }
-    .cta-band p { font-size: 1rem; color: rgba(255,255,255,1); margin-top: 12px; max-width: 500px; }
-    .cta-band-actions { display: flex; flex-direction: column; gap: 12px; flex-shrink: 0; }
-    .btn-white {
-      background: var(--white); color: #a82800;
-      padding: 15px 28px; border-radius: var(--r-pill);
-      font-size: .95rem; font-weight: 700; text-align: center;
-      transition: transform .15s, box-shadow .15s; white-space: nowrap;
-    }
-    .btn-white:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(0,0,0,.15); }
-    .btn-ghost-white {
-      border: 2px solid rgba(255,255,255,.5); color: var(--white);
-      padding: 13px 28px; border-radius: var(--r-pill);
-      font-size: .95rem; font-weight: 600; text-align: center;
-      transition: border-color .15s, background .15s;
-    }
-    .btn-ghost-white:hover { border-color: var(--white); background: rgba(255,255,255,.12); }
+/* ═══════════ COMPARE — stacked pairs on phones ═══════════ */
+.compare{margin-top:28px;display:flex;flex-direction:column;gap:14px}
+.compare-head{display:none}
+.cmp{border:1.5px solid var(--mist);border-radius:var(--r-md);overflow:hidden;background:var(--white)}
+.cmp-side{padding:16px 18px}
+.cmp-side + .cmp-side{border-top:1.5px solid var(--mist)}
+.cmp-tag{font-size:.66rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  color:#8a8a8a;margin-bottom:6px;display:block}
+.cmp-side p{font-size:.93rem;line-height:1.6;color:#4f4f4f}
+.cmp-side.leli{background:var(--sage-lt)}
+.cmp-side.leli .cmp-tag{color:var(--sage)}
+.cmp-side.leli p{color:#2f4038;font-weight:500}
 
-    /* ── FOOTER ── */
-    footer { background: var(--ink); color: rgba(255,255,255,.5); padding: 60px 5vw 40px; }
-    .footer-inner {
-      max-width: 1100px; margin: 0 auto;
-      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px;
-    }
-    .footer-brand h3 { font-family: var(--font-display); font-size: 1.1rem; font-weight: 800; color: var(--white); margin-bottom: 12px; }
-    .footer-brand p  { font-size: .875rem; line-height: 1.65; max-width: 300px; }
-    .footer-col h4   { font-size: .75rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--white); margin-bottom: 16px; }
-    .footer-col ul   { list-style: none; display: flex; flex-direction: column; gap: 10px; }
-    .footer-col a    { font-size: .875rem; transition: color .2s; }
-    .footer-col a:hover { color: var(--white); }
-    .footer-bottom {
-      max-width: 1100px; margin: 40px auto 0; padding-top: 24px;
-      border-top: 1px solid rgba(255,255,255,.08);
-      display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; font-size: .8rem;
-    }
+/* ═══════════ SYSTEMS DIAGRAM ═══════════ */
+.sys{margin-top:28px;text-align:center}
+.sys-center{display:inline-block;background:var(--ink);color:var(--white);
+  font-family:var(--font-display);font-weight:700;font-size:1rem;
+  padding:14px 26px;border-radius:var(--r-pill)}
+.sys-arrow{font-size:1.3rem;color:var(--signal);margin:8px 0 14px;line-height:1}
+.sys-chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.sys-chip{background:var(--white);border:1.5px solid var(--mist);border-radius:var(--r-pill);
+  padding:10px 16px;font-size:.85rem;font-weight:600;color:#555;min-height:42px;
+  display:flex;align-items:center}
+.sys-cap{margin:22px auto 0;font-size:.92rem;color:#666;line-height:1.6;max-width:56ch;text-align:left}
 
-    /* ── RESPONSIVE ── */
-    @media (max-width: 960px) {
-      .page-hero-inner { grid-template-columns: 1fr; gap: 40px; }
-      .why-grid { grid-template-columns: 1fr; gap: 48px; }
-      .pull-quote-block { position: static; }
-      .give-cards { grid-template-columns: 1fr 1fr; }
-      .sponsor-grid { grid-template-columns: 1fr; }
-      .sponsor-card { position: static; }
-      .cta-band { grid-template-columns: 1fr; }
-      .footer-inner { grid-template-columns: 1fr 1fr; }
-    }
-    @media (max-width: 640px) {
-      nav { padding: 14px 5vw; }
-      .nav-links { display: none; }
-      .nav-hamburger { display: flex; }
-      .give-cards { grid-template-columns: 1fr; }
-      .notify-banner { flex-direction: column; gap: 16px; }
-      .cta-band { margin: 0 0 48px; border-radius: 0; padding: 52px 6vw; }
-      .footer-inner { grid-template-columns: 1fr; }
-      .page-hero::before { display: none; }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      .fade-up { transition: none; }
-      .nav-logo-dot { animation: none; }
-    }
+/* ═══════════ TEAM + ORGS (about) ═══════════ */
+.team-grid{display:flex;flex-direction:column;gap:16px;margin-top:28px}
+.team-card{background:var(--white);border:1.5px solid var(--mist);border-radius:var(--r-md);
+  overflow:hidden;display:flex;flex-direction:column}
+.team-top{height:6px;flex:0 0 auto}
+.team-top.signal{background:linear-gradient(90deg,#c73010,var(--signal))}
+.team-top.sage{background:linear-gradient(90deg,var(--sage),#6da38e)}
+.team-head{padding:20px 20px 0;display:flex;align-items:center;gap:14px}
+.team-avatar{width:64px;height:64px;border-radius:50%;object-fit:cover;object-position:center top;
+  flex:0 0 auto;border:3px solid var(--mist);background:var(--paper)}
+.team-avatar.signal{border-color:var(--signal-lt)}
+.team-avatar.sage{border-color:var(--sage-lt)}
+.team-monogram{width:64px;height:64px;border-radius:50%;flex:0 0 auto;display:none;
+  align-items:center;justify-content:center;font-family:var(--font-display);
+  font-weight:800;font-size:1.35rem;background:var(--sage-lt);color:var(--sage);
+  border:3px solid var(--sage-lt)}
+.team-role{font-size:.68rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--sage);margin-bottom:3px}
+.team-name{font-family:var(--font-display);font-size:1.28rem;font-weight:800;
+  line-height:1.14;letter-spacing:-.015em}
+.team-body{padding:16px 20px 26px}
+.team-org{font-size:.8rem;color:#6b6b6b;font-weight:600;margin-bottom:16px}
+.team-bio{font-size:.94rem;color:var(--body-c);line-height:1.68}
+.team-bio + .team-bio{margin-top:12px}
+.team-tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:18px}
+.team-tag{padding:5px 12px;border-radius:var(--r-pill);font-size:.72rem;font-weight:600;
+  background:var(--paper);border:1px solid var(--mist);color:#4a4a4a}
 
-    /* ── MOBILE NAV DRAWER ── */
-    .nav-drawer {
-      display: none;
-      position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-      z-index: 99;
-    }
-    .nav-drawer.open { display: block; }
-    .nav-drawer-overlay {
-      position: absolute; inset: 0;
-      background: rgba(13,15,20,0.55);
-      backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
-    }
-    .nav-drawer-panel {
-      position: absolute; top: 0; right: 0; bottom: 0;
-      width: min(320px, 85vw);
-      background: var(--ink);
-      padding: 24px 0 40px;
-      display: flex; flex-direction: column;
-      overflow-y: auto;
-      box-shadow: -8px 0 40px rgba(0,0,0,.3);
-      transform: translateX(100%);
-      transition: transform .3s cubic-bezier(.4,0,.2,1);
-    }
-    .nav-drawer.open .nav-drawer-panel { transform: translateX(0); }
-    .nav-drawer-close {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 24px 24px;
-      border-bottom: 1px solid rgba(255,255,255,.1);
-      margin-bottom: 8px;
-    }
-    .nav-drawer-logo {
-      font-family: var(--font-display); font-weight: 800; font-size: 1.1rem;
-      color: var(--white); display: flex; align-items: center; gap: 10px;
-    }
-    .nav-drawer-logo-dot { width: 8px; height: 8px; background: var(--signal); border-radius: 50%; }
-    .nav-drawer-x {
-      width: 36px; height: 36px; border-radius: 50%;
-      background: rgba(255,255,255,.08); border: none; cursor: pointer;
-      display: flex; align-items: center; justify-content: center; transition: background .2s;
-    }
-    .nav-drawer-x:hover { background: rgba(255,255,255,.16); }
-    .nav-drawer-x svg { width: 16px; height: 16px; color: var(--white); }
-    .nav-drawer-links { display: flex; flex-direction: column; padding: 8px 0; flex: 1; }
-    .nav-drawer-links a {
-      padding: 14px 24px;
-      font-size: 1rem; font-weight: 600; color: rgba(255,255,255,.75);
-      border-left: 3px solid transparent;
-      transition: color .2s, border-color .2s, background .2s;
-    }
-    .nav-drawer-links a:hover { color: var(--white); background: rgba(255,255,255,.05); border-left-color: rgba(255,255,255,.2); }
-    .nav-drawer-links a.active { color: var(--white); border-left-color: var(--signal); background: rgba(232,75,47,.1); }
-    .nav-drawer-cta { margin: 16px 24px 0; }
-    .nav-drawer-cta a {
-      display: block; background: var(--signal); color: var(--white) !important;
-      padding: 14px 24px; border-radius: var(--r-pill);
-      font-size: .95rem; font-weight: 700; text-align: center;
-      transition: background .2s; border-left: none !important;
-    }
-    .nav-drawer-cta a:hover { background: #c73010; }
-  </style>
+.orgs-band{background:var(--sage-lt)}
+.org-grid{display:flex;flex-direction:column;gap:14px;margin-top:28px}
+.org-card{background:var(--white);border:1.5px solid rgba(58,92,78,.15);
+  border-radius:var(--r-md);padding:26px 20px}
+.org-icon{width:46px;height:46px;border-radius:var(--r-sm);display:flex;
+  align-items:center;justify-content:center;margin-bottom:16px}
+.org-card h3{font-size:1.12rem;font-weight:800;margin-bottom:6px}
+.org-type{font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:#6b6b6b;margin-bottom:14px}
+.org-card p{font-size:.93rem;color:var(--body-c);line-height:1.65}
+.org-link{display:inline-flex;align-items:center;min-height:44px;margin-top:10px;
+  font-size:.88rem;font-weight:700;color:var(--sage);
+  text-decoration:underline;text-underline-offset:2px}
+
+/* ═══════════ FORMS ═══════════ */
+.form-card{background:var(--white);border:1.5px solid var(--mist);border-radius:var(--r-lg);
+  padding:24px 18px;margin-top:24px}
+.form-block + .form-block{margin-top:32px}
+.form-block-title{font-family:var(--font-display);font-size:1.05rem;font-weight:800;
+  color:var(--ink);margin-bottom:18px;padding-bottom:10px;border-bottom:2px solid var(--mist)}
+.field{display:flex;flex-direction:column;gap:7px}
+.field + .field{margin-top:18px}
+.field label{font-size:.86rem;font-weight:600;color:var(--ink)}
+.field label .req{color:var(--signal);margin-left:2px}
+.field .opt{font-weight:400;color:#888}
+.field input,.field select,.field textarea{
+  width:100%;min-height:52px;padding:14px;
+  border:1.5px solid var(--mist);border-radius:var(--r-sm);
+  font-family:var(--font-body);font-size:17px;color:var(--ink);
+  background:var(--white);transition:border-color .2s,box-shadow .2s}
+.field textarea{min-height:120px;resize:vertical;line-height:1.5}
+.field input:focus,.field select:focus,.field textarea:focus{
+  outline:none;border-color:var(--sage);box-shadow:0 0 0 3px rgba(58,92,78,.12)}
+.field input[aria-invalid="true"],.field textarea[aria-invalid="true"],
+.field select[aria-invalid="true"]{border-color:var(--signal)}
+.field select{appearance:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23888' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 14px center;padding-right:40px}
+.hint{font-size:.82rem;color:#6b6b6b;margin-top:2px}
+.consent{display:flex;gap:12px;align-items:flex-start;margin-top:18px;
+  padding:14px;border:1.5px solid var(--mist);border-radius:var(--r-sm);background:var(--paper)}
+.consent input[type=checkbox]{width:24px;height:24px;margin-top:1px;flex:0 0 auto;accent-color:var(--sage)}
+.consent label{font-size:.9rem;color:#4c4c4c;line-height:1.55;font-weight:500}
+.form-foot{margin-top:26px}
+.form-note{font-size:.85rem;color:#6b6b6b;margin-top:12px;text-align:center}
+.status{display:none;border-radius:var(--r-md);padding:18px;font-size:.95rem;
+  line-height:1.6;margin-top:20px}
+.status.on{display:block}
+.status.ok{background:var(--sage-lt);color:#2f4a3e;border:1.5px solid var(--sage)}
+.status.bad{background:var(--signal-lt);color:#8c2312;border:1.5px solid var(--signal)}
+
+/* ═══════════ DONATE ═══════════ */
+.donate-hero{background:var(--ink);color:var(--white);padding:40px var(--pad) 44px;
+  position:relative;overflow:hidden}
+.donate-hero h1{color:var(--white);margin:14px 0 16px}
+.donate-hero h1 em{font-style:normal;color:var(--gold)}
+.donate-hero .hero-eyebrow{color:var(--gold)}
+.donate-hero .hero-eyebrow::before{background:var(--gold)}
+.donate-lead{font-size:1.04rem;color:rgba(255,255,255,.78);line-height:1.65;max-width:56ch}
+.impact{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);
+  border-radius:var(--r-lg);padding:22px 20px;margin-top:28px}
+.impact-title{font-size:.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  color:rgba(255,255,255,.5);margin-bottom:16px}
+.impact-row{display:flex;justify-content:space-between;align-items:baseline;gap:14px;
+  padding:12px 0;border-bottom:1px solid rgba(255,255,255,.08)}
+.impact-row:last-child{border-bottom:none;padding-bottom:0}
+.impact-l{font-size:.88rem;color:rgba(255,255,255,.6)}
+.impact-v{font-family:var(--font-display);font-size:.95rem;font-weight:700;
+  color:var(--white);text-align:right}
+.impact-v.gold{color:var(--gold)}.impact-v.sage{color:#6da38e}.impact-v.signal{color:#ff8066}
+
+.notify{background:var(--sage-lt);border:1.5px solid var(--sage);border-radius:var(--r-md);
+  padding:20px 18px;margin-top:24px;display:flex;gap:14px;align-items:flex-start}
+.notify-icon{width:38px;height:38px;border-radius:50%;background:var(--sage);flex:0 0 auto;
+  display:flex;align-items:center;justify-content:center}
+.notify-icon svg{width:17px;height:17px;color:var(--white)}
+.notify h4{font-family:var(--font-display);font-size:1rem;font-weight:800;
+  color:var(--sage);margin-bottom:6px}
+.notify p{font-size:.9rem;color:#2a4a3e;line-height:1.65}
+.notify a{color:var(--sage);font-weight:600;text-decoration:underline;text-underline-offset:2px}
+
+.give-grid{display:flex;flex-direction:column;gap:14px;margin-top:24px}
+.give{background:var(--white);border:1.5px solid var(--mist);border-radius:var(--r-md);
+  overflow:hidden}
+.give-top{height:5px}
+.give-top.signal{background:linear-gradient(90deg,#c73010,var(--signal))}
+.give-top.sage{background:linear-gradient(90deg,var(--sage),#6da38e)}
+.give-top.gold{background:linear-gradient(90deg,#a07018,var(--gold))}
+.give-body{padding:24px 20px 26px}
+.give-n{font-family:var(--font-display);font-size:2.4rem;font-weight:800;
+  color:rgba(13,15,20,.07);line-height:1;margin-bottom:12px}
+.give h3{font-size:1.2rem;font-weight:800;margin-bottom:12px}
+.give p{font-size:.93rem;color:var(--body-c);line-height:1.7}
+.give-link{display:inline-flex;align-items:center;gap:6px;min-height:44px;margin-top:12px;
+  font-size:.92rem;font-weight:700;color:var(--signal);transition:gap .15s}
+.give-link:hover{gap:10px}
+.mono{background:var(--paper);border:1px solid var(--mist);border-radius:var(--r-sm);
+  padding:14px 16px;margin-top:14px;font-family:ui-monospace,'SF Mono',Menlo,monospace;
+  font-size:.82rem;color:var(--ink);line-height:1.75;overflow-x:auto}
+.sponsor-card{background:var(--gold-lt);border:1.5px solid rgba(201,149,42,.25);
+  border-radius:var(--r-md);padding:24px 20px;margin-top:20px}
+.sponsor-label{font-size:.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  color:#a07018;margin-bottom:12px}
+.sponsor-card h4{font-family:var(--font-display);font-size:1.15rem;font-weight:800;
+  color:var(--ink);margin-bottom:10px}
+.sponsor-card p{font-size:.9rem;color:#4a3a10;line-height:1.68;margin-bottom:8px}
+.sponsor-card a{display:inline-flex;align-items:center;min-height:44px;font-size:.88rem;
+  font-weight:700;color:#a07018;text-decoration:underline;text-underline-offset:2px}
+.fineprint{margin-top:22px;font-size:.82rem;color:#6b6b6b;line-height:1.6;
+  border-top:1px solid var(--mist);padding-top:16px}
+.inline-link{color:var(--sage);font-weight:600;text-decoration:underline;text-underline-offset:2px}
+
+/* ═══════════ CTA BAND ═══════════ */
+.cta-band{background:linear-gradient(135deg,#c03220 0%,#8f1f0f 100%);
+  color:var(--white);padding:44px var(--pad)}
+.cta-band h2{color:var(--white);margin-bottom:12px}
+.cta-band p{font-size:1rem;color:rgba(255,255,255,.92);max-width:52ch}
+
+/* ═══════════ TICKER ═══════════ */
+.ticker{background:var(--ink);color:var(--white);padding:12px 0;overflow:hidden;display:flex}
+.ticker-track{display:flex;gap:44px;white-space:nowrap;animation:tick 30s linear infinite}
+.ticker-item{display:flex;align-items:center;gap:12px;font-family:var(--font-display);
+  font-size:.78rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;flex:0 0 auto}
+.ticker-dot{width:5px;height:5px;background:var(--signal);border-radius:50%;flex:0 0 auto}
+@keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ═══════════ HOME HERO ═══════════ */
+.hero{position:relative;padding:40px var(--pad) 44px;overflow:hidden}
+.hero-canvas{display:none}
+.hero-inner{position:relative;z-index:2}
+.hero h1{margin:16px 0 18px}
+.hero-sub{font-size:1.06rem;color:var(--body-c);line-height:1.6;max-width:58ch}
+
+/* ═══════════ FOOTER ═══════════ */
+footer{background:var(--ink);color:rgba(255,255,255,.55);padding:44px var(--pad) 32px}
+.foot-brand h3{font-family:var(--font-display);font-size:1.1rem;font-weight:800;
+  color:var(--white);margin-bottom:10px}
+.foot-brand p{font-size:.9rem;line-height:1.6;max-width:46ch}
+.foot-brand p + p{margin-top:14px;font-size:.82rem}
+.foot-cols{margin-top:32px;display:flex;flex-direction:column;gap:26px}
+.foot-col h4{font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--white);margin-bottom:10px}
+.foot-col ul{list-style:none}
+.foot-col a{display:flex;align-items:center;min-height:40px;font-size:.92rem}
+.foot-col a:hover{color:var(--white)}
+.foot-bottom{margin-top:32px;padding-top:20px;border-top:1px solid rgba(255,255,255,.1);
+  display:flex;flex-direction:column;gap:2px;font-size:.8rem}
+.foot-bottom a,.foot-bottom span{display:inline-flex;align-items:center;min-height:44px}
+
+/* ═══════════ BOTTOM TAB BAR ═══════════ */
+.tabbar{position:fixed;left:0;right:0;bottom:0;z-index:70;display:flex;background:var(--white);
+  border-top:1px solid var(--mist);padding-bottom:env(safe-area-inset-bottom);
+  box-shadow:0 -2px 16px rgba(13,15,20,.06)}
+.tab{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;
+  min-height:var(--nav-h);padding:8px 2px 10px;font-family:var(--font-body);
+  font-size:.68rem;font-weight:600;color:#7a7a7a;transition:color .15s}
+.tab svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.9;
+  stroke-linecap:round;stroke-linejoin:round}
+.tab.on{color:var(--ink)}
+.tab.on svg{stroke:var(--signal)}
+
+.sheet-scrim{position:fixed;inset:0;z-index:80;background:rgba(13,15,20,.55);
+  backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);
+  opacity:0;pointer-events:none;transition:opacity .22s ease}
+.sheet-scrim.open{opacity:1;pointer-events:auto}
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:81;background:var(--white);
+  border-radius:var(--r-lg) var(--r-lg) 0 0;
+  padding:10px 20px calc(24px + env(safe-area-inset-bottom));
+  max-height:86vh;overflow-y:auto;transform:translateY(101%);
+  transition:transform .28s cubic-bezier(.32,.72,0,1);box-shadow:0 -8px 40px rgba(13,15,20,.2)}
+.sheet.open{transform:translateY(0)}
+.sheet-grab{display:flex;align-items:center;justify-content:center;width:100%;
+  min-height:44px;padding:0;margin-bottom:8px}
+.sheet-grab::before{content:'';width:44px;height:5px;border-radius:99px;background:var(--mist)}
+.sheet-grab:active::before{background:#cfcbc0}
+.sheet h4{font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  color:#8a8a8a;margin:6px 0 4px}
+.sheet-links{list-style:none;margin-bottom:18px}
+.sheet-links a{display:flex;align-items:center;justify-content:space-between;min-height:54px;
+  padding:4px 2px;font-size:1.05rem;font-weight:600;border-bottom:1px solid var(--mist)}
+.sheet-links li:last-child a{border-bottom:none}
+.sheet-links a.on{color:var(--signal)}
+.sheet-links a svg{width:16px;height:16px;stroke:#b5b5b5;fill:none;stroke-width:2;
+  stroke-linecap:round;stroke-linejoin:round;flex:0 0 auto}
+
+/* ═══════════ ≥640px ═══════════ */
+@media (min-width:640px){
+  :root{--pad:32px;--stack:72px}
+  .btn{width:auto;min-width:220px}
+  .btn-stack{flex-direction:row;flex-wrap:wrap}
+  .stack-cards{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .give-grid,.org-grid,.team-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .foot-cols{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+  .cta-band{padding:56px var(--pad)}
+  .sys-cap{text-align:center}
+  .form-card{padding:32px 28px}
+  .form-row-2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .form-row-2 .field + .field{margin-top:0}
+  .domain{padding:32px 28px}
+  .domain-head{flex-direction:row;align-items:baseline;gap:16px}
+  .phero{padding:56px var(--pad) 48px}
+  .donate-hero{padding:56px var(--pad) 56px}
+}
+
+/* ═══════════ ≥1024px — desktop ═══════════ */
+@media (min-width:1024px){
+  :root{--pad:5vw;--stack:96px;--top-h:70px}
+  body{padding-bottom:0}
+  .tabbar,.sheet,.sheet-scrim{display:none}
+
+  .top-nav{display:flex;align-items:center;gap:1.35rem}
+  .top-nav a{font-size:.875rem;font-weight:500;color:#555;transition:color .2s}
+  .top-nav a:hover{color:var(--ink)}
+  .top-nav a.on{color:var(--ink);font-weight:600}
+  .top-nav .nav-cta{background:var(--ink);color:var(--white);padding:10px 20px;
+    border-radius:var(--r-pill);font-size:.875rem;font-weight:600}
+  .top-nav .nav-cta:hover{background:var(--signal)}
+
+  .phero{padding:80px var(--pad) 64px;text-align:center}
+  .phero .inner{max-width:860px}
+  .phero h1{font-size:clamp(2.5rem,5vw,3.9rem)}
+  .phero-sub{font-size:1.14rem;margin:0 auto}
+  .hero-eyebrow{justify-content:center}
+  .hero-eyebrow::after{content:'';width:24px;height:2px;background:#c73010}
+  .phero .btn-stack{justify-content:center}
+
+  .hero{min-height:78vh;display:flex;align-items:center;padding:70px var(--pad) 80px;text-align:center}
+  .hero-inner{max-width:900px;margin:0 auto}
+  .hero h1{font-size:clamp(2.8rem,5.4vw,4.4rem)}
+  .hero-sub{font-size:1.15rem;margin:0 auto;text-align:center}
+  .hero .btn-stack{justify-content:center}
+  .hero-canvas{display:block;position:absolute;inset:0;width:100%;height:100%;
+    pointer-events:none;z-index:0}
+  .hero::after{content:'';position:absolute;inset:0;pointer-events:none;z-index:1;
+    background:radial-gradient(ellipse at center,rgba(249,248,255,.92) 0%,
+      rgba(249,248,255,.74) 55%,rgba(249,248,255,.28) 100%)}
+
+  .stack-cards{gap:24px}
+  .card{padding:34px 30px}
+  .thesis{padding:30px 36px;font-size:1.3rem;text-align:center;margin-top:32px}
+  .pull-quote{font-size:1.65rem;padding-left:28px;max-width:44ch;margin:44px 0}
+
+  .dark{border-radius:var(--r-lg);margin:0 3vw;padding:80px 6vw}
+  .dark-list{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;border-width:2px}
+  .dark-list.two{grid-template-columns:repeat(2,1fr)}
+  .dark-item{border-bottom:none;padding:36px 32px}
+  .dark-n{font-size:2.6rem}
+
+  .cards-3{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .cards-2{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
+  .give-grid,.org-grid{grid-template-columns:repeat(3,1fr);gap:24px}
+  .team-grid{grid-template-columns:repeat(2,1fr);gap:28px}
+  .team-head{padding:24px 28px 0}
+  .team-body{padding:16px 28px 32px}
+  .give-body,.org-card{padding:34px 30px}
+
+  .steps{max-width:820px}
+  .step{grid-template-columns:64px 1fr;gap:24px;padding:28px 0}
+  .step-n{font-size:2rem}
+
+  .compare{border:2px solid var(--mist);border-radius:var(--r-md);overflow:hidden;
+    background:var(--white);gap:0;margin-top:36px}
+  .compare-head{display:grid;grid-template-columns:1fr 1fr;background:var(--ink);color:var(--white)}
+  .compare-head div{padding:20px 26px;font-family:var(--font-display);font-weight:700;font-size:1rem}
+  .compare-head div:last-child{background:var(--sage)}
+  .cmp{display:grid;grid-template-columns:1fr 1fr;border:none;border-radius:0;
+    border-top:1.5px solid var(--mist)}
+  .cmp-side{padding:20px 26px}
+  .cmp-side + .cmp-side{border-top:none;border-left:1.5px solid var(--mist)}
+  .cmp-tag{display:none}
+
+  .sys-chips{max-width:760px;margin:0 auto}
+  .sys-chip{padding:10px 22px}
+
+  .form-card{max-width:760px;margin:28px auto 0;padding:44px 40px}
+  .form-outer{max-width:760px;margin:0 auto}
+
+  .donate-hero{padding:90px var(--pad) 80px;position:relative}
+  .donate-hero::before{content:'GIVE';position:absolute;right:-1vw;bottom:-.15em;
+    font-family:var(--font-display);font-weight:800;font-size:clamp(8rem,20vw,17rem);
+    color:rgba(255,255,255,.04);line-height:1;pointer-events:none;white-space:nowrap}
+  .donate-hero .inner{display:grid;grid-template-columns:1fr 1fr;gap:64px;
+    align-items:center;position:relative;z-index:1}
+  .donate-hero h1{font-size:clamp(2.4rem,4.6vw,3.6rem)}
+  .impact{margin-top:0;padding:36px 32px}
+
+  .cta-band{border-radius:var(--r-lg);margin:0 3vw var(--stack);padding:72px 8vw;
+    display:grid;grid-template-columns:1fr auto;gap:40px;align-items:center}
+  .cta-band .btn-stack{flex-direction:column;margin-top:0}
+  .cta-band .btn{min-width:260px}
+
+  footer{padding:60px var(--pad) 40px}
+  .foot-inner{max-width:1100px;margin:0 auto;display:grid;
+    grid-template-columns:2fr 1fr 1fr 1fr;gap:48px}
+  .foot-cols{display:contents}
+  .foot-bottom{max-width:1100px;margin:40px auto 0;flex-direction:row;
+    justify-content:space-between;align-items:center}
+}
+
+/* ═══════════ MOTION ═══════════ */
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .5s ease,transform .5s ease}
+.reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){
+  *{transition:none!important;animation:none!important}
+  .reveal{opacity:1;transform:none}
+  html{scroll-behavior:auto}
+}
+</style>
 </head>
 <body>
 
-<!-- NAV -->
-<nav id="main-nav">
-  <a href="index.html" class="nav-logo">
-    <span class="nav-logo-dot"></span>
-    LELI
-  </a>
-  <div class="nav-links">
+<header class="top">
+  <a class="brand" href="index.html" aria-label="LELI home"><span class="brand-dot"></span>LELI</a>
+  <nav class="top-nav" aria-label="Main">
     <a href="index.html">Home</a>
+    <a href="leli-how.html">How It Works</a>
+    <a href="leli-curriculum.html">Curriculum</a>
+    <a href="leli-counties.html">For Counties</a>
+    <a href="leli-consultants.html">For Consultants</a>
     <a href="leli-about.html">About</a>
-    <a href="leli-fellowship.html">Fellowship</a>
-    <a href="leli-csn.html">Civic Signals</a>
-    <a href="leli-donate.html" class="active">Donate</a>
+    <a href="leli-donate.html" class="on">Donate</a>
     <a href="leli-contact.html">Contact</a>
-    <a href="leli-apply.html" class="nav-cta">Apply Now</a>
-  </div>
-  <div class="nav-hamburger" role="button" aria-label="Open menu" tabindex="0">
-    <span></span><span></span><span></span>
-  </div>
-</nav>
+    <a href="leli-apply.html" class="nav-cta">Become a Consultant</a>
+  </nav>
+</header>
 
-<!-- MOBILE NAV DRAWER -->
-<div class="nav-drawer" id="nav-drawer">
-  <div class="nav-drawer-overlay" id="nav-overlay"></div>
-  <div class="nav-drawer-panel">
-    <div class="nav-drawer-close">
-      <div class="nav-drawer-logo">
-        <span class="nav-drawer-logo-dot"></span>
-        LELI
-      </div>
-      <button class="nav-drawer-x" id="nav-close" aria-label="Close menu">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-      </button>
-    </div>
-    <div class="nav-drawer-links">
-      <a href="index.html">Home</a>
-      <a href="leli-about.html">About</a>
-      <a href="leli-fellowship.html">Fellowship</a>
-        <a href="leli-csn.html">Civic Signals</a>
-      <a href="leli-donate.html" class="active">Donate</a>
-      <a href="leli-contact.html">Contact</a>
-    </div>
-    <div class="nav-drawer-cta">
-      <a href="leli-apply.html">Apply Now</a>
-    </div>
-  </div>
-</div>
-
-<!-- PAGE HERO -->
-<div class="page-hero">
-  <div class="page-hero-inner">
-    <div class="fade-up">
-      <div class="eyebrow eyebrow-gold">Support LELI</div>
-      <h1>Fund a Fellow.<br />Fund <em>better policy.</em></h1>
-      <p class="page-hero-lead">
-        Every donation funds the time of a Fellow — and the time of a Fellow is what funds the policy change. LELI is fiscally sponsored by Realize Impact, a 501(c)(3) public charity. Your gift is tax-deductible.
-      </p>
-      <div class="hero-actions">
-        <a href="#ways-to-give" class="btn-primary">Donate Online →</a>
-        <a href="#ways-to-give" class="btn-outline-white">See all ways to give</a>
+<main>
+<!-- DONATE HERO -->
+<section class="donate-hero">
+  <div class="inner">
+    <div>
+      <p class="hero-eyebrow">Support LELI</p>
+      <h1>Fund a consultant. Fund <em>better policy.</em></h1>
+      <p class="donate-lead">Every donation funds the preparation of a subject matter expert with lived experience — and prepared expertise is what changes the policy. LELI is fiscally sponsored by Realize Impact, a 501(c)(3) public charity. Your gift is tax-deductible.</p>
+      <div class="btn-stack">
+        <a href="https://www.zeffy.com/donation-form/donate-to-realize-impact" target="_blank" rel="noopener" class="btn btn-primary">Donate Online</a>
+        <a href="#ways-to-give" class="btn btn-ghost-white">See all ways to give</a>
       </div>
     </div>
-
-    <div class="impact-card fade-up">
-      <div class="impact-card-title">Your Gift at Work</div>
-      <div class="impact-row">
-        <span class="impact-label">Fiscal sponsor</span>
-        <span class="impact-value sage">Realize Impact 501(c)(3)</span>
-      </div>
-      <div class="impact-row">
-        <span class="impact-label">Tax-deductible</span>
-        <span class="impact-value gold">Yes</span>
-      </div>
-      <div class="impact-row">
-        <span class="impact-label">Fellows funded per cohort</span>
-        <span class="impact-value">TBA</span>
-      </div>
-      <div class="impact-row">
-        <span class="impact-label">Fellowship duration</span>
-        <span class="impact-value">12 months</span>
-      </div>
-      <div class="impact-row">
-        <span class="impact-label">Focus</span>
-        <span class="impact-value signal">Reducing homelessness</span>
-      </div>
-      <div class="impact-row">
-        <span class="impact-label">Gift goes to</span>
-        <span class="impact-value">Fellow pay &amp; training</span>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- WHY IT MATTERS -->
-<section class="why-section">
-  <div class="why-inner">
-    <div class="eyebrow eyebrow-sage">Why It Matters</div>
-    <h2 class="section-title">Better policy comes from better policy design.</h2>
-
-    <div class="why-grid">
-      <div class="why-body fade-up">
-        <p>Contra Costa County is investing deeply in its strategic plan to reduce homelessness. That plan gets stronger when the people who've navigated the system help steer it — and too often, that perspective enters the room after key decisions are already made.</p>
-        <p>LELI changes the design table. We train people with lived experience of homelessness to co-author the work — analyzing community input, mapping where services connect and where they fall short, translating firsthand knowledge into the language of decision-making, and bringing it directly into the rooms where the plan is shaped, implemented, and evaluated.</p>
-        <p><strong>When lived experience helps design the plan, the plan works better. The dollars do more. The systems do better.</strong></p>
-        <p>LELI is fiscally sponsored by Realize Impact, a 501(c)(3) public charity. Your gift goes directly to Fellow compensation, training, and the design work that turns lived experience into living expertise.</p>
-      </div>
-
-      <div class="pull-quote-block fade-up">
-        <div class="pull-quote-bar"></div>
-        <p class="pull-quote-text">
-          "Lived experience can tell you what's wrong.<br />
-          <em>Living expertise</em> can help you build it right."
-        </p>
-        <p class="pull-quote-credit">— The LELI Framework</p>
-      </div>
+    <div class="impact">
+      <p class="impact-title">Your Gift at Work</p>
+      <div class="impact-row"><span class="impact-l">Fiscal sponsor</span><span class="impact-v sage">Realize Impact 501(c)(3)</span></div>
+      <div class="impact-row"><span class="impact-l">Tax-deductible</span><span class="impact-v gold">Yes</span></div>
+      <div class="impact-row"><span class="impact-l">Preparation</span><span class="impact-v">Months 1–4</span></div>
+      <div class="impact-row"><span class="impact-l">Deployment</span><span class="impact-v">Months 5–12</span></div>
+      <div class="impact-row"><span class="impact-l">Scale</span><span class="impact-v signal">County-wide</span></div>
+      <div class="impact-row"><span class="impact-l">Gift goes to</span><span class="impact-v">Consultant pay &amp; preparation</span></div>
     </div>
   </div>
 </section>
 
-<div class="divider"></div>
+<!-- WHY IT MATTERS -->
+<section class="section white">
+  <div class="inner">
+    <div class="section-head reveal">
+      <p class="eyebrow">Why It Matters</p>
+      <h2>Better policy comes from <span class="grad">better policy design.</span></h2>
+    </div>
+    <div class="reveal">
+      <p class="body-t">Policy works best when the people closest to the issue help shape it. Too often, that perspective enters the room after the key decisions are already made — leading to well-intentioned investment that misses the mark.</p>
+      <p class="body-t">LELI changes the design table. We prepare people with lived experience to consult as professionals — fluent in the county's structures, funding streams, governance, and policy calendar — so their expertise arrives as findings a department can act on, timed to the decisions being made.</p>
+      <p class="body-t"><strong>When living expertise helps design the policy, the policy works better. The dollars do more. The systems do better.</strong></p>
+      <p class="body-t">Your gift goes directly to consultant compensation, preparation, and the wraparound support — transportation, technology, scheduling — that makes participation possible for people currently navigating homelessness.</p>
+    </div>
+    <p class="pull-quote reveal">"Lived experience can tell you what's wrong. <em>Living expertise</em> can help you build it right."</p>
+  </div>
+</section>
 
-<!-- THREE WAYS TO GIVE -->
-<section class="give-section" id="ways-to-give">
-  <div class="give-inner">
-    <div class="eyebrow eyebrow-red">Three Ways to Give</div>
-    <h2 class="section-title">Choose how you want to support.</h2>
-    <p class="section-body">All donations go directly to LELI through our fiscal sponsor, Realize Impact. However you give, your contribution is fully tax-deductible.</p>
+<!-- WAYS TO GIVE -->
+<section class="section" id="ways-to-give">
+  <div class="inner">
+    <div class="section-head reveal">
+      <p class="eyebrow signal">Three Ways to Give</p>
+      <h2>Choose how you want to support.</h2>
+      <p class="body-t" style="margin-top:16px">All donations reach LELI through our fiscal sponsor, Realize Impact. However you give, your contribution is fully tax-deductible.</p>
+    </div>
 
-    <!-- Notify banner -->
-    <div class="notify-banner fade-up" style="margin-bottom: 48px;">
+    <div class="notify reveal">
       <div class="notify-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8a19.79 19.79 0 01-3.07-8.68A2 2 0 012 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
       </div>
-      <div class="notify-body">
+      <div>
         <h4>Important — please notify us after giving</h4>
         <p>However you choose to give, please <a href="leli-contact.html">use our contact form</a> to let us know you've donated. This ensures Realize Impact can direct your gift to LELI's account and that we can properly acknowledge your support.</p>
       </div>
     </div>
 
-    <div class="give-cards">
-
-      <!-- Online -->
-      <div class="give-card fade-up" id="donate-online">
-        <div class="give-card-top signal"></div>
-        <div class="give-card-body">
-          <div class="give-card-num">01</div>
+    <div class="give-grid">
+      <div class="give reveal" id="donate-online">
+        <div class="give-top signal"></div>
+        <div class="give-body">
+          <div class="give-n">01</div>
           <h3>Donate online</h3>
-          <p>Give securely through Realize Impact's donation platform. The fastest way to get your gift to Fellows.</p>
-          <a href="https://www.zeffy.com/donation-form/donate-to-realize-impact" target="_blank" rel="noopener" class="give-card-link">
-            Donate now
+          <p>Give securely through Realize Impact's donation platform. The fastest way to get your gift to consultants.</p>
+          <a href="https://www.zeffy.com/donation-form/donate-to-realize-impact" target="_blank" rel="noopener" class="give-link">Donate now
             <svg width="14" height="14" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9h12M9 3l6 6-6 6"/></svg>
           </a>
         </div>
       </div>
 
-      <!-- Check -->
-      <div class="give-card fade-up">
-        <div class="give-card-top sage"></div>
-        <div class="give-card-body">
-          <div class="give-card-num">02</div>
+      <div class="give reveal">
+        <div class="give-top sage"></div>
+        <div class="give-body">
+          <div class="give-n">02</div>
           <h3>Mail a check</h3>
           <p>Make checks payable to <strong>Realize Impact</strong> and include a note that your gift is for LELI. Mail to:</p>
-          <div class="mono-block">
-            Realize Impact<br>
-            271 Winslow Way E. #10234<br>
+          <div class="mono">
+            Realize Impact<br />
+            271 Winslow Way E. #10234<br />
             Bainbridge Island, WA 98110
           </div>
         </div>
       </div>
 
-      <!-- Wire -->
-      <div class="give-card fade-up">
-        <div class="give-card-top gold"></div>
-        <div class="give-card-body">
-          <div class="give-card-num">03</div>
+      <div class="give reveal">
+        <div class="give-top gold"></div>
+        <div class="give-body">
+          <div class="give-n">03</div>
           <h3>ACH or wire transfer</h3>
           <p>Send directly to Realize Impact's account at Columbia Bank:</p>
-          <div class="mono-block">
-            Columbia Bank<br>
-            249 Winslow Way E, Suite 200<br>
-            Bainbridge Island, WA 98110<br><br>
-            Routing #: 125108272<br>
-            Account #: 7001202668<br>
+          <div class="mono">
+            Columbia Bank<br />
+            249 Winslow Way E, Suite 200<br />
+            Bainbridge Island, WA 98110<br /><br />
+            Routing #: 125108272<br />
+            Account #: 7001202668<br />
             Name: Realize Impact
           </div>
         </div>
       </div>
-
     </div>
-
   </div>
 </section>
 
 <!-- FISCAL SPONSOR -->
-<section class="sponsor-section">
-  <div class="sponsor-inner">
-    <div class="eyebrow eyebrow-gold">Fiscal Sponsorship</div>
-    <h2 class="section-title">About Realize Impact.</h2>
-    <p class="section-body">LELI operates under the charitable umbrella of Realize Impact — a registered 501(c)(3) that makes your gift fully tax-deductible.</p>
+<section class="section white" id="sponsor">
+  <div class="inner">
+    <div class="section-head reveal">
+      <p class="eyebrow gold">Fiscal Sponsorship</p>
+      <h2>About Realize Impact.</h2>
+      <p class="body-t" style="margin-top:16px">LELI operates under the charitable umbrella of Realize Impact — a registered 501(c)(3) that makes your gift fully tax-deductible.</p>
+    </div>
+    <div class="reveal">
+      <p class="body-t">LELI is fiscally sponsored by Realize Impact, a 501(c)(3) public charity specializing in fiscal sponsorship of mission-driven projects. Realize Impact provides the charitable umbrella, financial oversight, grants administration, and compliance infrastructure that lets LELI focus entirely on consultants and the counties they serve.</p>
+      <p class="body-t">Fiscal sponsorship means your gift is made to Realize Impact on behalf of LELI. It is fully tax-deductible, subject to all 501(c)(3) rules, and directed entirely to LELI's programming — consultant compensation, preparation and curriculum delivery, and the wraparound support that makes participation possible.</p>
+      <p class="body-t">All donations, whether made online, by check, or by wire transfer, are processed through Realize Impact. When you give, please <a href="leli-contact.html" class="inline-link">notify us through our contact form</a> so we can ensure your gift is properly allocated.</p>
 
-    <div class="sponsor-grid">
-      <div class="sponsor-body fade-up">
-        <p>LELI is fiscally sponsored by Realize Impact, a 501(c)(3) public charity specializing in fiscal sponsorship of mission-driven projects. Realize Impact provides the charitable umbrella, financial oversight, grants administration, and compliance infrastructure that lets LELI focus entirely on Fellows and communities.</p>
-        <p>Fiscal sponsorship means your gift is made to Realize Impact on behalf of LELI. It is fully tax-deductible, subject to all 501(c)(3) rules, and directed entirely to LELI's programming — Fellow compensation, training, and the development of the Civic Signals Network.</p>
-        <p>All donations, whether made online, by check, or by wire transfer, are processed through Realize Impact. When you give, please <a href="leli-contact.html" style="color: var(--sage); font-weight: 600; text-decoration: underline; text-underline-offset: 2px;">notify us through our contact form</a> so we can ensure your gift is properly allocated.</p>
-        <div class="fineprint">
-          LELI is a project of Realize Impact, a 501(c)(3) public charity (EIN available upon request). All donations are tax-deductible to the extent permitted by law. No goods or services were provided in exchange for your contribution.
-        </div>
-      </div>
-
-      <div class="sponsor-card fade-up">
-        <div class="sponsor-card-label">Our Fiscal Sponsor</div>
+      <div class="sponsor-card">
+        <p class="sponsor-label">Our Fiscal Sponsor</p>
         <h4>Realize Impact</h4>
         <p>A registered 501(c)(3) public charity providing fiscal sponsorship, financial oversight, and compliance infrastructure to mission-driven projects like LELI.</p>
-        <a href="https://realizeimpact.org/fiscal-sponsorship/faq/" target="_blank" rel="noopener">
-          Learn about fiscal sponsorship →
-        </a>
+        <a href="https://realizeimpact.org/fiscal-sponsorship/faq/" target="_blank" rel="noopener">Learn about fiscal sponsorship &rarr;</a>
       </div>
+
+      <p class="fineprint">LELI is a project of Realize Impact, a 501(c)(3) public charity (EIN available upon request). All donations are tax-deductible to the extent permitted by law. No goods or services were provided in exchange for your contribution.</p>
     </div>
   </div>
 </section>
 
-<!-- CTA BAND -->
-<div style="padding-top: 80px;">
-  <div class="cta-band fade-up">
-    <div>
-      <h2>Ready to fund the work?</h2>
-      <p>Every dollar goes directly to Fellow compensation and training. Donate online now through Realize Impact's secure giving platform.</p>
-    </div>
-    <div class="cta-band-actions">
-      <a href="https://www.zeffy.com/donation-form/donate-to-realize-impact" target="_blank" rel="noopener" class="btn-white">Donate Now →</a>
-      <a href="leli-about.html" class="btn-ghost-white">Learn about LELI</a>
-    </div>
+<!-- CTA -->
+<section class="cta-band reveal">
+  <div>
+    <h2>Ready to fund the work?</h2>
+    <p>Every dollar goes to consultant pay and preparation. Give now through Realize Impact's secure platform — or start a conversation about a larger gift.</p>
   </div>
-</div>
+  <div class="btn-stack">
+    <a href="https://www.zeffy.com/donation-form/donate-to-realize-impact" target="_blank" rel="noopener" class="btn btn-white">Donate Now</a>
+    <a href="leli-contact.html" class="btn btn-ghost-white">Talk to us about a gift</a>
+  </div>
+</section>
+</main>
 
-<!-- FOOTER -->
 <footer>
-  <div class="footer-inner">
-    <div class="footer-brand">
+  <div class="foot-inner">
+    <div class="foot-brand">
       <h3>LELI</h3>
-      <p>The Lived Experience Leadership Institute trains people who have experienced homelessness to shape the strategy, implementation, and evaluation of the systems built to serve them.</p>
-      <p style="margin-top: 16px; font-size: .8rem;">A flagship program of Ridiculously Hopeful Futures in California.<br />Fiscally sponsored by Realize Impact, a 501(c)(3) public charity.</p>
+      <p>The Lived Experience Leadership Institute prepares people with lived experience to work as professional consultants — shaping the policy, implementation, and evaluation of the systems they've navigated.</p>
+      <p>Institutionalizing the preparation and refinement of lived experience into living expertise.</p>
+      <p>Fiscally sponsored by Realize Impact, a 501(c)(3) public charity.</p>
     </div>
-    <div class="footer-col">
-      <h4>Program</h4>
-      <ul>
-        <li><a href="leli-about.html">About LELI</a></li>
-        <li><a href="leli-fellowship.html">The Fellowship</a></li>
-        <li><a href="leli-csn.html">Civic Signals Network</a></li>
-        <li><a href="leli-apply.html">Apply</a></li>
-      </ul>
-    </div>
-    <div class="footer-col">
-      <h4>The Work</h4>
-      <ul>
-        <li><a href="leli-fellowship.html#phase1">Strategic Plan</a></li>
-        <li><a href="leli-fellowship.html#phase2">Implementation</a></li>
-        <li><a href="leli-fellowship.html#phase2">Evaluation</a></li>
-        <li><a href="leli-csn.html">Civic Signals Network</a></li>
-      </ul>
-    </div>
-    <div class="footer-col">
-      <h4>Connect</h4>
-      <ul>
-        <li><a href="leli-donate.html">Donate</a></li>
-        <li><a href="leli-contact.html">Contact</a></li>
-        <li><a href="leli-apply.html">Apply Now</a></li>
-      </ul>
+    <div class="foot-cols">
+      <div class="foot-col">
+        <h4>The Framework</h4>
+        <ul>
+          <li><a href="leli-how.html">How It Works</a></li>
+          <li><a href="leli-curriculum.html">The Curriculum</a></li>
+          <li><a href="leli-about.html">About LELI</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>Get Involved</h4>
+        <ul>
+          <li><a href="leli-counties.html">For Counties</a></li>
+          <li><a href="leli-consultants.html">For Consultants</a></li>
+          <li><a href="leli-apply.html">Become a Consultant</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>Connect</h4>
+        <ul>
+          <li><a href="leli-donate.html">Donate</a></li>
+          <li><a href="leli-contact.html">Contact</a></li>
+          <li><a href="leli-contact.html#county-form">Request a Proposal</a></li>
+        </ul>
+      </div>
     </div>
   </div>
-  <div class="footer-bottom">
-    <span>© 2026 Ridiculously Hopeful Futures in California · Dalbert Design × CivicMakers</span>
-    <span>Contra Costa County · Continuum of Care</span>
+  <div class="foot-bottom">
+    <span>© 2026 Lived Experience Leadership Institute</span>
+    <span><a href="https://leli.design">leli.design</a></span>
   </div>
 </footer>
 
+<nav class="tabbar" aria-label="Primary">
+  <a class="tab" href="index.html">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"/><path d="M5.5 9.5V20h13V9.5"/><path d="M9.5 20v-6h5v6"/></svg>
+    Home
+  </a>
+  <a class="tab" href="leli-counties.html">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 21h19"/><path d="M12 3 3 8h18Z"/><path d="M6 11v7M10 11v7M14 11v7M18 11v7"/></svg>
+    Counties
+  </a>
+  <a class="tab" href="leli-consultants.html">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.6"/><path d="M4.5 20a7.5 7.5 0 0 1 15 0"/></svg>
+    Consultants
+  </a>
+  <a class="tab on" href="leli-donate.html" aria-current="page">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.3 5.6a5 5 0 0 0-7.1 0L12 6.8l-1.2-1.2a5 5 0 1 0-7.1 7.1L12 21l8.3-8.3a5 5 0 0 0 0-7.1Z"/></svg>
+    Donate
+  </a>
+  <button class="tab" id="moreBtn" type="button" aria-expanded="false" aria-controls="moreSheet">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16"/><path d="M4 12h16"/><path d="M4 17h16"/></svg>
+    More
+  </button>
+</nav>
+
+<div class="sheet-scrim" id="sheetScrim"></div>
+<div class="sheet" id="moreSheet" role="dialog" aria-modal="true" aria-label="More pages">
+  <button class="sheet-grab" id="sheetClose" type="button" aria-label="Close menu"></button>
+  <h4>The Framework</h4>
+  <ul class="sheet-links">
+    <li><a href="leli-how.html">How It Works <svg viewBox="0 0 18 18" aria-hidden="true"><path d="M6 3l6 6-6 6"/></svg></a></li>
+    <li><a href="leli-curriculum.html">The Curriculum <svg viewBox="0 0 18 18" aria-hidden="true"><path d="M6 3l6 6-6 6"/></svg></a></li>
+    <li><a href="leli-about.html">About LELI <svg viewBox="0 0 18 18" aria-hidden="true"><path d="M6 3l6 6-6 6"/></svg></a></li>
+  </ul>
+  <h4>Connect</h4>
+  <ul class="sheet-links">
+    <li><a href="leli-contact.html">Contact <svg viewBox="0 0 18 18" aria-hidden="true"><path d="M6 3l6 6-6 6"/></svg></a></li>
+    <li><a href="leli-contact.html#county-form">Request a Proposal <svg viewBox="0 0 18 18" aria-hidden="true"><path d="M6 3l6 6-6 6"/></svg></a></li>
+  </ul>
+  <a href="leli-apply.html" class="btn btn-primary">Become a Consultant</a>
+</div>
+
 <script>
-  /* Nav scroll */
-  const nav = document.getElementById('main-nav');
-  window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 40));
-
-  /* Fade-up observer */
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        const siblings = [...e.target.parentElement.querySelectorAll('.fade-up')];
-        setTimeout(() => e.target.classList.add('visible'), siblings.indexOf(e.target) * 100);
-        observer.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.08 });
-  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
-
-  /* Mobile nav drawer */
-  (function() {
-    const hamburger = document.querySelector('.nav-hamburger');
-    const drawer    = document.getElementById('nav-drawer');
-    const overlay   = document.getElementById('nav-overlay');
-    const closeBtn  = document.getElementById('nav-close');
-    if (!hamburger || !drawer) return;
-
-    function openDrawer() {
-      drawer.classList.add('open');
-      document.body.style.overflow = 'hidden';
-      closeBtn.focus();
-    }
-    function closeDrawer() {
-      drawer.classList.remove('open');
-      document.body.style.overflow = '';
-      hamburger.focus();
-    }
-
-    hamburger.addEventListener('click', openDrawer);
-    hamburger.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openDrawer(); } });
-    overlay.addEventListener('click', closeDrawer);
-    closeBtn.addEventListener('click', closeDrawer);
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer(); });
-    drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', closeDrawer));
-  })();
+(function(){
+  var btn=document.getElementById('moreBtn'),sheet=document.getElementById('moreSheet'),
+      scrim=document.getElementById('sheetScrim'),closeBtn=document.getElementById('sheetClose');
+  if(!btn||!sheet) return;
+  function open(){sheet.classList.add('open');scrim.classList.add('open');
+    btn.setAttribute('aria-expanded','true');document.body.style.overflow='hidden';}
+  function close(){sheet.classList.remove('open');scrim.classList.remove('open');
+    btn.setAttribute('aria-expanded','false');document.body.style.overflow='';}
+  btn.addEventListener('click',function(){sheet.classList.contains('open')?close():open();});
+  scrim.addEventListener('click',close);
+  if(closeBtn) closeBtn.addEventListener('click',close);
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')close();});
+  sheet.querySelectorAll('a').forEach(function(a){a.addEventListener('click',close);});
+})();
+(function(){
+  var els=document.querySelectorAll('.reveal');
+  if(!('IntersectionObserver' in window)){els.forEach(function(e){e.classList.add('in');});return;}
+  var io=new IntersectionObserver(function(en){en.forEach(function(e){
+    if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},
+    {threshold:.12,rootMargin:'0px 0px -40px 0px'});
+  els.forEach(function(e){io.observe(e);});
+})();
 </script>
+
 </body>
 </html>
